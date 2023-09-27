@@ -1,0 +1,126 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <div class="container_result">
+		<ion-grid>
+      <ion-row class="d-flex align-items-center suivi-header">
+        <ion-col col-3 class="text-center">
+          <ion-icon name="calendar-outline" ></ion-icon>
+        </ion-col>
+        <ion-col class="text-left" size="9">
+          <!-- <h1 *ngIf="_result?.translation">{{_result?.label}}</h1> -->
+          <p>{{_result?.description}}</p>
+          <!-- <h1 *ngIf="_result?.translation">{{_result.translation.pageTitle}}</h1> -->
+        </ion-col>
+      </ion-row>
+			<!-- <ion-row class="align-items-center" >
+        
+				<ion-col class="text-center" col-4>
+					<img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+				</ion-col>
+				<ion-col col-8>
+					<h1 *ngIf="_result?.translation">{{_result.translation.title}}</h1>
+					<span>{{eleve.nomcomplet}}</span>
+				</ion-col>
+			</ion-row> -->
+		</ion-grid>
+
+		<section *ngIf="_result?.data">
+      <ng-container *ngIf="_result?.data?.today?.length > 0">
+        <h5> {{ _result.translation.day }} </h5>
+        <ion-grid class="transmission-actions">
+          <ion-row *ngFor="let action of _result?.data?.today" class="action-item">
+            <ion-col col-3 class="text-center">
+              <img *ngIf="action.img" [src]="action.img" alt="" class="icon">
+            </ion-col>
+            <ion-col size="9">
+              <h4 *ngIf="action.type">{{action.type}}</h4>
+              <h2 [style.color]="action.color" >{{action.titre}}</h2>
+              <div *ngIf="action.html" [innerHTML]="action.html"></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+      <ng-container *ngIf="_result?.data?.days?.length > 0">
+        <app-accordion *ngFor="let day of _result.data.days">
+          <ng-container accordionTitle>
+            <span>{{day.title}}</span>
+          </ng-container>
+          <ng-container accordionContent>
+            <ng-container *ngIf="day.actions">
+              <ion-grid class="transmission-actions">
+                <ion-row *ngFor="let action of day.actions" class="action-item">
+                  <ion-col col-3 class="text-center">
+                    <img *ngIf="action.img" [src]="action.img" alt="" class="icon">
+                  </ion-col>
+                  <ion-col size="9">
+                    <h4 *ngIf="action.type">{{action.type}}</h4>
+                    <h2 [style.color]="action.color" >{{action.titre}}</h2>
+                    <div *ngIf="action.html" [innerHTML]="action.html"></div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ng-container>
+          </ng-container>
+        </app-accordion>
+        <!-- <ngb-accordion [closeOthers]="true" >
+          <ngb-panel *ngFor="let day of _result.data.days">
+            <ng-template ngbPanelTitle>
+              <span>{{day.title}}</span>
+              <ion-icon name ="ios-arrow-down" class="float-right" ></ion-icon>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <ng-container *ngIf="day.actions">
+                <ion-grid class="transmission-actions">
+                  <ion-row *ngFor="let action of day.actions" class="action-item">
+                    <ion-col col-3 class="text-center">
+                      <img *ngIf="action.img" [src]="action.img" alt="" class="icon">
+                    </ion-col>
+                    <ion-col col-9>
+                      <h4 *ngIf="action.type">{{action.type}}</h4>
+                      <h2 [style.color]="action.color" >{{action.titre}}</h2>
+                      <div *ngIf="action.html" [innerHTML]="action.html"></div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ng-container>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion> -->
+
+      </ng-container>
+		</section>
+
+		<!-- <section *ngIf="_result?.data?.length > 0">
+			<ion-grid class="examen_item" *ngFor="let result of _result.data">
+				<ion-row align-items-center class="">
+					<ion-col col-3>
+						<div class="date_examen">
+							<span class="jour">{{result.date.jour}}</span>
+							<span class="mois">{{result.date.mois}}</span>
+						</div>
+					</ion-col>
+					<ion-col col-9>
+						<div class="examen_infos">
+							<div>
+								<h1> {{result.matiere}}
+								</h1>
+								<span class="prof">{{result.enseignant}}</span>
+								<span class="seance">{{result.seance}}</span>
+							</div>
+							<div>
+								<img src="{{result.icone}}" alt="{{eleve.statut}}">
+								<span class="statut" [ngStyle]="{'color': result.color }">{{result.statut}}</span>
+							</div>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</section> -->
+
+		<div *ngIf="_result?.data == 0" class="vertical-center-absolute text-center no-result ">
+			<img src="{{_result.empty_icon}}" width="120px" class="img-responsive" alt="Aucune donnée">
+			<h4 [innerHtml]="_result.empty_text"></h4>
+		</div>
+	</div>
+</ion-content>

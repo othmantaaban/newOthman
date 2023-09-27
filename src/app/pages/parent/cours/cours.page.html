@@ -1,0 +1,273 @@
+<app-parent-header [isRoot]="true" [title]="results?.translation?.title||''" />
+
+<ion-content class="ion-padding-top">
+
+
+  <ion-card class="mx-0 w-100" *ngIf="results">
+    <ion-card-header>
+      <ion-grid class="header-grid">
+        <ion-row class="flex-item-center">
+          <ion-col col-2>
+            <button ion-button icon-only class="btn-fleche" (click)="prev(results.last_week)">
+              <ion-icon name="chevron-back"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col size="8">
+            <h3 class="timetable-week"> <b> {{results.label_du}} </b></h3>
+            <h3 class="timetable-week"><b>{{results.label_au}} </b></h3>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button icon-only class="btn-fleche" (click)="next(results.next_week)">
+              <ion-icon name="chevron-forward"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment class="ion-margin-bottom" mode="md" [(ngModel)]="results.selected_day">
+        <ng-container *ngFor="let result of results.seances">
+          <ion-segment-button [value]="result.day">
+            <ion-label>{{result.label}}</ion-label>
+          </ion-segment-button>
+        </ng-container>
+      </ion-segment>
+      <ng-container [ngSwitch]="results.selected_day">
+        <ng-container *ngFor="let result of results.seances">
+          <ng-container *ngSwitchCase="result.day">
+            <h3 class="aucun-cours" *ngIf="result.seances.length == 0;else hasSeances">
+              {{results.translation.aucun_cours}}</h3>
+            <ng-template #hasSeances>
+              <ng-container *ngIf="result.seances[0].holiday;else isSeance">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col class="text-center">
+                      <h4> <b>{{result.date}}</b> </h4>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row padding>
+                    <ion-col padding class="text-center b-radius text-success bg-light-success holiday-col">
+                      <ion-icon name="rose"></ion-icon>
+                      <h4>{{result.seances[0].matiere}}</h4>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ng-container>
+              <ng-template #isSeance>
+                <ion-grid class="seances-grid" *ngFor="let seance of result.seances">
+                  <ion-row class="flex-item-center flex-wrap">
+                    <ion-col class="left-grid" size="2">
+                      <div class="timetable-date">
+                        <div>
+                          {{seance.start}}
+                        </div>
+                        <div>
+                          {{seance.end}}
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col class="right-grid">
+                      <h6>
+                        <span *ngIf="seance.matiere" class="timetable-matiere">{{seance.matiere}}</span>
+                        <span *ngIf="seance.matiere_intro"
+                          class="timetable-matiere_intro">{{seance.matiere_intro}}</span>
+                      </h6>
+                      <p>
+                        <ion-icon *ngIf="seance.enseignant" name="person-circle-outline" class="timetable-icon">
+                        </ion-icon>
+                        <span *ngIf="seance.enseignant" class="timetable-enseignant">{{seance.enseignant}}</span>
+
+                        <ion-icon *ngIf="seance.salle" name="navigate-outline" class="timetable-icon"></ion-icon>
+                        <span *ngIf="seance.salle" class="timetable-salle">{{seance.salle}}</span>
+                      </p>
+                      <span *ngIf="seance.retard" class="timetable-retard"> {{seance.retard}}</span>
+                      <span *ngIf="seance.absent" class="timetable-absent"> {{seance.absent}}</span>
+                      <div *ngIf="seance.examen && results?.translation" class="examen">{{results.translation.examen}}
+                      </div>
+                    </ion-col>
+                    <ion-col col-2>
+                      <div class="links">
+                        <span *ngIf="seance.links" class="links">
+                          <span *ngFor="let link of seance.links">
+                            <a *ngIf="link.type == 'youtube'" href="#" (click)="openYoutube(link.link)">
+                              <img src="{{link.icon}}" />
+                            </a>
+                            <a *ngIf="link.type != 'youtube'" href="{{link.link}}">
+                              <img src="{{link.icon}}" />
+                            </a>
+                          </span>
+                        </span>
+
+                        <span *ngIf="seance.files" class="files">
+                          <span *ngFor="let file of seance.files">
+                            <a href="#" (click)="downloadFile(file.name, file.link)">
+                              <img src="{{file.icon}}" />
+                            </a>
+                          </span>
+                        </span>
+                        <span class="seance-actions">
+                          <span *ngIf="seance.cahier_text" class="seance-action cahier-texte">
+                            <button [id]="'cahier-texte-'+seance.id">
+                              <ion-icon name="document-text-outline"></ion-icon> {{results.translation?.cahie_de_texte}}
+                            </button>
+                            <ion-modal [trigger]="'cahier-texte-'+seance.id" [initialBreakpoint]="0.50"
+                              [breakpoints]="[0,0.50,1]" handleBehavior="cycle">
+                              <ng-template>
+                                <ion-content class="ion-padding">
+                                  <h3 class="ion-margin-top" >{{results.translation?.cahie_de_texte}}</h3>
+                                  <div class="ion-margin-top" [innerHTML]="seance.cahier_text"></div>
+                                </ion-content>
+                              </ng-template>
+                            </ion-modal>
+                          </span>
+                          <span *ngIf="seance.files&&seance.file.length>0" class="seance-action">
+                            <button [id]="'files-'+seance.id">
+                              <ion-icon name="open-outline"></ion-icon> {{results.translation?.ressource}}
+                            </button>
+                            <ion-modal [trigger]="'files-'+seance.id" [initialBreakpoint]="0.50"
+                              [breakpoints]="[0,0.50,1]" handleBehavior="cycle">
+                              <ng-template>
+                                <ion-content class="ion-padding">
+                                  <div class="files-card ion-margin-top">
+                                    <div class="file-item" *ngFor="let file of result.files">
+                                      <img src="" *ngIf="file.icon" alt="">
+                                      <h5>{{file.name}}</h5>
+                                      <div class="actions">
+                                        <button>
+                                          <ion-icon name="download" (click)="downloadFile(file.name,file.link)"></ion-icon>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </ion-content>
+                              </ng-template>
+                            </ion-modal>
+                          </span>
+                        </span>
+                      </div>
+                    </ion-col>
+                    <ion-col *ngIf="seance.html" size="12">
+                      <!-- <div *ngIf="seance.cahier_text" class="cahier_texte mt-2">
+                        <app-accordion>
+
+                          <ng-container accordionTitle>
+                            <div class="w-100">
+                              {{results.translation.cahier_text}}
+                              <ion-icon name="arrow-forward"></ion-icon>
+                            </div>
+                          </ng-container>
+                          <ng-container accordionContent>
+                            <div [innerHTML]="seance.cahier_text"></div>
+                          </ng-container>
+                        </app-accordion>
+                      </div> -->
+                      <div [innerHTML]="seance.html">
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ng-template>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!-- <ngb-tabset [justify]="currentJustify" [activeId]="results.selected_day">
+          <ngb-tab  *ngFor="let result of results.seances" title="{{result.label}}" [id]="result.day">
+            <ng-template ngbTabContent>
+                <h3 class="aucun-cours" *ngIf="result.seances.length == 0;else hasSeances">{{results.translation.aucun_cours}}</h3>
+                <ng-template #hasSeances>
+                  <ng-container *ngIf="result.seances[0].holiday;else isSeance">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col class="text-center">
+                          <h4> <b>{{result.date}}</b> </h4>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row padding>
+                        <ion-col padding class="text-center b-radius text-success bg-light-success holiday-col">
+                          <ion-icon name="rose"></ion-icon>
+                          <h4>{{result.seances[0].matiere}}</h4>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ng-container>
+                  <ng-template #isSeance>
+                    <ion-grid class="seances-grid" *ngFor="let seance of result.seances">
+                      <ion-row class="flex-item-center flex-wrap">
+                          <ion-col class="left-grid" col-2>
+                            <div class="timetable-date">
+                                  <div>
+                                    {{seance.start}}
+                                  </div>
+                                  <div>
+                                    {{seance.end}}
+                                  </div>
+                            </div>
+                          </ion-col>
+                          <ion-col class="right-grid" col-8>
+                              <h6>
+                                  <span *ngIf="seance.matiere" class="timetable-matiere">{{seance.matiere}}</span>
+                                  <span *ngIf="seance.matiere_intro" class="timetable-matiere_intro">{{seance.matiere_intro}}</span>
+                              </h6>
+                              <p>
+                                <ion-icon *ngIf="seance.enseignant" ios="ios-contact-outline" md="ios-contact-outline" class="timetable-icon"></ion-icon>
+                                <span *ngIf="seance.enseignant" class="timetable-enseignant">{{seance.enseignant}}</span>
+                                
+                                <ion-icon *ngIf="seance.salle" ios="ios-navigate-outline" md="ios-navigate-outline"  class="timetable-icon"></ion-icon>
+                                <span *ngIf="seance.salle" class="timetable-salle">{{seance.salle}}</span>
+                              </p>
+                              <span *ngIf="seance.retard" class="timetable-retard"> {{seance.retard}}</span>
+                              <span *ngIf="seance.absent" class="timetable-absent"> {{seance.absent}}</span>
+                              <div *ngIf="seance.examen && results?.translation" class="examen">{{results.translation.examen}}</div>
+                          </ion-col>
+                          <ion-col col-2>
+                            <div class="links">
+                              <span *ngIf="seance.links" class="links">
+                                  <span *ngFor="let link of seance.links">
+                                      <a *ngIf="link.type == 'youtube'" href="#" (click)="openYoutube(link.link)">
+                                          <img src="{{link.icon}}" />
+                                      </a>
+                                      <a *ngIf="link.type != 'youtube'" href="{{link.link}}">
+                                          <img src="{{link.icon}}" />
+                                      </a>
+                                  </span>
+                              </span>
+                              
+                              <span *ngIf="seance.files" class="files">
+                                  <span *ngFor="let file of seance.files">
+                                      <a href="#" (click)="downloadFile(file.name, file.link)">
+                                          <img src="{{file.icon}}" />
+                                      </a>
+                                  </span>
+                              </span>
+                            </div>
+                          </ion-col>
+                          <ion-col col-12>
+                            <div *ngIf="seance.cahier_text" class="cahier_texte mt-2">
+                              <ngb-accordion #acc="ngbAccordion" class="no-padding-accordion" >
+                                <ngb-panel>
+                                  <ng-template ngbPanelTitle>
+                                    <div class="w-100">
+                                      {{results.translation.cahier_text}}
+                                      <ion-icon name="arrow-forward"></ion-icon>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template ngbPanelContent>
+                                    <div [innerHTML]="seance.cahier_text"></div>
+                                  </ng-template>
+                                </ngb-panel>
+                              </ngb-accordion>
+                            </div>
+                            <div *ngIf="seance.html" [innerHTML]="seance.html" >
+                            </div>
+                          </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ng-template>
+                </ng-template>
+            </ng-template>
+          </ngb-tab>
+      </ngb-tabset> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>

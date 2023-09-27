@@ -1,0 +1,27 @@
+<ion-content>
+  <ion-tabs #tabs *ngIf="tab_groupe">
+    <ion-tab-bar slot="bottom">
+
+      <ion-tab-button *ngIf="tab_groupe.etat_paiement&&tab_groupe.etat_paiement.visible" tab="etat">
+        <ion-icon [name]="tab_groupe.etat_paiement.icon"></ion-icon>
+        <ion-label>{{tab_groupe.etat_paiement.title}}</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="tab_groupe.historique&&tab_groupe.historique.visible" tab="historique">
+        <ion-icon [name]="tab_groupe.historique.icon"></ion-icon>
+        <ion-label>{{tab_groupe.historique.title}}</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="tab_groupe.dossier&&tab_groupe.dossier.visible" tab="dossier">
+        <ion-icon [name]="tab_groupe.dossier.icon"></ion-icon>
+        <ion-label>{{tab_groupe.dossier.title}}</ion-label>
+      </ion-tab-button>
+  
+      <!-- <ion-tab-button *ngIf="tab_groupe.info_bancaire&&tab_groupe.info_bancaire.visible" tab="infos">
+        <ion-icon [name]="tab_groupe.info_bancaire.icon"></ion-icon>
+        <ion-label>{{tab_groupe.info_bancaire.title}}</ion-label>
+      </ion-tab-button> -->
+
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

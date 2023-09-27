@@ -1,0 +1,33 @@
+
+<ion-content>
+  <div class="illustration-page">
+    <ion-grid *ngIf="result&&result.illustration">
+      <ion-row>
+        <ion-col>
+          <img [src]="result.illustration.logo" class="logo_boti" alt="">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h1>{{result.illustration.title}}</h1>
+          <p>{{result.illustration.body}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button (click)="goConnexion()" class="btn btn-main"> {{result.translation.login}} </button>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="illustration_img">
+      <img src="{{result?.illustration?.img}}" />
+    </div>
+    <div class="illustration_pattern">
+      <img src="{{result?.illustration?.pattern}}" />
+    </div>
+    <div class="conf_terms_link">
+      <a >{{result?.translation?.conf_terms_link}}</a>
+    </div>
+  </div>
+
+</ion-content>

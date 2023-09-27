@@ -1,0 +1,84 @@
+<app-enseignant-header mode="ios" [isRoot]="false" title="Évaluations"></app-enseignant-header>
+
+<ion-content>
+  <div class="page-container" *ngIf="_result">
+    <div class="main-banner banner-bottom-left-raduis main-bg">
+      <div class="">
+        <h6 class="text-uppercase text-center">{{_result.data.classe}}</h6>
+        <h3>{{_result.translation.title}}</h3>
+      </div>
+    </div>
+    <!-- <div class="seance-date banner-bottom-left-raduis">
+          <h4>{{_result.data.date}}</h4>
+          <p>{{_result.data.creneau}}</p>
+      </div> -->
+    <div class="etudiant-list">
+      <div class="item" *ngFor="let eleve of _result.data?.eleves;let index = index;">
+        <ion-grid [ngStyle]="{'background-color' : eleve.absent?'#D3D3D3':'#fff'}">
+          <ion-row align-items-center>
+            <ion-col>
+              <div class="image">
+                <img src="{{eleve.photo}}" class="img-circle" alt="">
+              </div>
+              <span>{{eleve.nom}}</span>
+            </ion-col>
+            <ion-col class="text-center">
+              <div class="item-action text-center d-flex" style="">
+                <input type="number" [disabled]="!_result || !_result.data?.btnsave || eleve.absent"
+                  class="form-control" (keyup)="maxNoteChange(eleve)" [(ngModel)]="eleve.note"
+                  placeholder="{{_result.translation.note}}" />
+
+                <div class="d-flex" *ngIf="!eleve.absent">
+
+                  <button *ngIf="_result?.data?.btnsave" (click)="presentActionsEleve(index)" class="btn btn-link">
+                    <ion-icon name="ellipsis-horizontal-circle-outline" style="font-size: 32px;"></ion-icon> </button>
+                  <!-- <button *ngIf="_result?.data?.btnsave" (click)="toggleAppreciation(index)" class="btn btn-link" ><img src="assets/icon/commenter.svg" width="30" alt=""></button> -->
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!-- end item -->
+    </div>
+  </div>
+
+</ion-content>
+<div *ngIf="_result && _result.data?.btnsave" class="btn-actions bottom">
+  <button type="submit" (click)="submit()" class="btn-block btn-main text-uppercase btn-icon">
+    {{_result.translation.enregistrer}}
+    <img src="assets/imgs/icon/right-arrow.svg" alt="">
+  </button>
+</div>
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleAppreciation ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+    <div class="main-modal-header">
+      <img src="assets/icon/close.svg" class="main-close" (click)="closeAppreciation()" alt="">
+      <div class="default-modal-header-text">
+        <!-- <img src="assets/icon/clock.svg" alt=""> -->
+        <h4>{{_result.translation.modalTitle}}</h4>
+      </div>
+    </div>
+    <div class="main-modal-body">
+      <div class="discipline-form">
+        <form action="">
+          <label for="">{{_result.translation.modal_your_message}}</label>
+          <div class="form-group">
+            <select name="appr-select" [(ngModel)]="selectAppreciation" class="form-control main-input">
+              <option *ngFor="let op of _result.apprec_options">{{op}}</option>
+              <!-- <option>Tres bon travail</option>
+                    <option>Assez Bien</option>
+                    <option>Passable</option> -->
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea name="appr-textarea" [(ngModel)]="textareaAppreciation" id="" class="form-control" rows="4"
+              [placeholder]="_result.translation.modal_textarea"></textarea>
+          </div>
+          <div class="btn-main" (click)="holdAppreciation()">{{_result.translation.modal_enregister}}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

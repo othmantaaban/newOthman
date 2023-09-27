@@ -1,0 +1,57 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+
+  <section *ngIf="_result?.data?.length > 0">
+    <ion-grid class="ion-no-padding">
+      <ion-row *ngFor="let album of _result.data">
+        <ion-col col-12>
+          <div class="card radius shadowDepth1 " (click)="post(album)">
+            <h4 class="text-primary">
+              {{album.title}}
+            </h4>
+            <div class="card__image border-tlr-radius">
+              <img src="{{album.img}}" alt="" class="border-tlr-radius">
+              <div *ngIf="album?.user || album?.date || album?.count" class="album-details">
+                <div class="details">
+                  <p *ngIf="album.user">{{_result?.translation?.label_author}} <b> {{album.user?.nom}} </b></p>
+                  <p>{{album.date}}</p>
+                </div>
+                <div *ngIf="album.count" class="ms-auto badge-photos">
+                  {{album.count}} {{_result?.translation?.photos}} <ion-icon name="images"></ion-icon>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="card__content card__padding">
+              <div class="card__meta">
+                <time>{{album.date}}</time>
+              </div>
+
+              <article class="card__article">
+                <h2>{{album.title}}</h2>
+                <p [innerHtml]="album.description"></p>
+              </article>
+            </div>
+
+            <div class="card__action">
+              <div *ngIf="album?.user" class="card__author">
+                <img *ngIf="album?.user?.photo" src="{{album?.user?.photo}}" alt="user">
+                <div class="card__author-content">
+                  {{_result?.translation?.label_author}} <a href="#">{{album?.user?.nom}}</a>
+                </div>
+              </div>
+            </div>
+
+            <p [innerHtml]="album.intro"></p> -->
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+ 
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+
+</ion-content>

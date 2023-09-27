@@ -1,0 +1,16 @@
+<ion-header [mode]="mode">
+  <ion-toolbar [mode]="mode">
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="isRoot;else notRoot" ></ion-menu-button>
+      <ng-template #notRoot>
+        <ion-menu-button *ngIf="!router.navigated;else goBack" ></ion-menu-button>
+        <ng-template #goBack>
+          <ion-button (click)="back()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </ion-button>
+        </ng-template>
+      </ng-template>
+    </ion-buttons>
+    <ion-title [innerHTML]="title"></ion-title>
+  </ion-toolbar>
+</ion-header>

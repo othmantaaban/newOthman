@@ -1,0 +1,72 @@
+<app-enseignant-header [isRoot]="false" [title]="pick?.nomcomplet"></app-enseignant-header>
+
+<ion-content>
+  <section class="form-compte" *ngIf="pick && _result">
+    <form (ngSubmit)="send()" [formGroup]="formGroup">
+
+      <div class="photo_eleve" (click)="cropImage()">
+        <div class="img_container">
+          <div class="photo_icon">
+            <ion-icon name="camera"></ion-icon>
+            <span *ngIf="_result?.translation">{{_result?.translation?.modifier}}</span>
+          </div>
+          <img class="img-responsive" src="{{photo}}" />
+        </div>
+      </div>
+      <div *ngIf="_result?.translation" class="form-group">
+        <label for="">{{_result?.translation?.sexe}}</label>
+        <ion-item>
+          <ion-select okText="Ok" cancelText="Fermer" placeholder="{{_result?.translation?.sexe}}"
+            formControlName="sexe" [(ngModel)]="sexe">
+            <ion-select-option *ngFor="let sexe_type of _result?.translation?.sexe_types" [value]="sexe_type.value">
+              {{sexe_type.label}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <!-- <input type="hidden"  class="form-control" placeholder="{{_result?.translation?.prenom_fr}}"
+        formControlName="prenom" [(ngModel)]="prenom" />
+      <input type="hidden"  class="form-control" placeholder="{{_result?.translation?.nom_fr}}"
+        formControlName="nom" [(ngModel)]="nom" /> -->
+
+      
+        <div class="form-group">
+            <label for="">{{_result?.translation?.nom_fr}}</label>
+            <ion-item>
+                <input type="text" [disabled]="true"  class="form-control" placeholder="{{_result?.translation?.nom_fr}}"
+                    formControlName="nom" [(ngModel)]="nom" />
+            </ion-item>
+        </div>
+
+        <div class="form-group">
+            <label for="">{{_result?.translation?.prenom_fr}}</label>
+            <ion-item>
+                <input type="text" [disabled]="true"  class="form-control" placeholder="{{_result?.translation?.prenom_fr}}"
+                    formControlName="prenom" [(ngModel)]="prenom" />
+            </ion-item>
+        </div>
+
+      <div class="form-group">
+        <label for="">{{_result?.translation?.email}}</label>
+        <ion-item>
+          <input type="email" class="form-control" placeholder="{{_result?.translation?.email}}" formControlName="email"
+            [(ngModel)]="email" />
+        </ion-item>
+      </div>
+
+      <div class="form-group">
+        <label for="">{{_result?.translation?.tel}}</label>
+        <ion-item>
+          <input type="number" class="form-control" placeholder="{{_result?.translation?.tel}}" formControlName="tel"
+            [(ngModel)]="tel" />
+        </ion-item>
+      </div>
+      <div class="btn-actions bottom">
+        <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+          {{_result?.translation?.enregistrer}}
+          <img src="assets/imgs/icon/right-arrow.svg" alt="">
+        </button>
+      </div>
+    </form>
+  </section>
+</ion-content>

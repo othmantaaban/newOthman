@@ -1,0 +1,443 @@
+<ion-accordion-group class="grand-parent" (ionChange)="accordionChange($event)" #messageGroup>
+  <ion-grid class="dash-grid">
+    <ng-container *ngIf="!convertationIsLoad">
+      <ion-row class="header-title">
+        <ion-col size="12">
+          <ion-title mode="md" class="title-style"> {{ _result?.translation.msg_non_lus }} </ion-title>
+        </ion-col>
+      </ion-row>
+      <ion-row class="message" *ngIf="messagesNonLus.length !== 0">
+        <ion-col
+          class="message-col-parent"
+          size-sm="12"
+          size-lg="6"
+          *ngFor="let item of messagesNonLus; let x = index"
+        >
+          <ion-accordion  [value]="item.isStudent ? 'student-' + item.Id : item.Id">
+            <div
+              class="accordion-header"
+              slot="header"
+              (mousedown)="$event.preventDefault()"
+            >
+              <ion-img [src]="item.pic"></ion-img>
+              <div class="info">
+                <p class="name">
+                  {{ item.userName }}
+                  <span class="group-style group" *ngIf="item.isStudent">{{ item.type }}</span>
+                  <span class="enseignant" *ngIf="!item.isStudent">Enseignant</span>
+                </p>
+                <p class="mini-content">{{ item.lastMsg }}</p>
+              </div>
+              <div class="time-icon">
+                <span class="time"> {{ item.date }} </span>
+                <div class="icon">
+                  <ion-icon
+                    name="attach-outline"
+                    class="link"
+                    *ngIf="item.hasFile"
+                  ></ion-icon>
+                  <span class="notification"> {{ item.count }} </span>
+                  <ion-icon
+                    name="chevron-down-outline"
+                    class="ion-accordion-toggle-icon arrow"
+                  ></ion-icon>
+                </div>
+              </div>
+            </div>
+            <ion-grid slot="content" class="accordion-content">
+              <ng-container *ngIf="+item.Id === +selectedOne">
+                <ion-content (mousedown)="$event.preventDefault()" class="messages" [id]="'messages' + item.Id" #messages>
+                  <ng-container *ngIf="!MsgIsLoad">
+                    <ion-infinite-scroll #infinity threshold="0px" position="top"  (ionInfinite)="loadMsg($event)" >
+                      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                    <ng-container *ngFor="let m of selectedMsg; let i = index">
+                      <ion-row
+                        [class.otherUser]="+m.sendBy !== 1"
+                        [class.authUser]="+m.sendBy === 1"
+                      >
+      
+                        <ion-col
+                        [size]="+m.sendBy === 1 ? 9 : 10"
+                        [offset]="+m.sendBy !== 1 && 2"
+                      >
+                      <!-- {{  }} -->
+                        <div class="container">
+                          <div class="message">{{ m.message }}</div>
+                          <ng-container *ngIf="+m.sendBy !== 1">
+                            <span class="download" *ngFor="let f of m.hasFile">
+                                <ng-container *ngIf="!f.sending">
+                                  <ion-img
+                                    [src]="f.fileType"
+                                    class="MsgfileType"
+                                    ></ion-img>
+                                  <div class="fileName">{{ f.fileName }}</div>
+             
+                                  <ion-button
+                                  mode="md"
+                                  (click)="downloadFile(f.file ,f.fileName)"
+
+                                  class="fileBtn"
+                                >
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M5 8L10 13L15 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M10 13V1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </ion-button>
+                                </ng-container>
+                                <div class="sending" *ngIf="f.sending">
+                                  {{ _result?.translation.loading_sending }}
+                                </div>
+                            </span>
+                          </ng-container>
+                          <div class="other" >
+                            <span *ngIf="!item.isStudent"></span>
+                            <span class="par" *ngIf="+m.sendBy !== 1 && item.isStudent">
+                              {{ _result?.translation.par }} {{ m.par }} ( <span *ngIf="m.role">{{ _result?.translation.pere }}</span> <span *ngIf="!m.role">{{ _result?.translation.mere }}</span>)
+                            </span>
+                            <span class="time">{{ m.date }}</span>
+                          </div>
+                        </div>
+                        <div class="fileDownload">
+                          <div class="download" *ngFor="let f of m.hasFile">
+                            <ng-container *ngIf="!f.sending">
+                              <ion-img
+                                [src]="f.fileType"
+                                class="MsgfileType"
+                                ></ion-img>
+                              <div class="fileName">{{ f.fileName }}</div>
+                              <ion-button
+                              mode="md"
+                              (click)="downloadFile(f.file ,f.fileName)"
+
+                              class="fileBtn"
+                            >
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M5 8L10 13L15 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M10 13V1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </ion-button>
+                            </ng-container>
+                            <div class="sending" *ngIf="f.sending">{{ _result?.translation.loading_sending }}</div>
+                          </div>
+                        </div>
+                        </ion-col>
+                        <ion-col class="col-image" size="2" *ngIf="+m.sendBy === 1">
+                          <ion-img src="assets/Ellipse1.png"></ion-img>
+                        </ion-col>
+                      </ion-row>
+                      <div
+                        class="line"
+                        *ngIf="selectedMsg.length - 1 !== i"
+                      ></div>
+                    </ng-container>
+                  </ng-container>
+                  
+                  <span *ngIf="MsgIsLoad" class="msgLoading">
+                    
+                    <ion-img src="assets/spinner.svg"></ion-img>
+                  </span>
+                </ion-content>
+              </ng-container>
+              <ion-footer mode="md">
+          
+                <ion-row>
+                  <ion-col [class.fileIsEmpty]="fileIsEmpty" class="filesSelected" size="12">
+                    <span>
+                      {{ splitFileName(filePreviews) }}
+                    </span>
+                    <ion-button (click)="rmvSelectedFile()">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col 
+                    sizeSm="10" 
+                    sizeMd="11" 
+                    sizeLg="10" 
+                    class="input">
+                    <ion-button id="click-trigger" (click)="openFile()">
+                      <ion-icon name="attach-outline"></ion-icon>
+                    </ion-button>
+                    <input #fileInp type="file" multiple style="display: none;" (change)="pickFile($event)">
+                    <ion-textarea
+                      [placeholder]="_result?.translation.send_nsg"
+                      style="margin: 0; height: 40px; --highlight-color: none"
+                      [(ngModel)]="textVal"
+                      (ionChange)="$event.stopPropagation()"
+                    ></ion-textarea>
+                  </ion-col>
+                  <ion-col
+                    class="sendBtn"
+                    size="3"
+                    sizeSm="2"
+                    sizeMd="1"
+                    sizeLg="2"
+                  >
+                    <ion-button fill="clear" shape="round" class="icon" (click)="sendMsg($event, true, item.channel)">
+                      <ion-img src="assets/send.svg"></ion-img>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-footer>
+          
+            </ion-grid>
+          </ion-accordion>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="messagesNonLus.length === 0" class="no-data non-lus">
+        <ion-col>
+          {{ _result?.translation.no_data }}
+        </ion-col>
+      </ion-row>
+      <ion-row class="header-title">
+        <ion-col size="12">
+          <ion-title mode="md" class="title-style"> {{ _result?.translation.msg_lus }} </ion-title>
+        </ion-col>
+      </ion-row>
+      <ion-row class="message" *ngIf="messagesLus.length !== 0">
+        <ion-col
+          class="message-col-parent"
+          size-sm="12"
+          size-lg="6"
+          *ngFor="let item of messagesLus; let x = index"
+        >
+          <ion-accordion  [value]="item.isStudent ? 'student-' + item.Id : item.Id">
+            <div
+              class="accordion-header"
+              slot="header"
+              (mousedown)="$event.preventDefault()"
+            >
+              <ion-img [src]="item.pic"></ion-img>
+              <div class="info">
+                <p class="name">
+                  {{ item.userName }}
+                  <span class="group-style group" *ngIf="item.isStudent">{{ item.type }}</span>
+                  <span class="enseignant" *ngIf="!item.isStudent">Enseignant</span>
+                </p>
+                <p class="mini-content">{{ item.lastMsg }}</p>
+              </div>
+              <div class="time-icon">
+                <span class="time"> {{ item.date }} </span>
+                <div class="icon">
+                  <ion-icon
+                    name="attach-outline"
+                    class="link"
+                    *ngIf="item.hasFile"
+                  ></ion-icon>
+                  <ion-icon
+                    name="chevron-down-outline"
+                    class="ion-accordion-toggle-icon arrow"
+                  ></ion-icon>
+                </div>
+              </div>
+            </div>
+            <ion-grid slot="content" class="accordion-content">
+              <ng-container *ngIf="+item.Id === +selectedOne">
+                <ion-content scroll-y="true" (mousedown)="$event.preventDefault()"  class="messages" [id]="'messages' + item.Id" #messages>
+                  <ng-container *ngIf="!MsgIsLoad">
+                    <ion-infinite-scroll #infinity threshold="10px" position="top"  (ionInfinite)="loadMsg($event)" >
+                      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                    <virtual-scroll-element class="ion-content-scroll-host">
+                      <!-- Your virtual scroll content -->
+                      <ion-row
+                        *ngFor="let m of selectedMsg; let i = index"
+                        [class.otherUser]="+m.sendBy !== 1"
+                        [class.authUser]="+m.sendBy === 1"
+                      >
+                        <ion-col
+                          [size]="+m.sendBy === 1 ? 9 : 10"
+                          [offset]="+m.sendBy !== 1 && 2"
+                        >
+                          <div class="container" *ngIf="m.message || (!m.message && !m.hasFile)">
+                            <div class="message">{{ m.message }}</div>
+                            <ng-container *ngIf="+m.sendBy !== 1">
+                              <span class="download" *ngFor="let f of m.hasFile">
+                                  <ng-container *ngIf="!f.sending">
+                                    <ion-img
+                                      [src]="f.fileType"
+                                      class="MsgfileType"
+                                      ></ion-img>
+                                    <div class="fileName">{{ f.fileName }}</div>
+                                    <ion-button
+                                    mode="md"
+                                    (click)="downloadFile(f.file ,f.fileName)"
+  
+                                    class="fileBtn"
+                                  >
+                                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M5 8L10 13L15 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10 13V1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                  </ion-button>
+                                  </ng-container>
+                                  <div class="sending" *ngIf="f.sending">{{ _result?.translation.loading_sending }}</div>
+                              </span>
+                            </ng-container>
+                            <div class="other" >
+                              <span *ngIf="!item.isStudent"></span>
+                              <span class="par" *ngIf="+m.sendBy !== 1 && item.isStudent">
+                                {{ _result?.translation.par }} : {{ m.par }} ( <span *ngIf="m.role">{{ _result?.translation.pere }}</span> <span *ngIf="!m.role">{{_result?.translation.pere}}</span>)
+                              </span>
+                              <span class="time">{{ m.date }}</span>
+                            </div>
+                          </div>
+                          <div class="fileDownload">
+                            <div class="download" *ngFor="let f of m.hasFile">
+                              <ng-container *ngIf="!f.sending">
+                                <ion-img
+                                  [src]="f.fileType"
+                                  class="MsgfileType"
+                                  ></ion-img>
+                                <div class="fileName">{{ f.fileName }}</div>
+                                <ion-button
+                                mode="md"
+                                (click)="downloadFile(f.file ,f.fileName)"
+
+                                class="fileBtn"
+                              >
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5 8L10 13L15 8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 13V1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </ion-button>
+                              </ng-container>
+                              <div class="sending" *ngIf="f.sending"> {{ _result?.translation.loading_sending }} </div>
+                            </div>
+                          </div>
+                        </ion-col>
+                        <ion-col class="col-image" size="2" *ngIf="+m.sendBy === 1">
+                          <ion-img src="assets/Ellipse1.png"></ion-img>
+                        </ion-col>
+                      </ion-row>
+                    </virtual-scroll-element>
+                  </ng-container>
+                  
+                  <span *ngIf="MsgIsLoad" class="msgLoading">
+                    <ion-img src="assets/spinner.svg"></ion-img>
+                  </span>
+                </ion-content>
+              </ng-container>
+              <ion-footer mode="md">
+          
+                <ion-row>
+                  <ion-col [class.fileIsEmpty]="fileIsEmpty" class="filesSelected" size="12">
+                    <span>
+                      {{ splitFileName(filePreviews) }}
+                    </span>
+                    <ion-button (click)="rmvSelectedFile()">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                  <ion-col 
+                    sizeSm="10" 
+                    sizeMd="11" 
+                    sizeLg="10" 
+                    class="input">
+                    <ion-button id="click-trigger" (click)="openFile()">
+                      <ion-icon name="attach-outline"></ion-icon>
+                    </ion-button>
+                    <input #fileInp type="file" multiple style="display: none;" (change)="pickFile($event)">
+                    <ion-textarea
+                      [placeholder]="_result?.translation.send_nsg"
+                      style="margin: 0; height: 40px; --highlight-color: none"
+                      [(ngModel)]="textVal"
+                      (ionChange)="$event.stopPropagation()"
+                    ></ion-textarea>
+                  </ion-col>
+                  <ion-col
+                    class="sendBtn"
+                    size="3"
+                    sizeSm="2"
+                    sizeMd="1"
+                    sizeLg="2"
+                  >
+                    <ion-button fill="clear" shape="round" class="icon" (click)="sendMsg($event, true, item.channel)">
+                      <ion-img src="assets/send.svg"></ion-img>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-footer>
+            </ion-grid>
+          </ion-accordion>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="messagesLus.length === 0" class="no-data">
+        <ion-col>
+          <!-- Aucune donnée disponible -->
+        {{ _result?.translation?.no_data }} 
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ion-list *ngIf="convertationIsLoad" class="dataLoading">
+      <ion-list-header>
+        <ion-skeleton-text
+          [animated]="true"
+        ></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item *ngFor="let i of [0, 1, 2, 3]">
+        <ion-thumbnail
+          slot="start"
+        >
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <p>
+            <span>
+              <ion-skeleton-text
+                [animated]="true"
+              ></ion-skeleton-text>
+            </span>
+            <span>
+              <ion-skeleton-text
+                [animated]="true"
+              ></ion-skeleton-text>
+            </span>
+          </p>
+          <h3>
+            <ion-skeleton-text
+              [animated]="true"
+            ></ion-skeleton-text>
+          </h3>
+    
+        </ion-label>
+      </ion-item>
+      <ion-list-header>
+        <ion-skeleton-text
+          [animated]="true"
+        ></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item *ngFor="let i of [0, 1]">
+        <ion-thumbnail
+          slot="start"
+        >
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <p>
+            <span>
+              <ion-skeleton-text
+                [animated]="true"
+              ></ion-skeleton-text>
+            </span>
+            <span>
+              <ion-skeleton-text
+                [animated]="true"
+              ></ion-skeleton-text>
+            </span>
+          </p>
+          <h3>
+            <ion-skeleton-text
+              [animated]="true"
+            ></ion-skeleton-text>
+          </h3>
+    
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-accordion-group>

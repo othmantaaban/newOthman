@@ -1,0 +1,32 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+    <div class="section ion-margin-top" *ngIf="_result">
+        <div *ngFor="let compte of _result.comptes" class="card">
+            <ion-grid>
+                <ion-row *ngIf="compte.banque">
+                    <ion-col>
+                        <div class="banque">
+                            {{ _result.translation.banque }} <span>{{compte.banque}}</span>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="compte.agence">
+                    <ion-col>
+                        <div class="agence">
+                            {{ _result.translation.agence }} {{compte.agence}}
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="compte.rib">
+                    <ion-col>
+                        <div class="rib">
+                            {{compte.rib}}
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+
+</ion-content>

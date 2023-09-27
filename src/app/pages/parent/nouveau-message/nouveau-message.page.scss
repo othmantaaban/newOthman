@@ -1,0 +1,132 @@
+.list-md {
+    .item-block {
+        .item-inner {
+            padding-left: 8px;
+
+            // border-bottom: 1px solid #EBEBEB!important;
+            &:last-child {
+                // border-bottom: 1px solid #EBEBEB!important;
+            }
+        }
+
+    }
+
+    .item-input {
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+.list-ios>.item-block:first-child {
+    border: none;
+}
+
+.list-ios>.item-block:last-child {
+    border: none;
+}
+
+.item-md {
+    font-size: 1.5rem;
+}
+
+.item-block {
+    .item-inner {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        border-bottom: 0px !important;
+    }
+
+}
+
+ion-item {
+    .item-inner {
+        border: none;
+    }
+
+}
+
+// .item-btn-send {
+//     padding: 0px;
+// }
+
+.item-btn-send.label {
+    margin: 11px 0px;
+
+}
+
+.item-btn-send button {
+    margin: 10px 0px;
+    border-radius: 50px;
+}
+
+ion-select {
+    width: 100%;
+    margin: 15px 0px;
+    border: 1px solid #c8c7cc;
+    border-radius: 50px;
+    max-width: 100%;
+}
+
+textarea.text-input {
+    height: 250px !important;
+    border: 1px solid #c8c7cc;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 15px 0px;
+    width: 100%;
+    padding: 13px 8px 13px 16px;
+}
+
+input.text-input {
+    border: 1px solid #c8c7cc;
+    padding: 10px;
+    border-radius: 50px;
+    margin: 15px 0px;
+    width: 100%;
+    padding: 13px 8px 13px 16px;
+}
+
+.upload-file-container {
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    border: 1px solid #dedede;
+    border-radius: 35px;
+    position: relative;
+    margin: 10px 0px;
+    width: 100%;
+
+    .delete-btn {
+        position: absolute;
+        right: 15px;
+        font-size: 30px;
+        color: #c34242;
+    }
+
+    span {
+        font-size: 12px;
+        font-weight: 400;
+        margin-inline-start: 8px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        opacity: .8;
+        overflow: hidden;
+        width: calc(100% - 45px);
+    }
+
+    ion-icon {
+        font-size: 25px;
+        color: #000;
+    }
+}
+
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+ion-label {
+    margin-inline-end: 0px !important;
+}

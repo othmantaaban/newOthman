@@ -1,0 +1,39 @@
+<ion-header class="header" mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-title>
+      <div class="num">
+        {{ checkouts.length }}
+      </div>
+      {{ translation.waiting_parent }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<div class="map-marker">
+  <ion-icon name="location-sharp"></ion-icon>
+</div>
+<ion-content [fullscreen]="true">
+  <ion-header mode="ios" class="link">
+    <a href="javascript:void(0)" (click)="gotoBorne()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+      <span>{{ translation?.retour }}</span>
+    </a>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="title" [size]="12">
+        {{ translation.scan_msg }}
+      </ion-col>
+    </ion-row>
+    <ion-row class="qr-scanner-col">
+      <ion-col class="qr-scanner ion-no-padding" [size]="12">
+        <video id="qrscannervid" width="100%" height="100%"></video>
+        <!-- <div class="container">
+          En cours de scan...
+        </div>
+        <div class="text">
+          Lorem uspim Lorem uspim msLorem uspim msLorem uspim msLorem uspim ms
+        </div> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

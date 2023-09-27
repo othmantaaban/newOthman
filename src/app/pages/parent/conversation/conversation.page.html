@@ -1,0 +1,187 @@
+<app-parent-header [title]="result?.translation?.title||''" />
+<ion-content padding>
+  <section class="conversation-details">
+    <ion-grid>
+      <ion-row class="align-items-center">
+        <ion-col col-3>
+          <img [src]="eleve.img" class="image-profile" alt="">
+        </ion-col>
+        <ion-col size="8">
+          <h4>{{eleve.nomcomplet}}</h4>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="result.theme" class="align-items-center">
+        <ion-col>
+          <h6>{{result.translation.themeMessage}}</h6>
+        </ion-col>
+        <ion-col style="text-align: end;">
+          <span class="badge badge-light-main">
+            {{result.theme}}
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section class="conversation-messages" #conversationMessages>
+    <ng-container *ngIf="result?.conversation.length > 0; noMessages">
+      <ng-container *ngFor="let message of result.conversation">
+        <ion-grid *ngIf="message.is_self;else notSelf">
+          <ion-row>
+            <ion-col size="9">
+              <div class="self_message">
+                <div *ngIf="message.audio" class="message-audio">
+                    <ng-container *ngIf="isCordova && message.audio && message.audio.path">
+                        <ion-icon name="play" (click)="playAudio(message.audio)" *ngIf="!message.audio.isPlaying;else isPLaying"></ion-icon>
+                        <ng-template #isPLaying>
+                            <ion-icon name="square" (click)="stopAudio(message.audio)"></ion-icon>
+                        </ng-template>
+                        &nbsp;&nbsp;
+                        <!-- audio -->
+                        {{ _result?.translation?.audio ? _result?.translation?.audio : "audio" }}
+                        <!-- <div class="audio-bar" *ngFor="let bar of message.bars" [style.height]="bar +'%'" ></div> -->
+                    </ng-container>
+                    <ng-container *ngIf="!isCordova">
+                        <!-- audio -->
+                        {{ _result?.translation?.audio ? _result?.translation?.audio : "audio" }}
+                    </ng-container>
+                </div>
+                <div class="content">
+                  {{message.message}}
+                </div>
+                <div class="time">
+                  {{message.envoye_le}}
+                </div>
+                <div class="self_file" *ngFor="let file of message.files">
+                  <div (click)="downloadFile(file.name, file.link)" class="download-file-container">
+                    <ion-icon name="download"></ion-icon>
+                    <span>{{file.name}}</span>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              <img [src]="message.img" class="image-profile ion-float-right" alt="">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ng-template #notSelf>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-2>
+                <img [src]="message.img" class="image-profile" alt="">
+              </ion-col>
+              <ion-col size="9">
+                <div class="message">
+                  <div class="user">
+                    {{message.at}}
+                  </div>
+                  <div *ngIf="message.audio" class="message-audio">
+                      <ng-container *ngIf="isCordova && message.audio && message.audio.path">
+                          <ion-icon name="play" (click)="playAudio(message.audio)" *ngIf="!message.audio.isPlaying"></ion-icon>
+                          <ion-icon name="square"*ngIf="message.audio.isPlaying" (click)="stopAudio(message.audio)"></ion-icon>
+                          &nbsp;&nbsp;
+                          <!-- audio -->
+                          {{ _result?.translation?.audio ? _result?.translation?.audio : "audio" }}
+                          <!-- <div class="audio-bar" *ngFor="let bar of message.bars" [style.height]="bar +'%'" ></div> -->
+                      </ng-container>
+                      <div *ngIf="!isCordova">
+                          <!-- audio -->
+                          {{ _result?.translation?.audio ? _result?.translation?.audio : "audio" }}
+                      </div>
+                  </div>
+                  <div class="content">
+                    {{message.message}}
+                  </div>
+                  <div class="time">
+                    {{message.envoye_le}}
+                  </div>
+                  <div class="files" *ngFor="let file of message.files">
+                    <div (click)="downloadFile(file.name, file.link)" class="download-file-container">
+                      <ion-icon name="download"></ion-icon>
+                      <span>{{file.name}}</span>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-template>
+        <!-- <ion-grid class="white-bg conversation">
+                <div class="user-info">
+                    <ion-row *ngIf="!message.is_self;" class="flex-item-center">
+                        <ion-col col-2 class="text-center">
+                            <img src="{{message.img}}" class="img-circle vertical-middle" alt="">
+                        </ion-col>
+                        <ion-col col-10>
+                            <h5>{{message.at}}</h5>
+                            <span class="date">{{message.envoye_le}}</span>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="message.is_self;" class="flex-item-center">
+    
+                        <ion-col col-10 class="text-right">
+                            <h5>{{message.at}}</h5>
+                            <span class="date">{{message.envoye_le}}</span>
+                        </ion-col>
+                        <ion-col col-2 class="text-center">
+                            <img src="{{message.img}}" class="img-circle vertical-middle" alt="">
+                        </ion-col>
+                    </ion-row>
+    
+                </div>
+            </ion-grid>
+            <ion-grid class="py-0 px-0">
+                <div class="message-content white-bg px-5 {{message.is_self?'text-right':''}}">
+                    <h2>{{message.sujet}}</h2>
+                    <p>
+                        {{message.message}}
+                    </p>
+                    <div *ngFor="let file of message.files">
+                        <div (click)="downloadFile(file.name, file.link)" class="download-file-container">
+                            <img src="assets/icon/attachment-upload.svg" alt="">
+                            <span>{{file.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </ion-grid> -->
+      </ng-container>
+    </ng-container>
+    <ng-template #noMessages>
+
+    </ng-template>
+  </section>
+  <section class="message-form-section">
+    <ion-grid class="py-0">
+      <ion-row class="align-items-center">
+        <ion-col class="py-0" size="9">
+          <div class="message-input-wrapper">
+            <ng-container *ngIf="!recordingAudio;else audioPreview">
+              <label class="color-main" (click)="changeThematique()">
+                  <ion-icon  name="brush" ></ion-icon>
+              </label>
+              <label [class]="(messagefile?'color-main':'')" for="file-message">
+                  <ion-icon  name="attach" ></ion-icon>
+              </label>
+              <input id="file-message" (change)="updateFile($event)" type="file" name="" style="display: none;">
+              <input type="text" name="" class="message-input" [(ngModel)]="messageContent" placeholder="Taper un message">
+              <ion-icon name="mic" class="audio-trigger" [class.text-main]="recordingAudio" (click)="toggleRecordAudio()" ></ion-icon>
+          </ng-container>
+          <ng-template #audioPreview>
+              <div class="audio-bars-wrapper">
+                  <div class="audio-bar" *ngFor="let bar of audioBars" [style.height]="bar +'%'" ></div>
+              </div>
+              <ion-icon *ngIf="recordOn" name="pause" class="audio-trigger text-main" (click)="pauseRecordAudio()" ></ion-icon>
+              <ion-icon *ngIf="!recordOn" name="play" class="audio-trigger text-main" (click)="resumeRecordAudio()" ></ion-icon>
+              <ion-icon name="trash" class="audio-trigger text-main" (click)="toggleRecordAudio()" ></ion-icon>
+          </ng-template>
+          </div>
+        </ion-col>
+        <ion-col class="py-0 text-center" col-2>
+          <button (click)="sendMessage()" class="send-button">
+            <ion-icon name="send-outline"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>

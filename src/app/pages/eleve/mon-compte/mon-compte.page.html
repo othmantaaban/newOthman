@@ -1,0 +1,223 @@
+<!-- <app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <ion-grid class="parent-picture" *ngIf="_result">
+    <ion-row class="align-items-center">
+      <ion-col size="3" class="text-center">
+        <div class="picture-wrapper">
+          <img src="{{_result.image}}" alt="">
+        </div>
+      </ion-col>
+      <ion-col class="ion-padding-start">
+        <h1 (click)="compteParent(_result.parent)">
+          {{_result.nomcomplet}} 
+            <span *ngIf="_result.parent.lang=='fr'" class="flag-icon flag-icon-fr bradius-5"></span>
+            <span *ngIf="_result.parent.lang=='ar'" class="flag-icon flag-icon-ma bradius-5"></span>
+            <span *ngIf="_result.parent.lang=='en'" class="flag-icon flag-icon-us bradius-5"></span>
+        </h1>
+        <p class="contact">
+          <ion-icon name="call-outline"></ion-icon> <span>{{_result.tel}}</span>
+        </p>
+        <p class="contact">
+          <ion-icon name="mail-outline"></ion-icon> <span>{{_result.email}}</span>
+        </p>
+        <a class="contact" (click)="changePassword()">{{_result?.translation?.changer_password}}</a>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="eleves" *ngIf="_result?.eleves?.length > 0">
+    <h4>{{ _result.translation.enfants}}</h4>
+      <div (click)="compteEleve(currentEleve)" class="eleve-list current">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-center" size="3">
+              <div class="eleve-image-wrapper">
+                <img src="{{currentEleve.img}}" alt="">
+              </div>
+            </ion-col>
+            <ion-col>
+              <h3> {{currentEleve.nomcomplet}} </h3>
+              <p>{{currentEleve.mat}} {{currentEleve.mat&&currentEleve.niveau?'-':''}} {{currentEleve.niveau}}</p>
+              <span *ngIf="currentEleve.massar"> {{currentEleve.massar}} </span>
+              <p class="status"> 
+                
+                {{ _result?.translation?.connecte ? _result?.translation?.connecte : 'connecté' }}
+              </p>
+              <ion-icon class="edit_compte" name="create-outline"></ion-icon>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    <ng-container *ngFor="let item of otherEleves">
+      <ng-container *ngIf="item">
+          <div class="others-list">
+            <ion-grid>
+              <ion-row>
+                <ion-col class="text-center" size="3">
+                  <div *ngIf="item.id == eleve.id" class="statut-eleve"></div>
+                  <img src="{{item.img}}" alt="">
+                </ion-col>
+                <ion-col>
+                  <h3> {{item.nomcomplet}} </h3>
+                  <p>{{item.mat}} {{item.mat&&item.niveau?'-':''}} {{item.niveau}}</p>
+                  <span *ngIf="item.massar"> {{item.massar}} </span>
+                </ion-col>
+              </ion-row>
+              <ion-row class="actions">
+                <ion-col (click)="compteEleve(item)">
+                  <ion-icon name="create-outline"></ion-icon> 
+                  {{ _result?.translation?.editer ? _result?.translation?.editer : 'Editer' }}
+                </ion-col>
+                <ion-col class="action-switch" (click)="switchTo(item)">
+                  {{ _result?.translation?.connecter ? _result?.translation?.connecter : 'Se connecter' }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="disconnect">
+    <button class="btn btn-outline-secondary" (click)="logout()">{{_result?.translation?.disconnect}}</button>
+  </div>
+</ion-content> -->
+
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Mon profil'" />
+
+
+<ion-content>
+  <div class="head">
+    <ion-button (click)="editProfile()" mode="md" class="setting">
+      <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Vector">
+          <path d="M10.5 13.0909C11.9309 13.0909 13.0909 11.9309 13.0909 10.5C13.0909 9.06908 11.9309 7.90909 10.5 7.90909C9.06908 7.90909 7.90909 9.06908 7.90909 10.5C7.90909 11.9309 9.06908 13.0909 10.5 13.0909Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16.8909 13.0909C16.7759 13.3514 16.7417 13.6403 16.7925 13.9205C16.8432 14.2007 16.9768 14.4592 17.1759 14.6627L17.2277 14.7145C17.3883 14.875 17.5157 15.0655 17.6026 15.2751C17.6896 15.4848 17.7343 15.7096 17.7343 15.9366C17.7343 16.1636 17.6896 16.3883 17.6026 16.598C17.5157 16.8077 17.3883 16.9982 17.2277 17.1586C17.0673 17.3192 16.8768 17.4466 16.6671 17.5336C16.4574 17.6205 16.2327 17.6652 16.0057 17.6652C15.7787 17.6652 15.5539 17.6205 15.3442 17.5336C15.1346 17.4466 14.9441 17.3192 14.7836 17.1586L14.7318 17.1068C14.5283 16.9077 14.2698 16.7742 13.9896 16.7234C13.7094 16.6726 13.4205 16.7069 13.16 16.8218C12.9046 16.9313 12.6867 17.1131 12.5333 17.3448C12.3798 17.5765 12.2975 17.848 12.2964 18.1259V18.2727C12.2964 18.7308 12.1144 19.1702 11.7905 19.4941C11.4665 19.818 11.0272 20 10.5691 20C10.111 20 9.67165 19.818 9.34773 19.4941C9.0238 19.1702 8.84182 18.7308 8.84182 18.2727V18.195C8.83513 17.9091 8.7426 17.6319 8.57626 17.3993C8.40992 17.1668 8.17745 16.9896 7.90909 16.8909C7.6486 16.7759 7.35965 16.7417 7.07949 16.7925C6.79933 16.8432 6.54081 16.9768 6.33727 17.1759L6.28545 17.2277C6.12504 17.3883 5.93454 17.5157 5.72485 17.6026C5.51516 17.6896 5.2904 17.7343 5.06341 17.7343C4.83642 17.7343 4.61165 17.6896 4.40197 17.6026C4.19228 17.5157 4.00178 17.3883 3.84136 17.2277C3.68077 17.0673 3.55337 16.8768 3.46644 16.6671C3.37952 16.4574 3.33478 16.2327 3.33478 16.0057C3.33478 15.7787 3.37952 15.5539 3.46644 15.3442C3.55337 15.1346 3.68077 14.9441 3.84136 14.7836L3.89318 14.7318C4.09228 14.5283 4.22584 14.2698 4.27664 13.9896C4.32744 13.7094 4.29314 13.4205 4.17818 13.16C4.0687 12.9046 3.88693 12.6867 3.65522 12.5333C3.42351 12.3798 3.152 12.2975 2.87409 12.2964H2.72727C2.26917 12.2964 1.82983 12.1144 1.50591 11.7905C1.18198 11.4665 1 11.0272 1 10.5691C1 10.111 1.18198 9.67165 1.50591 9.34773C1.82983 9.0238 2.26917 8.84182 2.72727 8.84182H2.805C3.09086 8.83513 3.3681 8.7426 3.60067 8.57626C3.83324 8.40992 4.01039 8.17745 4.10909 7.90909C4.22405 7.6486 4.25835 7.35965 4.20755 7.07949C4.15675 6.79933 4.02319 6.54081 3.82409 6.33727L3.77227 6.28545C3.61168 6.12504 3.48428 5.93454 3.39735 5.72485C3.31043 5.51516 3.26569 5.2904 3.26569 5.06341C3.26569 4.83642 3.31043 4.61165 3.39735 4.40197C3.48428 4.19228 3.61168 4.00178 3.77227 3.84136C3.93269 3.68077 4.12319 3.55337 4.33288 3.46644C4.54256 3.37952 4.76733 3.33478 4.99432 3.33478C5.22131 3.33478 5.44607 3.37952 5.65576 3.46644C5.86545 3.55337 6.05595 3.68077 6.21636 3.84136L6.26818 3.89318C6.47172 4.09228 6.73024 4.22584 7.0104 4.27664C7.29056 4.32744 7.57951 4.29314 7.84 4.17818H7.90909C8.16453 4.0687 8.38238 3.88693 8.53583 3.65522C8.68927 3.42351 8.77162 3.152 8.77273 2.87409V2.72727C8.77273 2.26917 8.95471 1.82983 9.27863 1.50591C9.60256 1.18198 10.0419 1 10.5 1C10.9581 1 11.3974 1.18198 11.7214 1.50591C12.0453 1.82983 12.2273 2.26917 12.2273 2.72727V2.805C12.2284 3.08291 12.3107 3.35442 12.4642 3.58613C12.6176 3.81783 12.8355 3.99961 13.0909 4.10909C13.3514 4.22405 13.6403 4.25835 13.9205 4.20755C14.2007 4.15675 14.4592 4.02319 14.6627 3.82409L14.7145 3.77227C14.875 3.61168 15.0655 3.48428 15.2751 3.39735C15.4848 3.31043 15.7096 3.26569 15.9366 3.26569C16.1636 3.26569 16.3883 3.31043 16.598 3.39735C16.8077 3.48428 16.9982 3.61168 17.1586 3.77227C17.3192 3.93269 17.4466 4.12319 17.5336 4.33288C17.6205 4.54256 17.6652 4.76733 17.6652 4.99432C17.6652 5.22131 17.6205 5.44607 17.5336 5.65576C17.4466 5.86545 17.3192 6.05595 17.1586 6.21636L17.1068 6.26818C16.9077 6.47172 16.7742 6.73024 16.7234 7.0104C16.6726 7.29056 16.7069 7.57951 16.8218 7.84V7.90909C16.9313 8.16453 17.1131 8.38238 17.3448 8.53583C17.5765 8.68927 17.848 8.77162 18.1259 8.77273H18.2727C18.7308 8.77273 19.1702 8.95471 19.4941 9.27863C19.818 9.60256 20 10.0419 20 10.5C20 10.9581 19.818 11.3974 19.4941 11.7214C19.1702 12.0453 18.7308 12.2273 18.2727 12.2273H18.195C17.9171 12.2284 17.6456 12.3107 17.4139 12.4642C17.1822 12.6176 17.0004 12.8355 16.8909 13.0909Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </ion-button>
+    <div class="content">
+      <ion-img [src]="_result?.image" class="pic">
+      </ion-img>
+      <div class="username">
+        <div class="name">
+          {{ _result?.nomcomplet }}
+        </div>
+        <div class="online"></div>
+      </div>
+      <div class="badges">
+        <div class="badge class">
+          {{ _result?.classe }}
+        </div>
+        <div class="badge annee">
+          {{ _result?.promotion.replace("/", "-") }}
+        </div>
+      </div>
+      <div class="userinfos">
+        <div class="phone info">
+          <!-- <ion-img src="assets/phone.svg"></ion-img> -->
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.9996 9.98431V11.7908C13.0003 11.9585 12.9659 12.1245 12.8986 12.2781C12.8313 12.4318 12.7325 12.5697 12.6087 12.6831C12.4849 12.7965 12.3387 12.8828 12.1795 12.9365C12.0203 12.9903 11.8517 13.0102 11.6843 12.9951C9.82768 12.7938 8.04426 12.1606 6.47734 11.1465C5.01953 10.222 3.78356 8.98843 2.8572 7.53351C1.83752 5.96259 1.20294 4.17405 1.0049 2.31277C0.98982 2.14625 1.00965 1.97843 1.06312 1.81998C1.11659 1.66153 1.20254 1.51592 1.31548 1.39244C1.42843 1.26896 1.5659 1.1703 1.71915 1.10274C1.87239 1.03519 2.03805 1.00022 2.20558 1.00006H4.01565C4.30846 0.997182 4.59233 1.10067 4.81435 1.29122C5.03637 1.48178 5.18138 1.74641 5.22236 2.03578C5.29876 2.61389 5.44044 3.18152 5.64471 3.72785C5.72589 3.94338 5.74346 4.17761 5.69534 4.4028C5.64722 4.62799 5.53542 4.83469 5.3732 4.99841L4.60694 5.76315C5.46585 7.27069 6.71655 8.51891 8.22708 9.37612L8.99334 8.61138C9.15739 8.44948 9.3645 8.33791 9.59013 8.28988C9.81577 8.24185 10.0505 8.25939 10.2664 8.3404C10.8138 8.54427 11.3826 8.68567 11.9619 8.76192C12.2549 8.80318 12.5226 8.95052 12.714 9.1759C12.9053 9.40128 13.007 9.68899 12.9996 9.98431Z" stroke="#12122C" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ _result?.tel }}
+        </div>
+        <div class="mail info">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 2L8 6L1 2M2.4 1H13.6C14.37 1 15 1.5625 15 2.25V9.75C15 10.4375 14.37 11 13.6 11H2.4C1.63 11 1 10.4375 1 9.75V2.25C1 1.5625 1.63 1 2.4 1Z" stroke="#12122C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ _result?.email }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-accordion-group  [multiple]="true">
+    <ion-accordion value="first">
+      <div class="accordion-header" slot="header">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 22 17" fill="none">
+          <path d="M9.17408 0.483905C9.72974 0.166844 10.3593 0 11.0001 0C11.6409 0 12.2704 0.166844 12.8261 0.483905L21.6934 5.54314C21.7866 5.59635 21.864 5.67304 21.9178 5.76547C21.9717 5.8579 22 5.9628 22 6.06959C22 6.17638 21.9717 6.28128 21.9178 6.3737C21.864 6.46613 21.7866 6.54282 21.6934 6.59604L18.3335 8.51116V13.9639C18.3336 14.0437 18.3179 14.1227 18.2873 14.1965C18.2567 14.2702 18.2118 14.3373 18.155 14.3938L18.1526 14.395L18.1502 14.3986L18.1416 14.4059L18.1135 14.4326L18.0157 14.5225C17.9302 14.5978 17.8079 14.701 17.6478 14.8237C17.2088 15.1586 16.7423 15.4564 16.2533 15.7138C14.6356 16.566 12.831 17.0078 11.0001 16.9999C9.16905 17.0074 7.36451 16.5652 5.74694 15.7126C5.25825 15.4551 4.79216 15.1574 4.35359 14.8225C4.19236 14.6989 4.03659 14.5684 3.8867 14.4314C3.8196 14.3727 3.76543 14.3009 3.72757 14.2205C3.68971 14.14 3.66899 14.0527 3.6667 13.9639V8.51359L1.22223 7.11823V12.7482C1.22223 12.9093 1.15785 13.0637 1.04324 13.1776C0.928635 13.2915 0.773195 13.3554 0.611117 13.3554C0.449038 13.3554 0.293599 13.2915 0.178992 13.1776C0.0643854 13.0637 1.63493e-07 12.9093 1.63493e-07 12.7482V6.0702C-8.00875e-05 5.96117 0.0293846 5.85414 0.0853004 5.76033C0.141216 5.66652 0.22152 5.5894 0.317781 5.53707L9.1753 0.483905H9.17408ZM12.8261 11.6541C12.2704 11.9711 11.6409 12.138 11.0001 12.138C10.3593 12.138 9.72974 11.9711 9.17408 11.6541L4.88893 9.20945V13.6918C5.33393 14.0549 5.81419 14.373 6.32261 14.6415C7.39817 15.2123 8.98097 15.7843 11.0001 15.7843C12.6301 15.7926 14.2369 15.4005 15.6776 14.6427C16.1861 14.3738 16.6663 14.0553 17.1113 13.6918V9.20823L12.8261 11.6541ZM12.2174 1.53801C11.847 1.32664 11.4273 1.21541 11.0001 1.21541C10.5729 1.21541 10.1532 1.32664 9.78275 1.53801L1.83824 6.06898L9.78275 10.6012C10.1532 10.8125 10.5729 10.9238 11.0001 10.9238C11.4273 10.9238 11.847 10.8125 12.2174 10.6012L20.162 6.06898L12.2174 1.53801Z"/>
+        </svg>
+        <div class="text">
+          {{ _result?.translation?.parcours ? _result?.translation?.parcours : "Parcours académique" }}
+        </div>
+        <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
+      </div>
+
+      <div slot="content" class="accordion-content">
+        <!-- <ng-template *ngIf="_result?.parcours.length === 0;"> -->
+          <div class="item" *ngFor="let parcour of _result?.parcours">
+            <div class="diplome">
+              <span>
+                {{ parcour.diplome }}
+              </span>
+              <button class="add" (click)="goToFunc('parcours-form')">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </button>
+            </div>
+            <div class="specialite">
+              {{ parcour.etablisement }}
+            </div>
+            <div class="date">
+              {{ parcour.date }}
+            </div>
+          </div>
+        <!-- </ng-template> -->
+        <!-- <ng-template #nonData> -->
+
+          <div class="no-data" *ngIf="_result?.parcours.length === 0">
+            {{ _result.translation?.nodata_parcours ? _result.translation?.nodata_parcours : "Aucun parcours ajouté" }}
+            <ion-button (click)="goToFunc('parcours-form')">
+              {{ _result.translation?.btn_nodata_parcours ? _result.translation?.btn_nodata_parcours : "Ajouter un parcours" }}
+            </ion-button>
+          </div>
+        <!-- </ng-template> -->
+      </div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <div class="accordion-header" slot="header">
+        <svg class="icon stroke" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M18.2501 12.15V16.4C18.2501 17.494 17.4631 18.436 16.3781 18.58C14.2911 18.857 12.1621 19 10.0001 19C7.83806 19 5.70906 18.857 3.62206 18.58C2.53706 18.436 1.75006 17.494 1.75006 16.4V12.15M18.2501 12.15C18.4875 11.9436 18.6775 11.6883 18.807 11.4016C18.9364 11.1149 19.0023 10.8036 19.0001 10.489V6.706C19.0001 5.625 18.2321 4.691 17.1631 4.531C16.0304 4.36142 14.892 4.23234 13.7501 4.144M18.2501 12.15C18.0561 12.315 17.8301 12.445 17.5771 12.53C15.1333 13.3408 12.5748 13.7528 10.0001 13.75C7.4253 13.7524 4.86693 13.3405 2.42306 12.53C2.17631 12.4479 1.94778 12.3189 1.75006 12.15M1.75006 12.15C1.5126 11.9436 1.32262 11.6883 1.19315 11.4016C1.06369 11.1149 0.997818 10.8036 1.00006 10.489V6.706C1.00006 5.625 1.76806 4.691 2.83706 4.531C3.96975 4.36142 5.10814 4.23233 6.25006 4.144M13.7501 4.144V3.25C13.7501 2.65326 13.513 2.08097 13.091 1.65901C12.6691 1.23705 12.0968 1 11.5001 1H8.50006C7.90332 1 7.33102 1.23705 6.90907 1.65901C6.48711 2.08097 6.25006 2.65326 6.25006 3.25V4.144M13.7501 4.144C11.2538 3.95108 8.74633 3.95108 6.25006 4.144M10.0001 10.75H10.0081V10.758H10.0001V10.75Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="text">
+          {{ _result?.translation?.experience ? _result?.translation?.experience : "Expériences professionnelles" }}
+        </div>
+        <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
+      </div>
+
+      <div slot="content" class="accordion-content">
+        <div class="item" *ngFor="let experience of _result?.experience">
+          <div class="diplome">
+            <span>
+              {{ experience?.organisme }}
+            </span>
+            <button class="add" (click)="goToFunc('experience-form')">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="specialite">
+            {{ experience?.fonction }}
+          </div>
+          <div class="date">
+            date debut {{ experience?.Date_debut }}
+            <br>
+            date fin {{ experience?.Date_fin }}
+          </div>
+        </div>
+      <!-- </ng-template> -->
+      <!-- <ng-template #nonData> -->
+
+        <div class="no-data" *ngIf="_result?.experience.length === 0">
+          {{ _result.translation?.nodata_experience ? _result.translation?.nodata_experience : "Aucune expérience professionnelle ajoutée" }}
+          <ion-button (click)="goToFunc('experience-form')">
+          {{ _result.translation?.btn_nodata_experience ? _result.translation?.btn_nodata_experience : "Ajouter une expérience professionnelle" }}
+          </ion-button>
+        </div>
+      </div>
+    </ion-accordion>
+
+  </ion-accordion-group>
+  <div class="disconnect">
+    <button class="btn btn-outline-secondary" (click)="logout()">{{_result?.translation?.disconnect}}</button>
+  </div>
+</ion-content>

@@ -1,0 +1,121 @@
+<ion-header mode="md">
+  <ion-toolbar mode="md">
+    <ion-title>{{_result?.translation?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <section>
+    <ion-grid *ngIf="_result?.trajets" >
+      <ion-row *ngFor="let trajet of _result.trajets" >
+        <ion-col>
+          <div class="card">
+            <div class="card-body">
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <h2>{{trajet.label_trajet}}</h2>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-3>
+                    <img src="{{trajet.image_chaufeur}}" alt="">
+                  </ion-col>
+                  <ion-col col-9 class="pl-20px">
+                    <p>{{trajet.nom_chaufeur}}</p>
+                    <span class="badge-trajet">
+                      <span>
+                        {{trajet.matricule}}
+                      </span>
+                      <ion-icon name="bus"></ion-icon>
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="mt-20px">
+                  <ion-col col-6>
+                    <button class=" btn-large-trajet btn-success" (click)="getTrajet(trajet.id,'deposer')" >
+                      <img src="assets/icon/deposer.png" alt=""><br>
+                      {{ _result?.translation.deposer}}
+                    </button>
+                  </ion-col>
+                  <ion-col col-6>
+                    <button class=" btn-large-trajet btn-warning" (click)="getTrajet(trajet.id,'recuperer')">
+                      <img src="assets/icon/recuperer.png" alt=""><br>
+                      {{ _result?.translation.recuperer }}
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>
+
+<div class="actions">
+  <ul class="list-inline">
+      <li class="list-inline-item">
+          <button class="btn-main btn-circle btn-white" (click)="toggleModalProfil()">
+              <img src="assets/icon/user.svg" alt="">
+          </button>
+      </li>
+  </ul>
+</div>
+<div class="action-small-modal" [ngClass]="showModalProfil ? 'show-modal' : ''">
+  <div class="bottom-modal">
+      <div class="default-modal-header">
+          <h4 *ngIf="_result?.translation">{{_result.translation.action}}</h4>
+          <div class="m-close" (click)="toggleModalProfil()">
+              <img src="assets/icon/close.svg" alt="">
+          </div>
+      </div>
+      <div class="d-modal-action">
+          <ion-grid>
+              <ion-row>
+                  <ion-col>
+                      <div class="item text-center" (click)="moncompte()" >
+                          <div>
+                              <img src="assets/icon/edit-profil.svg" alt="">
+                          </div>
+                          <span *ngIf="_result?.translation">{{_result.translation.profil}}</span>
+                      </div>
+                  </ion-col>
+                  <ion-col *ngIf="isadmin">
+                      <div class="item text-center" (click)="switchToAdmin()">
+                          <div>
+                              <img src="assets/icon/switch-role.svg" alt="">
+                          </div>
+                          <span *ngIf="_result?.translation">{{_result.translation.switchAdmin}}</span>
+                      </div>
+                  </ion-col>
+                  <ion-col *ngIf="isparent">
+                      <div class="item text-center" (click)="switchToParent()">
+                          <div>
+                              <img src="assets/icon/switch-role.svg" alt="">
+                          </div>
+                          <span *ngIf="_result?.translation">{{_result.translation.switchParent}}</span>
+                      </div>
+                  </ion-col>
+                  <ion-col *ngIf="isenseignant">
+                      <div class="item text-center" (click)="switchToProf()">
+                          <div>
+                              <img src="assets/icon/switch-role.svg" alt="">
+                          </div>
+                          <span *ngIf="_result?.translation">{{_result.translation.switchEnseignant}}</span>
+                      </div>
+                  </ion-col>
+                  <ion-col>
+                      <div class="item text-center" (click)="logout()">
+                          <div>
+                              <img src="assets/icon/log-out.svg" alt="">
+                          </div>
+                          <span *ngIf="_result?.translation">{{_result.translation.deconnecter}}</span>
+                      </div>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </div>
+  </div>
+</div>

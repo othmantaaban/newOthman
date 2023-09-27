@@ -1,0 +1,141 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+<ion-content padding>
+
+  <!-- <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div> -->
+  <div class="container_result" *ngIf="_result">
+    <div class="section-remettre">
+      <app-collapse [open]="true" [showArrow]="true" >
+        <ng-container collapseTitle>
+          <div class="d-flex align-items-center">
+            <h6 class="ion-no-margin section-title">
+              {{ _result?.translation?.label_devoir_td }} 
+            </h6>
+            <ion-badge class="ion-margin-start" mode="ios" *ngIf="_result.devoirs_remettre.length > 0" color="primary">{{ _result.devoirs_remettre.length }}</ion-badge>
+          </div>
+        </ng-container>
+        <ng-container collapseContent>
+          <div *ngIf="_result.devoirs_remettre.length == 0" class="no-result ">
+            <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+            <h3 [innerHtml]="_result.empty_text"></h3>
+          </div>
+          <ng-container *ngFor="let devoir of _result.devoirs_remettre" >
+            <div [class.devoir_fait]="devoir.devoir_fait.fait" (click)="openDevoir(devoir)" class="card devoir-card">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="2">
+                    <ion-icon class="devoir-icon" name="document-outline"></ion-icon> 
+                  </ion-col>
+                  <ion-col size="10">
+                    <ion-grid class="ion-no-padding">
+                      <ion-row>
+                        <ion-col class="ion-padding-end">
+                          <h4 class="devoir-title ion-no-margin">{{devoir.title}}</h4>
+                          <p class="devoir-info" ><b *ngIf="devoir.enseignant" >{{devoir.enseignant}}</b>{{devoir.enseignant&&devoir.unite?' - ':''}}<ng-container *ngIf="devoir.unite">{{devoir.unite}}</ng-container> </p>
+                        </ion-col>
+                        <ion-col size="auto">
+                          <div class="date-card">
+                            {{devoir.date.jourLabel}}
+                            <span class="date-day">{{devoir.date.jour}}</span>
+                            {{devoir.date.mois}}
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <hr>
+                    <ion-grid class="ion-no-padding">
+                      <ion-row class="align-items-center">
+                        <ion-col size="10">
+                          <p class="devoir-intro" [innerHTML]="devoir.description"></p>
+                        </ion-col>
+                        <ion-col size="2">
+                          <ion-icon name="chevron-forward"></ion-icon>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ng-container>
+        </ng-container>
+      </app-collapse>
+    </div>
+    <div class="section-ancien">
+      <app-collapse [open]="true" [showArrow]="true" >
+        <ng-container collapseTitle>
+          <div class="d-flex align-items-center">
+            <h6 class="ion-no-margin section-title">
+              {{ _result.translation.label_old_devoir}}
+            </h6>
+          </div>
+        </ng-container>
+        <ng-container collapseContent>
+            <div *ngIf="_result.devoirs_ancien.length == 0" class="d-flex align-items-center justify-content-center no-result ">
+              <div>
+                <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+                <h3 [innerHtml]="_result.empty_text"></h3>
+              </div>
+            </div>
+
+          <ng-container *ngFor="let devoir of _result.devoirs_ancien" >
+            <div [class.devoir_fait]="devoir.devoir_fait.fait" (click)="openDevoir(devoir)" class="card devoir-card">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="2">
+                    <ion-icon class="devoir-icon" name="document-outline"></ion-icon> 
+                  </ion-col>
+                  <ion-col size="10">
+                    <ion-grid class="ion-no-padding">
+                      <ion-row>
+                        <ion-col class="ion-padding-end">
+                          <h4 class="devoir-title ion-no-margin">{{devoir.title}}</h4>
+                          <p class="devoir-info" ><b *ngIf="devoir.enseignant" >{{devoir.enseignant}}</b>{{devoir.enseignant&&devoir.unite?' - ':''}}<ng-container *ngIf="devoir.unite">{{devoir.unite}}</ng-container> </p>
+                        </ion-col>
+                        <ion-col size="auto">
+                          <div class="date-card">
+                            {{devoir.date.jourLabel}}
+                            <span class="date-day">{{devoir.date.jour}}</span>
+                            {{devoir.date.mois}}
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <hr>
+                    <ion-grid class="ion-no-padding">
+                      <ion-row class="align-items-center">
+                        <ion-col size="10">
+                          <p class="devoir-intro" [innerHTML]="devoir.description"></p>
+                        </ion-col>
+                        <ion-col size="2">
+                          <ion-icon name="chevron-forward"></ion-icon>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ng-container>
+        </ng-container>
+      </app-collapse>
+    </div>
+    <!-- <div class="section-ancien">
+      <app-collapse [showArrow]="true" >
+        <ng-container collapseTitle>
+          <div class="d-flex align-items-center">
+            <h6 class="ion-no-margin">
+              Devoirs à remettre 
+            </h6>
+            <ion-badge class="ion-margin-start" color="primary">22k</ion-badge>
+          </div>
+        </ng-container>
+        <ng-container collapseContent>
+          abcd
+        </ng-container>
+      </app-collapse>
+    </div> -->
+  </div>
+</ion-content>

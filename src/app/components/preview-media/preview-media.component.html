@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="preview">
+    <img *ngIf="!images[imageIdx].video_path;else playVideo" [src]="images[imageIdx].image_path" alt="">
+    <ng-template #playVideo>
+      <video [src]="images[imageIdx].video_path" controls>
+        <source [src]="images[imageIdx].video_path" >
+      </video>
+    </ng-template>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar class="ion-no-padding" color="primary">
+    <ion-grid class="ion-no-padding" fixed>
+      <ion-row>
+        <ion-col >
+          <ion-button class="ion-no-padding ion-no-margin" (click)="prev()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+        </ion-col>
+        <ion-col >
+          <ion-button class="ion-no-padding ion-no-margin" (click)="next()">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

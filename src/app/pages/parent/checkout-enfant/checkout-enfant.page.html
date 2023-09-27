@@ -1,0 +1,298 @@
+<ion-content>
+  <div class="page-header">
+    <div class="map-marker">
+      <ion-icon name="location-sharp"></ion-icon>
+    </div>
+    <a (click)="closePage()" class="quit">{{this._result?.translation?.quitter}}</a>
+  </div>
+  <section class="section-checkout" *ngIf="_result">
+
+    <div class="informez" *ngIf="!arrive && !recupere">
+      <ion-grid>
+        <ion-row *ngIf="!sentRetard;else counterRetard">
+          <ion-col>
+            <img class="logo_boti" src="assets/imgs/icon/checkout/informez.svg" />
+            <h3>{{this._result.translation.informer_attente}}</h3>
+          </ion-col>
+        </ion-row>
+
+        <ng-template #counterRetard>
+          <ion-row>
+            <ion-col>
+              <img class="logo_boti" src="assets/imgs/icon/checkout/informez.svg" />
+              <h3>{{this._result.translation.ecole_notifie_retard}}</h3>
+              <h2 id="counter-span" class="text-center">{{this.timerRetard}}</h2>
+            </ion-col>
+          </ion-row>
+        </ng-template>
+
+        <ion-row *ngIf="_result.show_casual_recuperation">
+          <ion-col>
+            <button class="btn-main btn-minutes" (click)="clickAction('en_route')">
+              <img class="logo_boti" src="assets/imgs/icon/checkout/qlqs_minutes.svg" />
+              <span>{{this._result.translation.btn_coming}}</span>
+            </button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="_result.show_casual_recuperation">
+          <ion-col>
+            <button class="btn-main" (click)="clickAction('arrive')">
+              <img class="logo_boti" src="assets/imgs/icon/checkout/jesuis_arrive.svg" />
+              <span>{{this._result.translation.btn_arrive}}</span>
+            </button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="_result.show_casual_recuperation" class="mx-3">
+          <ion-col>
+            <h6 class="separator"> 
+              <span>
+                {{ _result?.translation?.ou ? _result?.translation?.ou : "OU" }}
+               <!-- OU  -->
+              </span> 
+            </h6>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row class="justify-content-center">
+          <ion-col *ngIf="_result.show_casual_recuperation">
+            <button [disabled]="sentRetard" (click)="toggleRetard()" class="btn-main btn-retard text-center">
+              <span class="text-center">{{this._result.translation.btn_retard}}</span>
+            </button>
+          </ion-col>
+          <ion-col size="auto" *ngIf="_result.show_qr_recuperation">
+            <button (click)="openQr()" [class.btn_qr_lg]="(!_result.show_casual_recuperation && _result.show_qr_recuperation)" class="btn-main btn-qr">
+              <span class="text-center"><ion-icon name="qr-code-outline"></ion-icon></span>
+            </button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="_result.show_authorized_button">
+          <ion-col>
+            <button class="btn-main btn-outline-secondary text-center" (click)="toggleRecuperant()">
+              <span class="text-center">{{this._result.translation.btn_authorized}}</span>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="informez" *ngIf="arrive && !recupere">
+      <img class="logo_boti" src="assets/imgs/icon/checkout/loading.svg" />
+      <h3>{{this._result.translation.message_confirm_pick}}</h3>
+      <button class="btn-main btn-la" (click)="clickAction('recupere')">
+        <img class="logo_boti" src="assets/imgs/icon/checkout/enfant_la.svg" />
+        <span>{{this._result.translation.btn_confirm_pick}}</span>
+      </button>
+      <button class="btn-main btn-relance" (click)="clickAction('relance')">
+        <img class="logo_boti" src="assets/imgs/icon/checkout/relance.svg" />
+        <span>{{this._result.translation.btn_relance_pick}}</span>
+      </button>
+    </div>
+    <div class="informez" *ngIf="recupere">
+      <img class="logo_boti" src="assets/imgs/icon/checkout/bon_route.svg" />
+      <h1>{{this._result.translation.msg_bon_route}}</h1>
+    </div>
+  </section>
+
+  <div class="frame_recupere" *ngIf="recupere">
+  </div>
+</ion-content>
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleRetard ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+    <div class="main-modal-header">
+      <img *ngIf="!sentRetard" src="assets/icon/close.svg" class="main-close" (click)="closeRetard()" alt="">
+      <div class="default-modal-header-text">
+        <!-- <img src="assets/icon/clock.svg" alt=""> -->
+        <!-- <h4></h4> -->
+      </div>
+    </div>
+    <div class="main-modal-body" *ngIf="!sentRetard">
+      <div class="retard-form" *ngIf="!sentRetard">
+        <form style="height: 100%;">
+          <ion-grid style="height: 100%;">
+            <ion-row>
+              <ion-col>
+                <h4 style="color: #C6C6C6;"> {{this._result.translation.retard_title}} </h4>
+              </ion-col>
+            </ion-row>
+            <ion-row style="height: 100%; align-items: center;">
+              <ion-col class="decrement-col" size="3">
+                <button (click)="decrementRetard()" class="btn-round-main"> <span> - </span></button>
+              </ion-col>
+              <ion-col size="6">
+                <h4 class="retard-counter"> <span>{{retardCounter}}</span>
+                  <span>{{_result?.translation?.min ? _result?.translation?.min : "MIN"}}</span> 
+                </h4>
+              </ion-col>
+              <ion-col class="increment-col" size="3">
+                <button (click)="incrementRetard()" class="btn-round-main"><span> + </span></button>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="btn-main add-retard-button" (click)="addRetard()">{{this._result.translation.btn_save_retard}}
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="success-modal-body" *ngIf="sentRetard">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h2>{{this._result.translation.retard_success_title}}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>{{this._result.translation.retard_success_msg}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleRecuperant ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+    <div class="main-modal-header">
+      <img src="assets/icon/close.svg" class="main-close" (click)="closeRecuperant()" alt="">
+      <div class="default-modal-header-text">
+        <!-- <img src="assets/icon/clock.svg" alt=""> -->
+        <!-- <h4></h4> -->
+      </div>
+    </div>
+
+    <div class="main-modal-body" *ngIf="!sentRecuperant">
+      <div class="recuperant-form" *ngIf="!sentRecuperant">
+        <form action="" style="height: 100%;">
+          <ion-grid style="height: 100%;">
+            <ion-row style="margin-bottom: 35px;">
+              <ion-col size="4" *ngFor="let personne of _result.personne_autorizeds">
+                <div class="checkgroup" (click)="toggleCheckgroup(personne)">
+                  <div [class]="'img-wrapper '+(personne.verified?'':'disabled')">
+                    <img [src]="personne.image" class="img-circle" alt="">
+                    <input type="radio" class="d-none" name="personne" [(ngModel)]="pickup_personne" value="{{personne.id}}">
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <button (click)="addRecuperant()" class="add-recuperant">+</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="btn-main" (click)="saveRecuperant()">{{this._result.translation.btn_add_authorized}}</div>
+        </form>
+      </div>
+    </div>
+
+    <div class="success-modal-body" *ngIf="sentRecuperant">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <h2 id="recuperant-success-title">{{this._result.translation.authorized_success_title}}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p id="recuperant-success-msg">{{this._result.translation.authorized_success_msg}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleFormRecuperant ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+    <div class="main-modal-header">
+      <img src="assets/icon/close.svg" class="main-close" (click)="closeFormRecuperant()" alt="">
+      <div class="default-modal-header-text">
+        <!-- <img src="assets/icon/clock.svg" alt=""> -->
+        <!-- <h4></h4> -->
+      </div>
+    </div>
+    <div class="main-modal-body">
+      <div class="recuperant-form">
+        <form (ngSubmit)="saveFormRecuperant()" [formGroup]="formGroup" style="height: 100%;">
+          <ion-grid style="height: 100%;">
+            <ion-row>
+              <ion-col>
+                <h4>
+                </h4>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <input type="text" class="form-control" formControlName="nom" [placeholder]=" _result?.translation?.Nom ? _result?.translation?.Nom : 'Nom'">
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <input type="text" class="form-control" formControlName="prenom" [placeholder]=" _result?.translation?.Prenom ? _result?.translation?.Prenom : 'Prenom'">
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <input type="text" class="form-control" formControlName="cin" [placeholder]=" _result?.translation?.CIN ? _result?.translation?.CIN : 'CIN'">
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <input type="text" class="form-control" formControlName="tel" [placeholder]=" _result?.translation?.GSM ? _result?.translation?.GSM : 'GSM'">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <button class="btn-main" type="submit">{{this._result.translation.btn_save_new_authorized}}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="_result && _result.new_personne" class="main-modal" [ngClass]="_toggleSms ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+    <div class="main-modal-header">
+      <img src="assets/icon/close.svg" class="main-close" (click)="closeSms()" alt="">
+      <div class="default-modal-header-text">
+        <!-- <img src="assets/icon/clock.svg" alt=""> -->
+        <!-- <h4></h4> -->
+      </div>
+    </div>
+    <div class="main-modal-body">
+      <div class="recuperant-form">
+        <form action="" class="form-sms" style="height: 100%;">
+          <ion-grid style="height: 100%;">
+            <ion-row>
+              <ion-col>
+                <h4>{{this._result.translation.sms_title}}</h4>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <input type="text" class="form-control" [(ngModel)]="_result.new_personne.code_verification"
+                  name="code_verification" placeholder="GSM">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="btn-main" (click)="confirmSms()">{{this._result.translation.btn_confirm_sms}}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,196 @@
+
+.actions {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+}
+
+.menu-toggle {
+    // position: absolute;
+    // left: 20px;
+    background-color: #fff;
+padding: 0px 10px;
+    img {
+        width: 25px;
+        height: 25px;
+    }
+}
+ion-header{
+    ion-toolbar{
+        --background: #fff;
+        --color: #171656;
+        ion-button{
+            --color: #171656;
+            color: #171656;
+        }
+        
+    }
+}
+ion-header {
+    background-color: #fff;
+    color: #171656;
+
+    ion-title {
+        .toolbar-title {
+            color: #171656;
+        }
+    }
+
+    .bar-button-menutoggle ion-icon::before {
+        content: "";
+        background-image: url(../../../../assets/imgs/menu_icon_dark.svg);
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
+
+.d-main-banner {
+    padding: 0px 32px 22px;
+
+    h3 {
+        font-size: 22px;
+    }
+}
+
+.bg-white {
+    background-color: #FFF;
+    border-bottom-left-radius: 48px;
+}
+
+
+.to-do-lists {
+    padding: 10px 8px;
+
+    .item {
+        background-color: #FFF;
+        position: relative;
+        padding: 10px;
+        padding-bottom: 0px;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        margin-bottom: 20px;
+        box-shadow: 2px 2px 20px #f3f3f6;
+        border-radius: 7px;
+
+        .image {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            text-align: center;
+            width: 100px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .image_card {
+                width: 50px;
+                height: 50px;
+                background-size: cover;
+                position: absolute;
+                border-radius: 3px;
+            }
+
+            .image_card:nth-child(1) {
+                left: 0;
+                top: 10px;
+            }
+
+            .image_card:nth-child(2) {
+                right: 10px;
+                top: 0;
+
+            }
+
+            .image_card:nth-child(3) {
+                bottom: 0px;
+                margin: auto;
+                text-align: center;
+                left: 0;
+                right: 0;
+            }
+        }
+
+        .item-description {
+            position: relative;
+            margin-inline-end: 100px;
+
+            h3 {
+                margin: 0px 0px 2px;
+                font-size: 13px;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 500;
+            }
+
+            span.eleves {
+                position: relative;
+                display: block;
+                margin-top: 12px;
+                margin-bottom: 5px;
+
+                span:last-child {
+                    width: auto;
+                    height: auto;
+                    color: #000;
+                    font-weight: 500;
+                    margin-inline-start: 10px;
+                    border-radius: 0;
+                    float: right;
+                    margin-top: 6px;
+                    background-color: transparent;
+                    margin-inline-end: -22%;
+                }
+
+                span {
+                    position: relative;
+                    background-color: #e9e3e3;
+                    background-size: cover;
+                    margin: auto;
+                    border-radius: 50%;
+                    width: 23px;
+                    height: 23px;
+                    border-radius: 50%;
+                    margin-inline-start: -6px;
+                    display: inline-block;
+
+                    div {
+                        position: absolute;
+                        font-size: 10px;
+                        text-align: center;
+                        display: block;
+                        left: 0;
+                        right: 0;
+                        margin: auto;
+                        top: 5px;
+                        font-weight: 800;
+                        color: #000;
+                    }
+                }
+            }
+
+            span {
+                font-size: 11px;
+                color: #A7A7A7;
+
+                ion-icon {
+                    font-size: 18px;
+                    vertical-align: middle;
+                    position: relative;
+                    top: -2px;
+                }
+            }
+
+            .arrow-right {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 5px;
+                font-size: 25px;
+                color: #BBBBBC;
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+<app-enseignant-header [isRoot]="false" title="Demandes"></app-enseignant-header>
+
+<ion-content>
+  <section class="form-demande" *ngIf="_result?.data[0]">
+    <!-- <h3>{{_result.translation.repondre_question}}</h3> -->
+    <form (ngSubmit)="send()" [formGroup]="formGroup">
+        <div class="form-group" *ngFor="let question of _result.data[0].questions">
+            <label for="">{{question.label}} <b *ngIf="question.required">*</b> </label>
+            <ion-item *ngIf="question.type == 'datepicker' ">
+                <ion-datetime displayFormat="MM/DD/YYYY" placeholder="{{question.label}}" doneText="Choisir"
+                    cancelText="Annuler" formControlName="question_{{question.id}}"
+                    [(ngModel)]="question.reponse"></ion-datetime>
+            </ion-item>
+            <ion-item *ngIf="question.type == 'input' ">
+                <input type="text" class="form-control" placeholder="{{question.label}}"
+                    formControlName="question_{{question.id}}" [(ngModel)]="question.reponse" />
+            </ion-item>
+            <ion-item *ngIf="question.type == 'textarea' ">
+                <textarea class="form-control" placeholder="{{question.label}}"
+                    formControlName="question_{{question.id}}" [(ngModel)]="question.reponse"></textarea>
+            </ion-item>
+            <ion-item *ngIf="question.type == 'select' ">
+                <ion-select okText="Ok" cancelText="Fermer" placeholder="{{question.label}}"
+                    formControlName="question_{{question.id}}" [(ngModel)]="question.reponse">
+                    <ion-option *ngFor="let reponse of question.reponses"
+                        [value]="reponse.label">{{reponse.label}}</ion-option>
+                </ion-select>
+            </ion-item>
+        </div>
+        <div class="btn-actions bottom">
+            <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+                {{_result.translation.terminer}}
+                <img src="assets/imgs/icon/right-arrow.svg" alt="">
+            </button>
+        </div>
+    </form>
+</section>
+
+<div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+</div>
+</ion-content>

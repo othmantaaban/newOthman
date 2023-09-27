@@ -1,0 +1,48 @@
+<app-enseignant-header [isRoot]="false" [title]="_result?.translation.competences"></app-enseignant-header>
+
+<ion-content>
+  <div *ngIf="_result?.empty == true" class="page-container bg-gris">
+
+    <div class="aucun-examens" [hidden]="!_result.empty">
+      <img src="{{_result.empty.img}}" alt="">
+      <h3>{{_result.empty.label}}</h3>
+    </div>
+    <div class="to-do-lists" *ngIf="_result">
+      <div class="item" *ngFor="let result of _result.data" (click)="examenDetails(result)">
+        <div class="image">
+          <span class="date">
+            <div class="day">{{result.date.jour}}</div>
+            <span class="month text-uppercase">{{result.date.mois}}</span>
+          </span>
+        </div>
+        <div class="item-description">
+          <h3>{{result.label}}</h3>
+          <span *ngFor="let classe of result.classes" class="group">{{classe}}</span>
+          <ul class="list-unstyled">
+            <li><img src="assets/icon/clock-gris.svg" alt=""> {{result.seance}}</li>
+            <li><img src="assets/icon/salle.svg" alt=""> {{result.salle}}</li>
+          </ul>
+          <span *ngFor="let competence of result.competences" class="group">{{competence}}</span>
+
+          <ion-icon name="arrow-forward" class="arrow-right"></ion-icon>
+        </div>
+      </div>
+      <!-- end item -->
+    </div>
+  </div>
+  <div *ngIf="_result?.empty" class="vertical-center no-result ">
+    <img src="{{_result.empty.img}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty.label"></h3>
+  </div>
+
+  <!-- <ion-fab slot="fixed" horizontal="end" vertical="bottom" *ngIf="_result?.empty == false">
+    <ion-fab-button class="btn-main fixed-bottom" (click)="showExamenform()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+  <!-- <ion-fab *ngIf="_result?.empty == false" right bottom>
+    <ion-fab-button class="btn-main btn-circle" (click)="showExamenform()">
+        <ion-icon name="md-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+</ion-content>

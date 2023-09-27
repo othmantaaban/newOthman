@@ -1,0 +1,50 @@
+<ion-content [style]="{ '--background': (backgroundColor||'var(--main-color)') }" #Content>
+  <ion-header mode="ios">
+    <ion-toolbar>
+      <ion-button (click)="closeModal()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid class="main">
+    <ion-row class="header">
+      <ion-col *ngIf="logo" size="12">
+        <ion-img [src]="logo"></ion-img>
+      </ion-col>
+      <ion-col>
+        <div *ngIf="title" class="label">
+          {{title}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="slides">
+        <ion-slides #swiper  [options]="{ slidesPerView : 1, loop : false }">
+          <ion-slide *ngFor="let slide of slides">
+            <div>
+              <video class="video-slide" *ngIf="slide.video" [src]="slide.video"></video>
+              <img class="img-slide" *ngIf="slide.img" [src]="slide.img">
+              <iframe class="iframe-slide" *ngIf="slide.youtube" [src]="getSanitizedUrl(slide.youtube)"></iframe>
+              <div *ngIf="slide.content" class="ion-margin-top" [innerHTML]="slide.content"></div>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer mode="ios">
+  <ion-toolbar mode="ios">
+    <div class="sliderOption">
+      <ion-button (click)="closeModal()" class="skip">skip</ion-button>
+      <div class="pagination">
+        <ng-container *ngFor="let item of slides; let i = index">
+          <span [class.active]="+activeIndex === +i"></span>
+        </ng-container>
+      </div>
+      <ion-button class="next" (click)="slideToNext()">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

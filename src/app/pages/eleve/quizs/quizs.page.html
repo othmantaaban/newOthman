@@ -1,0 +1,30 @@
+<ion-content padding>
+  <section *ngIf="_result?.data?.length > 0">
+    <div class="ressources-matiere">
+      <h2> {{_result.translation.title}} </h2>
+      <h5>{{_result.translation._quiz}}</h5>
+      <div class="ressources">
+        <div *ngFor="let ressource of _result.data" class="ressource" [ngStyle]="{'background-color': ressource.color}"
+          (click)="quiz(ressource.id, ressource.matiere_id)">
+          <ion-row align-items-center class="ion-no-padding">
+            <ion-col size="8" class="ion-no-padding">
+              <h3>{{ressource.label}}</h3>
+              <p>{{ressource.presentation}}</p>
+              <span>{{ressource.matiere}}</span>
+            </ion-col>
+            <ion-col col-3 class="ion-no-padding" class="text-center">
+              <div class="icon-container " style="margin-inline-start: auto;">
+                <img class="icon" src="{{ressource.icon}}" />
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+</ion-content>

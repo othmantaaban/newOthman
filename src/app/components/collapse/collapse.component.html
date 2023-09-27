@@ -1,0 +1,5 @@
+<a (click)="toggleAccordion($event)">
+  <ng-content select="[collapseTitle]"></ng-content>
+  <ion-icon *ngIf="showArrow" class="collapse-arrow" [name]="open?'chevron-up':'chevron-down'"></ion-icon>
+</a>
+<ng-content *ngIf="open" select="[collapseContent]"></ng-content>

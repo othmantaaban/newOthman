@@ -1,0 +1,30 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <section>
+    <div class="bibliotheque-matiere">
+      <div class="bibliotheque">
+
+        <div *ngFor="let ressource of ressources" class="ressource" (click)="openRessourcesDetails(ressource)" [ngStyle]="{'background-color': '#'+ressource.color}">
+          <ion-row align-items-center no-padding class="">
+            <ion-col size="8" no-padding>
+              <h3>{{ressource.title}}</h3>
+              <div *ngIf="ressource.html" [innerHTML]="ressource.html" ></div>
+              <span>{{ressource.date}}</span>
+            </ion-col>
+            <ion-col col-3 no-padding class="text-center">
+              <div class="icon-container">
+                <img class="icon" src="{{ressource.image}}" />
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+</ion-content>

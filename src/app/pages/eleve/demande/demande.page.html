@@ -1,0 +1,41 @@
+<app-parent-header [title]="translation?.title||''" />
+
+<ion-content>
+  <section class="details-demande">
+    <div class="overlay"></div>
+    <div class="content-scroll">
+      <div class="demande">
+        <ion-grid >
+          <ion-row>
+            <ion-col class="text-left" size="8">
+              <div class="border"></div>
+              <h4>{{demande.type}}</h4>
+              <span class="date">{{demande.cree}} : {{demande.created_at}}</span>
+            </ion-col>
+            <ion-col class="text-center">
+              <img src="{{demande.icone}}" class="imgicon" alt="">
+              <h6 class="{{getColor(demande.statut)}}">{{demande.statut}}</h6>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <!-- <div class="varow-xs row-pad-sm">
+          <div class="vacol-xs-8 text-left">
+            <div class="border"></div>
+            <h4>{{demande.type}}</h4>
+            <span class="date">{{demande.cree}} : {{demande.created_at}}</span>
+          </div>
+          <div class="vacol-xs-4 text-center">
+            <img src="{{demande.icone}}" class="imgicon" alt="">
+            <h6 class="{{getColor(demande.statut)}}">{{demande.statut}}</h6>
+          </div>
+        </div> -->
+      </div>
+      <ul class="list-unstyled">
+        <li *ngFor="let reponce of demande['reponses']"><span>{{reponce.label}} : </span>{{reponce.reponse}}
+        </li>
+        <li *ngIf="demande.html" [innerHTML]="demande.html" ></li>
+      </ul>
+      <button *ngIf="demande.file" (click)="downloadFile(demande.file)" class="btn btn-main btn-block mt-3"> {{translation.download}} </button>
+    </div>
+  </section>
+</ion-content>

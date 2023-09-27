@@ -1,0 +1,143 @@
+.form-group {
+  margin-bottom: 25px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .eleve-div {
+    text-align: center;
+    margin-top: 15px;
+
+    .eleve-wrapper {
+      height: 60px;
+      width: 60px;
+      margin: auto;
+      text-align: center;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px dashed #D9D9D9;
+      position: relative;
+
+      // padding: 3px;
+      .eleve-img {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        height: 100%;
+        width: 100%;
+
+        img {
+          width: 54px;
+          height: 54px;
+          border-radius: 50px;
+          position: relative;
+        }
+      }
+    }
+
+    h5 {
+      margin: 0;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    &.active {
+
+      .eleve-wrapper {
+        .eleve-img {
+          &::after {
+            content: '';
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: #26CD7DBF;
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: url(../../../../assets/icon/check-white.svg) no-repeat;
+          background-size: 100%;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  .card {
+    padding: 30px 10px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.09);
+    background-color: #fff;
+    font-weight: 600;
+    text-align: center;
+
+    &.active {
+      color: #FFFFFF;
+      background-color: #55CA8A;
+    }
+  }
+
+  // .mode-paiement {
+  //   ion-col:first-child {
+  //     padding-right: 10px;
+  //   }
+
+  //   ion-col:last-child {
+  //     padding-left: 10px;
+  //   }
+  // }
+
+  .form-input {
+    background: #FFFFFF;
+    border: 1px solid #D2D2D2;
+    border-radius: 11px;
+    padding: 15px 20px;
+    font-size: 14px;
+
+    &::placeholder {
+      font-size: 14px;
+      color: #B6B6B6;
+      font-weight: 500;
+    }
+  }
+
+  .file-select {
+    >div {
+      background: #FFFFFF;
+      border: 1px solid #D2D2D2;
+      border-radius: 11px;
+      padding: 15px 20px;
+      font-size: 14px;
+      width: 100%;
+      color: #B6B6B6;
+      font-weight: 500;
+      &.hasFile{
+        color: #000000;
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  }
+
+  .btn-main{
+    width: 100%;
+    padding: 20px;
+    border-radius: 50px;
+    font-size: 16px;
+  }
+}

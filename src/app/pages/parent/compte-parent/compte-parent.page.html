@@ -1,0 +1,129 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content>
+  <section class="form-compte" *ngIf="parent && _result">
+    <form (ngSubmit)="send()" [formGroup]="formGroup">
+
+      <div class="photo_eleve" (click)="cropImage()">
+        <div class="img_container">
+          <div class="photo_icon">
+            <ion-icon name="camera"></ion-icon>
+            <!-- <span *ngIf="_result?.translation">{{_result?.translation?.modifier}}</span> -->
+          </div>
+          <img class="img-responsive" src="{{photo}}" />
+        </div>
+      </div>
+      <ion-grid *ngIf="_result?.translation" class="ion-no-padding" fixed>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+          <label for="">{{_result?.translation?.sexe}}</label>
+          </ion-col>
+          <ion-col size="12">
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col *ngFor="let sexe_type of _result?.translation?.sexe_types">
+                    <div class="d-flex align-items-center">
+                      <input type="radio" formControlName="sexe"  [(ngModel)]="sexe" mode="md" slot="start" [id]="'sexe'+sexe_type.value" name="sexe" [value]="sexe_type.value">
+                      <label [for]="'sexe'+sexe_type.value">{{sexe_type.label}}</label>
+                    </div>
+                      <!-- <ion-label>{{sexe_type.label}}</ion-label> -->
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- <ion-select okText="Ok" cancelText="Fermer" placeholder="{{_result?.translation?.sexe}}"
+            formControlName="sexe" [(ngModel)]="sexe">
+              <ion-select-option *ngFor="let sexe_type of _result?.translation?.sexe_types" [value]="sexe_type.value">
+                {{sexe_type.label}}</ion-select-option>
+            </ion-select> -->
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label for="">{{_result?.translation?.email}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <input type="email" class="form-control" placeholder="{{_result?.translation?.email}}" formControlName="email"
+              [(ngModel)]="email" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label for="">{{_result?.translation?.tel}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <input type="number" class="form-control" placeholder="{{_result?.translation?.tel}}" formControlName="tel"
+              [(ngModel)]="tel" />
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label for="">{{_result.translation.adresse?_result.translation.adresse:'Adresse'}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <textarea class="form-control"
+              placeholder="{{_result.translation.adresse?_result.translation.adresse:'Adresse'}}"
+              formControlName="adresse" [(ngModel)]="adresse"></textarea>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label for="">{{_result.translation.langue?_Langue.translation.langue:'Langue'}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col class="empty_col">
+                  <input type="radio" class="form-control check_flag" formControlName="lang" [value]="'ar'"
+                    [(ngModel)]="lang" />
+                  <span class="flag-icon flag-icon-ma" style="margin-inline-start:10px;margin-top: 6px;"></span>
+                </ion-col>
+                <ion-col class="empty_col">
+                  <input type="radio" class="form-control check_flag" formControlName="lang" [value]="'fr'"
+                    [(ngModel)]="lang" />
+                  <span class="flag-icon flag-icon-fr" style="margin-inline-start:10px;margin-top: 6px;"></span>
+                </ion-col>
+                <ion-col class="empty_col">
+                  <input type="radio" class="form-control check_flag" formControlName="lang" [value]="'en'"
+                    [(ngModel)]="lang" />
+                  <span class="flag-icon flag-icon-us" style="margin-inline-start:10px;margin-top: 6px;"></span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <input type="hidden"  class="form-control" placeholder="{{_result?.translation?.prenom_fr}}"
+        formControlName="prenom" [(ngModel)]="prenom" />
+      <input type="hidden"  class="form-control" placeholder="{{_result?.translation?.nom_fr}}"
+        formControlName="nom" [(ngModel)]="nom" />
+
+
+      <!-- <div class="form-group">
+        <ion-row>
+          <ion-col class="empty_col">
+            <input type="radio" class="form-control check_flag" formControlName="lang" [value]="'ar'"
+              [(ngModel)]="lang" />
+            <span class="flag-icon flag-icon-ma" style="margin-inline-start:10px;margin-top: 6px;"></span>
+          </ion-col>
+          <ion-col class="empty_col">
+            <input type="radio" class="form-control check_flag" formControlName="lang" [value]="'fr'"
+              [(ngModel)]="lang" />
+            <span class="flag-icon flag-icon-fr" style="margin-inline-start:10px;margin-top: 6px;"></span>
+          </ion-col>
+          <ion-col class="empty_col">
+            <input type="radio" class="form-control check_flag" formControlName="lang" [value]="'en'"
+              [(ngModel)]="lang" />
+            <span class="flag-icon flag-icon-us" style="margin-inline-start:10px;margin-top: 6px;"></span>
+          </ion-col>
+        </ion-row>
+      </div> -->
+      <div class="btn-actions bottom">
+        <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+          {{_result?.translation?.enregistrer}}
+          <img src="assets/imgs/icon/right-arrow.svg" alt="">
+        </button>
+      </div>
+    </form>
+  </section>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header class="header" [translucent]="true">
+  <ion-toolbar mode="md">
+  </ion-toolbar>
+</ion-header>
+<div class="map-marker">
+  <ion-icon name="location-sharp"></ion-icon>
+</div>
+<ion-content [fullscreen]="true">
+  <ion-header mode="ios" class="link">
+    <a href="">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+      <span>
+        <!-- retour -->
+        {{ _result?.translation?.back ? _result?.translation?.back : "retour" }}
+      </span>
+    </a>
+  </ion-header>
+  <ion-grid *ngIf="_result">
+    <ion-row>
+      <ion-col class="parent flex" size="12">
+        <ion-img [src]="_result.parent?.img"></ion-img>
+        <div class="name">{{_result?.parent?.nom}}</div>
+      </ion-col>
+      <ion-col class="childs"  size="12">
+        <div class="child flex" *ngFor="let item of _result.inscriptions">
+          <ion-img [src]="item.img"></ion-img>
+          <div class="name">{{item.nom}}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button *ngIf="_result" class="checkout-button" expand="block" (click)="setParentarrived(_result.parent)">
+    <!-- Parent (tuteur) Arrivé -->
+    {{ _result?.translation?.tuteur ? _result?.translation?.tuteur : "Parent (tuteur) Arrivé" }}
+  </ion-button>
+</ion-content>

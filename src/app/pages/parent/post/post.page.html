@@ -1,0 +1,143 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+
+    <ng-container *ngIf="result">
+        <div class="header">
+            <div class="sub-header">
+                <span class="categorie">{{result.categorie}}</span> - <time>{{ result.date }}</time>
+            </div>
+            <div class="title">
+                <h2>{{result.title}}</h2>
+            </div>
+        </div>
+        <div *ngIf="result.image||(result.description&&result.description!='')" class="content-card">
+            <div *ngIf="result.image" class="content-image">
+                <img src="{{result.image}}" alt="">
+            </div>
+            <div [innerHtml]="description" class="content"></div>
+        </div>
+        <div class="author" *ngIf="result.user">
+            {{_result?.translation?.label_author}} <span>{{result.user.nom}}</span>
+        </div>
+        <div *ngIf="result.files&&result.files.length > 0" class="files-card">
+            <div class="file-item" *ngFor="let file of result.files">
+                <img src="" *ngIf="file.icon" alt="">
+                <h5>{{file.text}}</h5>
+                <div class="actions">
+                    <button *ngIf="file.mime && (file.mime.type.split('/')[0] != 'application' || file.mime.ext == 'pdf')" (click)="preview(file)">
+                        <ion-icon *ngIf="file.mime.type.split('/')[0] != 'audio';else audioResource" name="eye"></ion-icon>
+                        <ng-template #audioResource>
+                          <ion-icon *ngIf="file.playing;else notPlaying" name="square"></ion-icon>
+                          <ng-template #notPlaying>
+                            <ion-icon name="ios-play"></ion-icon>
+                          </ng-template>
+                        </ng-template>
+                      </button>
+                    <!-- <button>
+                        <ion-icon name="eye"></ion-icon>
+                    </button> -->
+                    <button>
+                        <ion-icon name="download" (click)="downloadFile(file)"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <div class="quiz mt-3" *ngIf="result.quiz">
+                <div *ngFor="let q of result.quiz;let i = index">
+                    <div>
+                        <h3 class="quiz-heading">{{q.label}} :</h3>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col *ngFor="let res of q.reponses" size="6">
+                                    <button [ngClass]="{'active-res' : (q.res == res)} " (click)="send_rep_quiz(q,res,i)">
+                                        {{res}}
+                                    </button>
+    
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                        <!-- <div class="grid-res">
+                            <div >
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+    
+            <!-- <div *ngIf="result.permitQuiz" class="quiz_container">
+                <div class="row">
+                    <div class="col" *ngFor="let res of result.reponses">
+                        <button (click)="send_quiz(res)" class="btn btn-main btn-quiz-oui">{{res}}</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div *ngIf="result.quizDone" class="quiz_container_done">
+                <img class="img-responsive" src="{{result.quizDone.icon}}" />
+                <p>{{result.quizDone.txt}}</p>
+            </div> -->
+    
+            <div *ngIf="_result?.data?.images.length > 0" class="post_images">
+                <ion-slides pager="true" zoom>
+                    <ion-slide *ngFor="let image of _result.data.images;let i = index">
+                        <div class="swiper-zoom-container">
+                            <img class="img-responsive" (click)="previewImages(i,$event)" src="{{image.image_path}}" />
+                            <button (click)="downloadImage(image)"
+                                class="btn btn-main">{{_result?.translation?.download}}</button>
+                        </div>
+                    </ion-slide>
+                </ion-slides>
+            </div>
+            <div *ngIf="result.permitComments" class="comments_container">
+                <h3 *ngIf="_result?.data?.commentaires?.length > 0;else noComments">{{_result?.data?.commentaires?.length}} {{_result?.translation?.commentaires}} :</h3>
+                <ng-template #noComments>
+                    <h3>{{_result?.translation?.no_commentaires||'Laisser un commentaire'}} :</h3>
+                </ng-template>
+                <div class="chatbox">
+    
+                    <div class="chatbox-messages" *ngIf="_result?.data?.commentaires?.length > 0">
+                        <div class="messages clear" *ngFor="let commentaire of _result.data.commentaires">
+                            <span class="avatar">
+                                <img src="{{commentaire.img}}" alt="{{commentaire.nom}}" />
+                            </span>
+                            <div class="sender">
+                                <div class="message-container">
+                                    <div class="message">
+                                        <p><span>{{commentaire.nom}}</span>{{commentaire.commentaire}}</p>
+                                    </div>
+                                    <span class="delivered">{{ commentaire.date }}</span>
+                                </div><!-- /.message-container -->
+    
+                            </div><!-- /.sender -->
+                        </div><!-- /.messages -->
+    
+                    </div><!-- /.chatbox-messages -->
+    
+    
+                    <div *ngIf="result.permitNewComments" class="message-form-container">
+    
+                        <form (ngSubmit)="send()" class="message-form" [formGroup]="formGroup">
+                            <textarea id="commentaire" name="commentaire" [(ngModel)]="commentaire"
+                                formControlName="commentaire"
+                                placeholder="{{_result?.translation?.votre_commentaire}}"></textarea>
+                            <button class="send-btn" type="submit" [disabled]="!formGroup.valid">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.2 30.1">
+                                    <path class="st0"
+                                        d="M2.1 14.6C8.9 12 28.5 4 28.5 4l-3.9 22.6c-0.2 1.1-1.5 1.5-2.3 0.8l-6.1-5.1 -4.3 4 0.7-6.7 13-12.3 -16 10 1 5.7 -3.3-5.3 -5-1.6C1.5 15.8 1.4 14.8 2.1 14.6z" />
+                                </svg>
+                            </button>
+                        </form><!-- /.search-form -->
+    
+    
+                    </div><!-- /.message-form-container -->
+    
+                </div><!-- /.chatbox -->
+            </div>
+    
+        </div>
+    </ng-container>
+
+</ion-content>

@@ -1,0 +1,101 @@
+<app-enseignant-header [isRoot]="false" [title]="result?.translation?.title"></app-enseignant-header>
+
+<ion-content>
+  <div class="form-header" hidden>
+    <h3><img src="assets/icon/edit-black.svg" alt=""></h3>
+    <img src="assets/icon/close.svg" menuToggle class="close-form" alt="">
+  </div>
+
+  <form *ngIf="result" [formGroup]="formGroup">
+    <div class="form-body">
+
+      
+      <div class="form-group" *ngIf="result.data.classes.length>1; hasOneClasse">
+        <ion-item>
+          <ion-label>{{result.translation.classes}}</ion-label>
+          <ion-select *ngIf="result?.data?.classes"
+            [(ngModel)]="examen.classe" name="classes" formControlName="classe"
+            okText="{{result.translation.choisir}}" cancelText="{{result.translation.fermer}}"
+            placeholder="{{result.translation.classes}}">
+            <ion-select-option *ngFor="let classe of result.data.classes" [value]="classe.id">{{classe.label}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <ng-template #hasOneClasse>
+        <input type="hidden" name="classes" [(ngModel)]="examen.classe">
+      </ng-template>
+      
+      <div class="form-group" *ngIf="result.data.unites.length > 1">
+        <ion-item>
+          <ion-label>{{result.translation.unite}}</ion-label>
+          <ion-select 
+            *ngIf="result?.data?.unites" 
+            [(ngModel)]="examen.unite" name="unite"
+            formControlName="unite" 
+            okText="{{result.translation.choisir}}"
+            cancelText="{{result.translation.fermer}}" 
+            placeholder="{{result.translation.unite}}"  
+          >
+            <ion-select-option 
+              *ngFor="let unite of result.data.unites" 
+              [value]="unite"
+            >
+              {{unite.label}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      
+      <div class="form-group" *ngIf="examen?.unite?.matieres?.length > 0">
+        <ion-item>
+          <ion-label>{{result.translation.matiere}}</ion-label>
+          <ion-select 
+            [(ngModel)]="examen.matiere" 
+            name="matiere"
+            formControlName="matiere" 
+            okText="{{result.translation.choisir}}"
+            cancelText="{{result.translation.fermer}}" 
+            placeholder="{{result.translation.matieres}}">
+            <ng-container *ngFor="let matiere of examen?.unite?.matieres">
+              <ion-select-option 
+                [selected]="examen?.unite?.matieres?.length == 1"
+                [value]="matiere.id"
+                >
+                {{matiere.label}}
+              </ion-select-option>
+            </ng-container>
+            <!-- <ion-select-option [selected]="examen?.unite?.matieres?.length == 1" *ngFor="let matieres of examen?.unite?.matieres" [value]="matieres.id">{{matieres.label}}
+            </ion-select-option> -->
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <div class="form-group" *ngIf="result.data.types.length > 1">
+        <ion-item>
+          <ion-label>{{result.translation.type}}</ion-label>
+          <ion-select *ngIf="result?.data?.types" [(ngModel)]="examen.type" name="type"
+            formControlName="type" okText="{{result.translation.choisir}}"
+            cancelText="{{result.translation.fermer}}" placeholder="{{result.translation.type}}">
+            <ion-select-option *ngFor="let type of result.data.types" [value]="type">{{type.label}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+     
+      <div class="form-group">
+        <label>{{result.translation.date}}</label>
+        <ion-datetime presentation="date" [(ngModel)]="examen.date" name="date" formControlName="date"> </ion-datetime>
+        <!-- <ion-calendar [type]="'string'" [(ngModel)]="examen.date" name="date" formControlName="date"
+          [format]="'YYYY-MM-DD'"> </ion-calendar> -->
+      </div>
+      
+    </div>
+  </form>
+
+  <ion-fab bottom *ngIf="result">
+    <button [disabled]="!formGroup.valid" (click)="submit()"
+      class="btn-main btn-block text-center fixed-bottom">{{result.translation.enregistrer}}</button>
+  </ion-fab>
+</ion-content>

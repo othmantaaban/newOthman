@@ -1,0 +1,187 @@
+.dash-grid {
+  overflow-x: hidden;
+  .absence {
+    overflow: hidden;
+    .absence-col-parent {
+      height: fit-content;
+      padding-bottom: 17px;
+      border-bottom: 0.6px solid #ECECEC;
+      @media (max-width: 1000px) {
+        & {
+          min-width: calc(100% - 10px);
+        }
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row-reverse;
+        .date {
+          color: #9A9A9A;
+          font-family: Manrope;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: -0.7px;
+        }
+      }
+
+      .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .info {
+          flex: 2;
+          display: flex;
+          gap: 10px;
+          .pic {
+            &::part(image) {
+              width: 41px;
+              height: 41px;
+              border-radius: 50%;
+              object-fit: fill;
+              overflow: hidden;
+            }
+          }
+          .userInfo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            .name {
+              color: var(--main-text-color);
+              font-size: 16px;
+              font-weight: 700;
+              line-height: 20.5px; 
+              letter-spacing: -0.32px;
+            }
+            .absence-info {
+              display: flex;
+              gap: 5px;
+              flex-wrap: wrap;
+              .parent {
+                color: var(--main-color);
+                font-size: 12.727px;
+                font-weight: 600;
+                letter-spacing: -0.255px;
+                padding: 1px 10px 3px;
+                border-radius: 50px;
+                border-radius: 23.333px;
+                border: 0.424px solid var(--main-color);
+              }
+            }
+          }
+        }
+
+        .absence-validation {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+          gap: 40px;
+
+          @media (max-width: 300px) {
+            & {
+              justify-content: space-between;
+              gap: 15px;
+            }
+          }
+          .parent-icon {
+            width: 55px;
+            height: 55px;
+            --border-style: solid;
+            --border-radius: 50%;
+            --background: white;
+            --border-width: 0.4px;
+            --box-shadow: -8px 1px 25px 0px rgba(0, 0, 0, 0.10);
+            &::part(native) {
+              padding: 7px;
+            }
+            &.refuse {
+              --border-color: #F15959;
+              ion-icon {
+                font-size: 40px;
+                color : #F15959;
+              }
+            }
+
+            &.validate {
+              --border-color:#71DE56;
+              font-size: 40px;
+              ion-icon {
+                color: #71DE56;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    
+  }
+
+  .loading {
+    row-gap: 20px;
+    .header {
+      width: 30%;
+    }
+    ion-skeleton-text {
+        margin: 0;
+    }
+    ion-col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 10px;
+        .head {
+          display: flex;
+          justify-content: flex-end;
+          div {
+            width: 60%;
+          }
+        }
+        .content {
+          display: flex;
+          gap: 10px;
+          padding-bottom: 10px;
+          .main {
+              flex: 1;
+              display: flex;
+              gap: 5px;
+              .img {
+                  display: inline-block;
+                  border-radius: 50%;
+                  width: 42px;
+                  height: 42px;
+              }
+              .infos {
+                  flex: 1;
+                  .username {
+                      width: 90%;
+                      height: 13px;
+                      margin-bottom: 10px;
+                      border-radius: 3px;
+                  }
+                  .class {
+                      width: 25%;
+                      min-width: 30px;
+                      height: 13px;
+                      border-radius: 100px;
+                  }
+              }
+          }
+
+          .buttons {
+              flex: 1;
+              display: flex;
+              gap: 40px;
+              justify-content: flex-end;
+              span {
+                  display: inline-block;
+                  width: 43.533px;
+                  height: 43.533px;
+                  border-radius: 50%;
+              }
+          }
+        }
+    }
+}
+}
+

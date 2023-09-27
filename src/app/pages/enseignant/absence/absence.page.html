@@ -1,0 +1,111 @@
+<ion-header mode="md">
+  <ion-toolbar mode="md">
+    <ion-icon slot="start" (click)="goBack()" name="arrow-back" style="font-size: 30px;padding: 5px;"></ion-icon>
+    <ion-grid class="header">
+      <ion-row class="d-flex align-items-center">
+        <ion-col size="7">
+          <div class="classe-wrapper">
+            <img *ngIf="_result?.classe?.image" [src]="_result?.classe?.image" alt="" class="classe-img">
+            <div class="classe-description">
+              <h1 class="classe-title"> {{_result?.classe?.label}} </h1>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="5">
+          <button (click)="toggleDate()" class="calendar-trigger">
+            <ion-icon name="calendar"></ion-icon>
+            <div class="date"> {{date}} </div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <section *ngIf="_result?.periodes?.length > 0">
+    <ion-grid>
+      <ion-row class="mx-0 align-items-center">
+        <ion-col>
+        </ion-col>
+        <ion-col *ngFor="let periode of _result.periodes">
+          <h5 class="text-center">{{periode.label}}</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row class="mx-0 align-items-center" *ngFor="let eleve of _result.eleves">
+        <ion-col class="eleve-item">
+          <img [src]="eleve.img" alt="">
+          <div class="eleve-name">
+            {{eleve.nom}}
+          </div>
+        </ion-col>
+        <ion-col class="d-flex align-items-center" *ngFor="let periode of _result.periodes">
+          <ng-container *ngIf="hasPeriode(eleve,periode)">
+            <div class="absence-item" *ngIf="_result.can_see_absence" [ngClass]="{ active : getPeriode(eleve,periode).absent }"
+                (click)="checkAbsence(eleve,periode)">
+                <img src="{{_result.icons.absence}}" class="img-circle" alt="">
+            </div>
+            <div class="absence-item" *ngIf="_result.can_see_retard" [ngClass]="{ active : getPeriode(eleve,periode).retard }"
+                (click)="toggleRetard(eleve,periode)">
+                <img src="{{_result.icons.retard}}" class="img-circle" alt="">
+            </div>
+          </ng-container>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>
+<div *ngIf="_result" class="action-small-modal modal-date" [ngClass]="_toggleDate ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="d-modal-action">
+      <form>
+        <div class="form-group">
+          <!-- <label>{Date</label> -->
+          <ion-datetime 
+            [(ngModel)]="dateInput" 
+            name="date"
+            presentation="date"
+          ></ion-datetime>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-link" (click)="toggleDate()">
+            <!-- Annuler -->
+            {{ _result?.translation?.annuler ? _result?.translation?.annuler : 'Annuler' }}
+          </button>
+          <button type="button" class="btn-main" (click)="changeDate()">
+            <!-- Enregistrer -->
+            {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleRetard ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+      <div class="main-modal-header">
+          <div class="default-modal-header-text">
+              <img src="assets/icon/clock.svg" alt="">
+              <h4>{{_result.translation.retard}}</h4>
+              <p>{{_result?.data?.creneau}}</p>
+              <!-- <p *ngIf="currentEleve">{{currentEleve?.nom}} {{_result?.data?.creneau}}</p> -->
+              <span>{{_result?.data?.date}}</span>
+          </div>
+          <img src="assets/icon/close.svg" class="main-close" (click)="toggleRetard(retardEleve)" alt="">
+      </div>
+      <div class="main-modal-body">
+          <div class="discipline-form">
+              <form action="">
+                  <label for="">{{_result.translation.minutes_retard}}</label>
+                  <div class="form-group">
+                      <select name="retard" id="" [(ngModel)]="retardMinutes" class="form-control main-input">
+                          <option *ngFor="let minute of _result?.data?.minutes" value="{{minute}}">{{minute}}</option>
+                      </select>
+                  </div>
+                  <div class="btn-main" (click)="checkRetard()">{{_result.translation.enregistrer}}</div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

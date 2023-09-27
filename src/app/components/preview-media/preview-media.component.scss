@@ -1,0 +1,28 @@
+ion-header{
+    ion-button{
+        font-size: 26px;
+    }
+}
+.preview{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+    }
+    video{
+        max-height: 100%;
+        max-width: 100%;
+    }
+}
+ion-footer{
+    ion-col{
+        text-align: center;
+        ion-button{
+            font-size: 26px;
+        }
+    }
+}

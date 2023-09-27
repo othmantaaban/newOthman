@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "181041555447",
+    "firebase_url": "https://botischool.firebaseio.com",
+    "project_id": "botischool",
+    "storage_bucket": "botischool.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181041555447:android:38fc0ef0c23b7aea",
+        "android_client_info": {
+          "package_name": "com.smartux.botischool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181041555447-ci0154q4bjt05fi1r3lna5n1a1e2l43t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLFa-w1BhCw3jRy2Ny5070RMZZCDR66TY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

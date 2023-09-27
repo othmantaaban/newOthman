@@ -1,0 +1,148 @@
+.btn-secondary {
+  background-color: #ffffff;
+  color: #EE5F5F;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid #C7C7C7;
+}
+
+.paiements-list {
+  margin-top: 20px;
+
+  .paiement-item {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #7387EB;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.04);
+    border-radius: 15px;
+    background: rgba($color: #7387EB, $alpha: .1);
+
+    ion-grid {
+      ion-row {
+        align-items: center;
+
+        .date {
+          font-size: 12px;
+          display: grid;
+          text-align: center;
+          font-weight: 500;
+          padding: 7px 9px;
+          border-radius: 5px;
+          // border: 1px solid;
+          width: fit-content;
+          background: rgba($color: #7387EB, $alpha: .11);
+
+          .day {
+            font-size: 26px;
+            font-weight: 700;
+          }
+        }
+
+        .paiement-details {
+          .badge {
+            font-size: 11px;
+            border: 1px solid;
+            border-radius: 50px;
+            padding: 3px 12px;
+            font-weight: 500;
+          }
+
+          h4 {
+            margin: 5px 0px 0px 0px;
+          }
+
+          small {
+            font-size: 10px;
+            color: #898989;
+          }
+
+          p {
+            font-size: 10px;
+            margin: 0;
+          }
+        }
+
+        .paiement-statut {
+          border-inline-start: 1px solid #7387EB;
+          padding-left: 10px;
+          text-align: center;
+          display: grid;
+          align-items: center;
+          color: #7387EB;
+
+          span {
+            font-size: 12px;
+            font-weight: 600;
+          }
+
+          .paiement-icon {
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            margin-bottom: 5px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: rgba($color: #7387EB, $alpha: .11);
+
+            ion-icon {
+              width: 100%;
+              height: 100%;
+            }
+
+          }
+        }
+      }
+    }
+
+    &.paiement-valide {
+      border-color: #6BC44C;
+      background: #F9FCF8;
+      ion-grid {
+        ion-row {
+          align-items: center;
+  
+          .date {
+            background: rgba($color: #6BC44C, $alpha: .11);
+          }
+  
+          .paiement-statut {
+            border-inline-start: 1px solid #6BC44C;
+            color: #6BC44C;
+
+            .paiement-icon {
+              background: rgba($color: #6BC44C, $alpha: .11);
+            }
+          }
+        }
+      }
+      
+    }
+
+    &.paiement-annule {
+      border-color: #EA3939;
+      background: #FFFBFB;
+      ion-grid {
+        ion-row {
+          align-items: center;
+  
+          .date {
+            background: rgba($color: #EA3939, $alpha: .11);
+          }
+  
+          .paiement-statut {
+            border-inline-start: 1px solid #EA3939;
+            color: #EA3939;
+
+            .paiement-icon {
+              background: rgba($color: #EA3939, $alpha: .11);
+            }
+          }
+        }
+      }
+      
+    }
+  }
+}

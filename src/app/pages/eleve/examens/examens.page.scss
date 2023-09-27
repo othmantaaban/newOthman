@@ -1,0 +1,423 @@
+section {
+  margin: 20px;
+}
+
+
+.user-picture-top-page {
+  padding-left: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: #fff;
+  margin-inline-start: 0;
+  margin-top: 0;
+
+  img {
+    width: 70px !important;
+    height: 70px !important;
+    margin-inline-end: 20px;
+  }
+}
+
+.user-picture-top-page {
+  margin: 0px;
+
+  img {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-size: 17px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: var(--main-color);
+  }
+
+  span {
+    font-size: 10px !important;
+  }
+
+}
+
+.user-picture-top-page>div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+.user-picture-top-page {
+  margin: 0px;
+
+  // margin-inline-start: 30px;
+  // margin-top: 15px;
+  div:first-child {
+    // padding-right: 10px;
+  }
+
+  img {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50%;
+    border: 6px solid rgba(69, 59, 219, .1);
+  }
+}
+
+.examen_item {
+  // box-shadow: 0 1px 17px #f4f4f4;
+  border: 1px solid #C5C5C5;
+  border-radius: 10px;
+  position: relative;
+  // padding-top: 15px;
+  // padding-bottom: 15px;
+  margin-bottom: 10px;
+
+  .date_examen {
+    display: grid;
+    text-align: center;
+    height: 100%;
+    align-items: center;
+    border-inline-end: 1px solid #E0E0E0;
+
+    .jour {
+      display: block;
+      font-size: 16px;
+      font-weight: 600;
+      border-bottom: 1px solid #E0E0E0;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // padding: 15px;
+    }
+
+    .mois {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // padding: 15px;
+    }
+  }
+
+  .examen_infos {
+    // border-inline-start: 1px solid #dedede;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    // div:first-child {
+    //     width: 70%;
+    // }
+    // div:last-child {
+    //     width: 30%;
+    //     text-align: center;
+    // }
+    h1 {
+      font-size: 15px;
+      margin: 0px;
+    }
+
+    .prof {
+      font-size: 12px;
+      margin: 0px;
+      display: block;
+    }
+
+    .seance {
+      color: #aaaaaa;
+      font-size: 11px;
+      margin: 0px;
+      display: block;
+    }
+
+  }
+
+  .statut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    a {
+      height: 40px;
+      width: 40px;
+      background: #49BF80;
+      color: #ffffff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // background-color: var(--main-color);
+      // color: #ffffff;
+
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .statut-col{
+    padding: 20px 0px;
+    .statut {
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      border-inline-start: 1px solid #DBDBDB;
+      a {
+        height: 40px;
+        width: 40px;
+        background: #49BF80;
+        color: #ffffff;
+        border-radius: 10px;
+        // background-color: var(--main-color);
+        // color: #ffffff;
+  
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+  
+      span {
+        font-size: 13px;
+        font-weight: 700;
+        margin: 0px;
+        display: block;
+      }
+  
+      img {
+        width: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .result {
+    padding: 10px 25px 0px;
+    border-top: 1px solid #C5C5C5;
+    margin-inline-start: -5px !important;
+    margin-inline-end: -5px !important;
+    margin-top: 10px;
+    color: #767676;
+
+    span {
+      color: #12122C;
+      font-weight: 600;
+    }
+  }
+}
+
+.releve_item {
+  // box-shadow: 0 1px 17px #f4f4f4;
+  border: 1px solid #C5C5C5;
+  border-radius: 10px;
+  position: relative;
+  // padding-top: 15px;
+  // padding-bottom: 15px;
+  margin-bottom: 10px;
+  padding: 20px;
+
+  .date_examen {
+    display: grid;
+    text-align: center;
+    height: 100%;
+    align-items: center;
+    border-inline-end: 1px solid #E0E0E0;
+
+    .jour {
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 1px solid #E0E0E0;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // padding: 15px;
+    }
+
+    .mois {
+      display: block;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 600;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // padding: 15px;
+    }
+  }
+
+  .releve-icone{
+    ion-icon{
+      font-size: 30px;
+    }
+    img{
+      width: 30px;
+      max-height: 30px;
+    }
+  }
+
+  .examen_infos {
+    // border-inline-start: 1px solid #dedede;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+
+    // div:first-child {
+    //     width: 70%;
+    // }
+    // div:last-child {
+    //     width: 30%;
+    //     text-align: center;
+    // }
+    h1 {
+      font-size: 15px;
+      margin: 0px;
+    }
+
+    .prof {
+      font-size: 12px;
+      margin: 0px;
+      display: block;
+    }
+
+    .seance {
+      color: #aaaaaa;
+      font-size: 11px;
+      margin: 0px;
+      display: block;
+    }
+
+  }
+
+  .statut {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    a {
+      height: 40px;
+      width: 40px;
+      background: #49BF80;
+      color: #ffffff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // background-color: var(--main-color);
+      // color: #ffffff;
+      img{
+        width: 15px;
+      }
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .statut-col{
+    padding: 20px 0px;
+    .statut {
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      border-inline-start: 1px solid #DBDBDB;
+      a {
+        height: 40px;
+        width: 40px;
+        background: #49BF80;
+        color: #ffffff;
+        border-radius: 10px;
+        // background-color: var(--main-color);
+        // color: #ffffff;
+  
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+  
+      span {
+        font-size: 13px;
+        font-weight: 700;
+        margin: 0px;
+        display: block;
+      }
+  
+      img {
+        width: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .result {
+    padding: 10px 0px 0px;
+    border-top: 1px solid #C5C5C5;
+    // margin-inline-start: -5px !important;
+    // margin-inline-end: -5px !important;
+      font-weight: 500;
+      margin-top: 10px;
+    color: #767676;
+    font-size: 13px;
+
+    span {
+      color: #12122C;
+      font-size: 16px;
+      font-weight: 700;
+      margin-inline-start: 10px;
+    }
+  }
+}
+
+.pv-ligne {
+  align-items: center;
+
+  ion-col {
+    height: 100%;
+  }
+}
+
+ngb-accordion {
+  .card {
+    .card-header {
+      h5 {
+        button {
+          background: rgba($color: var(--main-color), $alpha: .2);
+          color: var(--main-color);
+          width: 100%;
+          text-decoration: none;
+          border-radius: 10px;
+          padding: 15px 30px;
+          text-align: start;
+          outline: none !important;
+
+          &:focus {
+            outline: none;
+          }
+
+          ion-icon {
+            transition: .2s;
+          }
+
+          &.collapsed {
+            background: var(--main-color);
+            color: #ffffff;
+
+            ion-icon {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<div class="grand-parent">
+  <ion-grid class="dash-grid">
+    <ng-container *ngIf="!dataIsLoading">
+      <ion-row class="header-title">
+        <ion-col size="12">
+          <ion-title mode="md" class="title-style">
+            {{ _result?.translation.disciplineAValider }}
+          </ion-title>
+        </ion-col>
+      </ion-row>
+      <ion-row class="discipline" *ngIf="disciplines?.length !== 0">
+        <ion-col
+          *ngFor="let di of disciplines"
+          class="discipline-col-parent"
+          size-sm="12"
+          size-lg="6"
+          [id]="di.id"
+        >
+          <div class="user-info">
+            <ion-img [src]="di.pic"></ion-img>
+            <div class="infos">
+              <div class="username"> {{ di.username }} </div>
+              <span class="group-style class">{{ di.class }}</span>
+            </div>
+          </div>
+          <div class="arrow">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+          <div class="disipline-info">
+            <div class="main">
+              <div class="head">{{ di.label }}</div>
+              <div class="text"> {{ sliceCommentaire(di.commentaire) }} </div>
+              <span 
+                class="group-style"
+                [class.merite]="+di.nature.flag === 1"
+                [class.contravention]="+di.nature.flag === 0"
+              >
+                {{ di.nature.label }}
+              </span>
+            </div>
+            <div class="validation-discipline">
+              <ion-button class="validate parent-icon" (click)="validateDiscipline(di.id, 'validate')">
+                <ion-icon name="checkmark-outline"></ion-icon>
+              </ion-button>
+              <ion-button class="refuse parent-icon" (click)="validateDiscipline(di.id, '')">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="disciplines.length === 0" class="no-data">
+        <ion-col>
+          {{ _result?.translation.no_data }}
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ion-row class="loading" *ngIf="dataIsLoading">
+      <div class="header"> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </div>
+      <ion-col
+        *ngFor="let i of [1, 2, 3, 4]"
+        class="discipline-col-parent"
+        size="12"
+      >
+        <div class="main">
+          <span class="img"> <ion-skeleton-text [animated]="true"></ion-skeleton-text>  </span>
+          <div class="infos">
+            <div class="username">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </div>
+            <div class="class">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </div>
+          </div>
+        </div>
+        <div class="other">
+          <div class="main-other">
+            <div class="head"> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </div>
+            <div class="content"> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </div>
+            <div class="class"> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </div>
+          </div>
+          <div class="buttons">
+            <span> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </span>
+            <span> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</div>

@@ -1,0 +1,41 @@
+.list-md {
+    .item-block {
+        .item-inner {
+            border-bottom: 1px solid #EBEBEB !important;
+
+            &:last-child {
+                border-bottom: 1px solid #EBEBEB !important;
+            }
+        }
+
+    }
+
+    .item-input {
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+.item-md {
+    font-size: 1.5rem;
+}
+
+textarea.text-input {}
+
+img {
+    max-width: 30%;
+    margin: auto;
+    display: block;
+    margin-bottom: 45px;
+}
+
+input,
+textarea {
+    font-size: 12px;
+}
+
+textarea {
+    height: 60px;
+    ;
+}

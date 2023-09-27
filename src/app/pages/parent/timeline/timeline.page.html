@@ -1,0 +1,225 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title" />
+<ion-content padding>
+  <section *ngIf="_result?.transmission && _result.transmission.length > 0" class="cahier-transmission-section section">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h6 class="d-flex align-items-center section-title"> {{ _result.translation.section_ct_title }} <div class="badge-count">
+              {{_result.transmission.length}}</div>
+          </h6>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <!-- [spaceBetween]="20" [slidesPerView]="1.3" -->
+          <ion-slides *ngIf="_result" [pager]="true" [options]="{ slidesPerView: 1.3 , spaceBetween: 20 }">
+            <ion-slide *ngFor="let action of _result.transmission">
+              <div class="card cahier-transmission-item">
+                <div class="card-body">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col *ngIf="action.img" col-4>
+                        <img [src]="action.img" alt="" class="action-img">
+                      </ion-col>
+                      <ion-col col-8>
+                        <h6 class="action-indicateur">{{action.type}}</h6>
+                        <h3 class="action-valeur">{{action.titre}}</h3>
+                        <div class="action-details" [innerHTML]="action.html"></div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section *ngIf="_result?.posts" class="nouveautes-section section">
+    <ion-grid class="ion-no-padding">
+      <ion-row *ngFor="let item of _result.posts">
+        <ion-col>
+          <div class="card radius shadowDepth1" (click)="post(item.id)">
+            <div class="card-image border-tlr-radius">
+              <img  *ngIf="item.image;else placeholder" [src]="item.image" alt="" class="border-tlr-radius">
+              <ng-template #placeholder>
+                <div class="image-placeholder">
+                  <ion-icon name="bulb-outline"></ion-icon> {{item.categorie}} 
+                </div>
+              </ng-template>
+            </div>
+            <div class="card-content">
+              <div class="content-subheader">
+                <div class="content-date">
+                  <time>{{item.date}}</time>
+                </div>
+                <div class="content-type">
+                  {{item.categorie}}
+                </div>
+              </div>
+              <div class="content-header">
+                <h2>{{item.title}}</h2>
+              </div>
+              <div *ngIf="item.user" class="content-author">
+                <!-- Publie par  -->
+                {{ _result?.translation?.par ? _result?.translation?.par : "Publie par " }}
+                <span class="author">{{item.user.nom}}</span>
+              </div>
+              <div class="content-view" *ngIf="item.vu">
+                <ion-icon name="checkmark-done-outline"></ion-icon> Vu le {{item.vu}}
+              </div>
+              <div *ngIf="item.permitQuiz" class="content-feature">
+                <ion-badge>
+                  <!-- Sondage -->
+                  {{ _result?.translation?.soundage ? _result?.translation?.soundage : "Sondage" }}
+                </ion-badge>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section *ngIf="_result?.message" class="messages-section section">
+    <div class="card message-card">
+      <div class="card-body">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="d-flex align-items-center">
+              <img [src]="_result.message.img" alt="" class="message-image">
+                <p> <b>{{_result.message.at}}</b> 
+                  <!-- a repondu à votre message  -->
+                  {{ _result?.translation?.repondu ? _result?.translation?.repondu : "a repondu à votre message" }}
+                </p>
+                  <button class="btn btn-message" (click)="messages()">
+                    <ion-icon name="mail"></ion-icon>
+                    <ion-badge mode="ios">+{{_result.message.count}}</ion-badge>
+                  </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </section>
+
+
+  <section *ngIf="_result?.ressource" class="ressources-section section">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <h6 class="d-flex align-items-center section-title">{{ _result.translation.section_ressource_title }}</h6>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="card ressources-card">
+            <div class="card-body">
+              <ion-grid class="ion-no-padding">
+                <!-- *ngIf="_result.ressource.image;else noImage" -->
+                <ion-row>
+                  <ion-col size="8">
+                    <h6>{{_result.ressource.title}}</h6>
+                    <p [innerHTML]="_result.ressource.intro"></p>
+                    <button class="btn btn-ressources" (click)="ressources(_result.ressource.unite)">{{ _result.translation.file_open}}<ion-icon
+                        name="open-outline"></ion-icon></button>
+                  </ion-col>
+                  <ion-col size="4">
+                    <div class="ressource-image-wrapper">
+                      <img [src]="_result.ressource.image" alt="" class="ressources-image">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ng-template #noImage>
+                  <ion-row>
+                    <ion-col padding>
+                      <h6>{{_result.ressource.title}}</h6>
+                      <p [innerHTML]="_result.ressource.intro"></p>
+                      <button class="btn btn-ressources" (click)="ressources()">Ouvrir le fichier <ion-icon
+                          name="open"></ion-icon></button>
+                    </ion-col>
+                  </ion-row>
+                </ng-template>
+              </ion-grid>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section *ngIf="_result?.album" class="album-section section">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <h6 class="d-flex align-items-center section-title">Nouvel album photo partagé</h6>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="card album-card" (click)="album(_result.album.id)">
+            <div class="card-body">
+              <div class="album-images">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col class="col-image">
+                      <div class="image-container">
+                        <img [src]="_result.album.images[0]" alt="">
+                      </div>
+                    </ion-col>
+                    <ion-col *ngIf="_result.album.images.length > 1" class="col-image">
+                      <div class="d-grid">
+                        <div class="small-image-container">
+                          <img [src]="_result.album.images[1]" alt="">
+                        </div>
+                        <div *ngIf="_result.album.images.length > 2" class="small-image-container">
+                          <img [src]="_result.album.images[2]" alt="">
+                          <div *ngIf="_result.album.images.length > 3" class="count-images">+{{
+                            (_result.album.images.length - 3) }}</div>
+                        </div>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+              <div class="album-infos">
+                <div *ngIf="_result.album.classes" class="album-classes">
+                  <span *ngFor="let classe of _result.album.classes" class="classe-badge">{{_result.album.classe}}</span>
+
+                </div>
+                <h6>{{_result.album.title}}</h6>
+                <p *ngIf="_result.album.user">Publié par <a href="javascript:void(0);">{{_result.album.user}}</a> </p>
+                <p>Le {{_result.album.date}}</p>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section *ngIf="_result?.demande" class="demandes-section section">
+    <div class="card demandes-card">
+      <div class="card-body">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="">
+                <p><b></b></p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button class="btn btn-demandes" (click)="demandes(_result.demande.id)"> {{ _result.translation.discover_button }} </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </section>
+</ion-content>

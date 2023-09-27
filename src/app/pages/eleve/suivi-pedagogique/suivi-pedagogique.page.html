@@ -1,0 +1,27 @@
+
+<ion-content>
+  <ion-tabs #tabs (ionTabsDidChange)="updateTitle()" *ngIf="show_tabs">
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button *ngIf="show_tabs.tab1" tab="cours">
+        <ion-icon name="calendar-clear-outline"></ion-icon>
+        <ion-label>{{tabTranslation?.tab1}}</ion-label>
+        <!-- <ion-badge>6</ion-badge> -->
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="show_tabs.tab2" tab="absences">
+        <ion-icon name="reader-outline"></ion-icon>
+        <ion-label>{{tabTranslation?.tab2}}</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="show_tabs.tab3" tab="examens">
+        <ion-icon name="star-outline"></ion-icon>
+        <ion-label>{{tabTranslation?.tab3}}</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="show_tabs.tab4" tab="discipline">
+        <ion-icon name="happy-outline"></ion-icon>
+        <ion-label>{{tabTranslation?.tab4}}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

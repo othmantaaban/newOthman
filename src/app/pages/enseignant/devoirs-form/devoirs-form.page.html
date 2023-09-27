@@ -1,0 +1,268 @@
+<app-enseignant-header [isRoot]="false" title="Devoirs"></app-enseignant-header>
+<ion-content padding>
+
+  <form *ngIf="_resultPage" [formGroup]="formGroup">
+    <div class="form-group type-devoir-group">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="6">
+            <div class="custom-radio">
+              <input type="radio" id="typeDevoirCollectif" name="typeDevoir" formControlName="typeDevoir"
+                [(ngModel)]="typeDevoir" value="collectif">
+              <label for="#typeDevoirCollectif">
+                <div class="radio-badge" (click)="typeDevoir = 'collectif'">
+                  <ion-icon name="people-outline"></ion-icon> {{ _resultPage.translation.collectif }} 
+                </div>
+              </label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="custom-radio">
+              <input type="radio" id="typeDevoirIndividuel" name="typeDevoir" formControlName="typeDevoir"
+                [(ngModel)]="typeDevoir" value="individuel">
+              <label for="#typeDevoirIndividuel">
+                <div class="radio-badge" (click)="typeDevoir = 'individuel'">
+                  <ion-icon name="person-outline"></ion-icon> {{ _resultPage.translation.individuel}}
+                </div>
+              </label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="_resultPage.data.classes.length>1; hasOneClasse" class="form-group">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.classes}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-select [multiple]="!typeDevoir || typeDevoir != 'individuel'" *ngIf="_resultPage?.data?.classes"
+              [(ngModel)]="content.classes" name="classes" formControlName="classes"
+              okText="{{_resultPage.translation.choisir}}" cancelText="{{_resultPage.translation.fermer}}"
+              placeholder="{{_resultPage.translation.classes}}">
+              <ion-select-option *ngFor="let classe of _resultPage.data.classes" [value]="classe.id">{{classe.label}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ng-template #hasOneClasse>
+      <input type="hidden" name="classes" [(ngModel)]="content.classes">
+    </ng-template>
+
+    <div *ngIf="typeDevoir == 'individuel' && content.classes && content.classes.length > 0" class="form-group">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="12">
+            <label>{{_resultPage.translation.eleves||'Eleves'}}</label>
+          </ion-col>
+          <ion-col  size="12">
+
+            <div class="form-group" *ngIf="typeDevoir == 'individuel'">
+              <div class="d-flex flex-end devoir_students">
+
+                <div class="eleves">
+                  <div *ngFor="let inscription of inscriptions_selected; let i=index" class="eleve-badge">
+                    {{inscription.nom}} <ion-icon name="close-circle"
+                      (click)="selectInscription(inscription)"></ion-icon></div>
+                  <div class="eleve-badge" (click)="toggleElevesModal(image)"><ion-icon name="add-outline"></ion-icon>
+                  </div>
+                </div>
+
+                <!-- <ion-icon name="person-add" class="color-main" (click)="toggleElevesModal()"></ion-icon> -->
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="_resultPage.data.matieres.length > 1; hasOneMatiere" class="form-group">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.matiere}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-select *ngIf="_resultPage?.data?.matieres" [(ngModel)]="content.matiere" name="matiere"
+            formControlName="matiere" okText="{{_resultPage.translation.choisir}}"
+            cancelText="{{_resultPage.translation.fermer}}" placeholder="{{_resultPage.translation.matiere}}">
+              <ion-select-option *ngFor="let matiere of _resultPage.data.matieres" [value]="matiere.id">{{matiere.label}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ng-template #hasOneMatiere>
+      <input type="hidden" name="classes" [(ngModel)]="content.matiere">
+    </ng-template>
+    <div class="form-group">
+      <input type="text" [(ngModel)]="content.titre" name="titre" formControlName="titre"
+        class="form-control main-input" placeholder="{{_resultPage.translation.titre}}">
+    </div>
+    <div class="form-group">
+      <textarea [(ngModel)]="content.description" name="description" formControlName="description"
+        class="form-control main-input" placeholder="{{_resultPage.translation.description}}"></textarea>
+    </div>
+    <div class="form-group">
+      <ion-grid class="ion-no-padding" fixed>
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.date}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+            <ion-modal mode="ios" [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime [showDefaultButtons]="true" locale="fr-FR" presentation="date" [(ngModel)]="content.date" name="date" formControlName="date" id="datetime"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="form-group">
+      <ion-grid class="ion-no-padding" fixed>
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.partager||'Partager un document :'}}</label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="partage-actions">
+          <ion-col size="6">
+            <div class="card" (click)="fileUploadInput.click()">
+              <ion-icon name="document-text"></ion-icon> 
+              <!-- Document -->
+              {{ _result?.translation?.doc ? _result?.translation?.doc : 'Document' }}
+              <input type="file" (change)="uploadFile($event)" style="display: none;" #fileUploadInput />
+          </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="recordAudio()">
+              <ion-icon name="mic"></ion-icon> 
+              <!-- Audio -->
+              {{ _result?.translation?.audio ? _result?.translation?.audio : 'Audio' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="captureImage()">
+              <ion-icon name="camera"></ion-icon> 
+              <!-- Image -->
+              {{ _result?.translation?.image ? _result?.translation?.image : 'Image' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="captureVideo()">
+              <ion-icon name="videocam"></ion-icon> 
+              <!-- Vidéo -->
+              {{ _result?.translation?.vid ? _result?.translation?.vid : 'Vidéo' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="showModalInput('youtube')" >
+              <ion-icon name="logo-youtube"></ion-icon> 
+              <!-- Youtube -->
+              {{ _result?.translation?.youtube ? _result?.translation?.youtube : 'Youtube' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="showModalInput('link')" >
+              <ion-icon name="link"></ion-icon> 
+              <!-- Lien -->
+              {{ _result?.translation?.lien ? _result?.translation?.lien : 'Lien' }}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid *ngIf="files.length > 0" fixed class="ion-no-padding ion-margin-top">
+        <ion-row>
+          <ion-col class="ion-margin-vertical" size="12">
+            <label>{{_resultPage.translation.files||'Fichiers importés  :'}}</label>
+          </ion-col>
+        </ion-row>
+          <ion-row *ngFor="let file of files;let index = index">
+            <ion-col size="12">
+              <div class="card-file">
+                <div class="file-icon">
+                  <ng-container [ngSwitch]="file.type">
+                    <ng-container *ngSwitchCase="'document'">
+                      <ion-icon name="document-text"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'audio'">
+                      <ion-icon name="mic"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'image'">
+                      <ion-icon name="camera"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'video'">
+                      <ion-icon name="videocam"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'youtube'">
+                      <ion-icon name="logo-youtube"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'link'">
+                      <ion-icon name="link"></ion-icon>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <div class="file-name">
+                  {{file.name}}
+                </div>
+                <div class="file-actions">
+                  <!-- <div class="action">
+                    <ion-icon name="eye"></ion-icon>
+                  </div> -->
+                  <div class="action-delete" >
+                    <ion-icon (click)="files.splice(index,1)" name="close"></ion-icon>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+    </div>
+  </form>
+
+  <div *ngIf="_resultPage && typeDevoir && inscriptions && showElevesModal" class="action-small-modal modal_eleves"
+    [ngClass]="showElevesModal ? 'show-modal' : ''">
+    <div class="bottom-modal">
+      <div class="default-modal-header">
+        <div class="ion-searchbar-container">
+          <ion-searchbar placeholder="Rechercher" [(ngModel)]="searchKey" (ionChange)="search_key($event)">
+          </ion-searchbar>
+        </div>
+        <div class="m-close" (click)="toggleElevesModal()">
+          <img src="assets/icon/close_white.svg" alt="">
+        </div>
+      </div>
+      <div class="d-modal-action">
+        <ion-grid class="grid_eleves">
+          <ion-row>
+            <ion-col col-3 *ngFor="let inscription of inscriptions">
+              <div class="eleve_container" (click)="selectInscription(inscription)"
+                [ngClass]="{'active': inscriptions_selected && isSelected(inscription)}">
+                <div class="eleve_image" [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}">
+                </div>
+                <h5>{{ inscription.nom }}</h5>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <button (click)="toggleElevesModal()" class="btn-white-outline btn-block text-center"> {{ _resultPage.translation.enregistrer }} </button>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer mode="md">
+  <ion-toolbar mode="md">
+    <ion-buttons *ngIf="_resultPage && !showElevesModal">
+      <button [disabled]="!formGroup.valid" (click)="submit()"
+        class="btn-main btn-block text-center fixed-bottom">{{_resultPage.translation.enregistrer}}</button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

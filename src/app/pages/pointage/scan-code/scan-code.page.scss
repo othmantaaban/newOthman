@@ -1,0 +1,93 @@
+.header {
+  ion-toolbar {
+    ion-title {
+      color: white;
+      .num {
+        font-size: 19px;
+        font-weight: 700;
+        display: inline;
+      }
+    }
+  }
+
+}
+
+  .map-marker {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: #2B2A64;
+    border-radius: 50%;
+    color: #000;
+    line-height: 53px;
+    text-align: center;
+    font-size: 29px;
+    color: var(--main-color);
+    z-index: 9999;
+  }
+ion-content {
+  --background: #2B2A64 !important;
+  
+
+  ion-header {
+    a {
+      color: white;
+    }
+  }
+
+  ion-grid {
+    height: calc(100% - 70px);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    ion-row {
+      // height: 100%;
+      display: flex;
+      flex-direction: column;
+      ion-col {
+        &.title {
+          color: #FFF;
+          text-align: center;
+          // font-family: Manrope;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+      &.qr-scanner-col {
+        max-height: 445px;
+        flex: 1 !important;
+        .qr-scanner {
+          padding: 0px;
+          background-color: black;
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          justify-content: flex-end;
+
+          .container {
+            flex: 1;
+            max-height: 262px;
+            color: #19D8A4;
+            text-align: center;
+            // font-family: Manrope;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            display: grid;
+            place-items: center;
+          }
+
+          .text {
+            color: #FFF;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

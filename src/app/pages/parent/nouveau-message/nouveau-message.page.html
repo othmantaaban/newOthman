@@ -1,0 +1,43 @@
+<app-parent-header [title]="translation?.title||''" />
+
+<ion-content>
+  <form *ngIf="translation" (ngSubmit)="send()" [formGroup]="formGroup">
+    <ion-list mode="md">
+      <ion-item class="pl-0">
+        <ion-select okText="Ok" cancelText="Fermer" placeholder="{{translation?.eleve}}" formControlName="eleve"
+          [(ngModel)]="eleve">
+          <ion-select-option *ngFor="let eleve of eleves" [value]="eleve.id">
+            {{eleve.nomcomplet}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="pl-0">
+        <ion-select okText="Ok" cancelText="Fermer" placeholder="{{translation?.theme}}" formControlName="theme"
+          [(ngModel)]="theme">
+          <ion-select-option *ngFor="let themeItm of themes" [value]="themeItm.id">
+            {{themeItm.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="pl-0">
+        <ion-input type="text" placeholder="{{translation.sujet}}" name="sujet" class="input-height" [(ngModel)]="sujet"
+          formControlName="sujet"></ion-input>
+      </ion-item>
+      <ion-item class="pl-0">
+        <ion-textarea placeholder="{{translation.message}}" name="message" [(ngModel)]="message"
+          formControlName="message"></ion-textarea>
+      </ion-item>
+      <ion-item class="pl-0">
+        <div class="upload-file-container">
+          <img (click)="fileUploadInput.click()" src="assets/icon/attachment-upload.svg" alt="">
+          <span (click)="fileUploadInput.click()" *ngIf="!fileMessage">{{translation.joindre}}</span>
+          <span (click)="fileUploadInput.click()" *ngIf="fileMessage">{{fileMessage.name}}</span>
+          <input type="file" (change)="uploadFile($event)" style="display: none;" #fileUploadInput multiple />
+          <ion-icon *ngIf="fileMessage" class="delete-btn" (click)="deleteFile()" name="ios-close-circle-outline">
+          </ion-icon>
+        </div>
+      </ion-item>
+      <ion-item class="item-btn-send">
+        <button type="submit" class="btn-main btn-block" [disabled]="!formGroup.valid">{{translation.envoyer}}</button>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

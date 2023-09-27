@@ -1,0 +1,428 @@
+ion-header ion-title .toolbar-title {
+    font-size: 1.6rem !important;
+  }
+
+  .menu-toggle {
+    
+    background-color: #fff;
+padding: 0px 10px;
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  ion-header {
+
+    // .back-button {
+    //   display: none !important;
+    // }
+
+    background-color: #fff;
+    color: #171656;
+
+    ion-title {
+      padding-top: 0px !important;
+      height: 44px !important;
+      min-height: auto !important;
+
+      .toolbar-title {
+        margin-inline-start: 35px;
+        color: #171656;
+      }
+    }
+
+    .bar-button-menutoggle ion-icon::before {
+      content: "";
+      background-image: url(../../../../assets/imgs/menu_icon_dark.svg);
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .delete_album_photo {
+    color: #fff;
+    background-color: #ff3f34b3;
+    // display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 33px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 16px;
+    float: right;
+    //   position: absolute;
+    //   top: 14px;
+    //  right: 11px;
+  }
+
+  .checkbox_classes {
+    span {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #eadfdf;
+      display: inline-block;
+      line-height: 50px;
+      text-align: center;
+      margin-inline-end: 5px;
+      margin-bottom: 5px;
+      border-radius: 50%;
+    }
+
+    input[type="checkbox"] {
+      visibility: hidden;
+      display: none;
+    }
+
+    span label {
+      margin-bottom: 0;
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    span label:before {
+      content: '';
+      width: 3px;
+      height: 8px;
+      border-style: solid;
+      border-color: #ddd;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg) translateY(-50%);
+      transform: rotate(45deg) translateY(-50%);
+      position: absolute;
+      right: 9px;
+      bottom: 1px;
+      z-index: 2;
+      display: none;
+    }
+
+    span label:after {
+      content: '';
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: transparent;
+      position: absolute;
+      right: 0px;
+      bottom: 0;
+      border: 1px solid #ddd;
+      display: none;
+    }
+
+
+    span.active label:before {
+      border-color: #fff;
+      display: block;
+    }
+
+    span.active label:after {
+      display: block;
+      background-color: #0b9e8a;
+      border: 1px solid #0b9e8a;
+      /* 	animation: checkBounceIn .5s 0s ease-in-out; */
+    }
+
+    span.active label {
+      color: #0b9e8a;
+      font-weight: 700;
+    }
+  }
+
+  .album_photos {
+    padding-bottom: 60px;
+
+    ion-row {
+      flex-wrap: wrap !important;
+
+      ion-col {
+        padding: 2px;
+      }
+    }
+
+    .choose_photo {
+      background-color: #F9F9F9;
+      width: 100%;
+      height: 100px;
+      border-radius: 5px;
+      position: relative;
+      font-size: 40px;
+      color: #9c9c9c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    // .choose_photo::after {
+    //   content: "\f067";
+    //   position: absolute;
+    //   font-size: 40px;
+    //   font-family: 'FontAwesome';
+    //   top: 50%;
+    //   left: 0;
+    //   right: 0;
+    //   -webkit-transform: translateY(-50%);
+    //   transform: translateY(-50%);
+    //   text-align: center;
+    //   color: #9c9c9c;
+
+    // }
+
+    .album_image {
+      background-color: #F9F9F9;
+      width: 100%;
+      height: 100px;
+      border-radius: 5px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+
+      .delete_photo {
+        color: #fff;
+        background-color: #ff3f34b3;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        line-height: 33px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 16px;
+        position: absolute;
+        top: 5px;
+        right: 4px;
+      }
+
+      span.eleves {
+        position: absolute;
+        right: 5px;
+        bottom: 0;
+
+        span:first-child {
+
+          margin-inline-start: 0px !important;
+          position: absolute;
+          left: -20px;
+          bottom: 5px;
+          z-index: 9;
+
+        }
+
+        span {
+          position: relative;
+          background-color: #F9F9F9;
+          background-size: cover;
+          margin: auto;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          margin-inline-start: -6px;
+          display: inline-block;
+
+          div {
+            position: absolute;
+            font-size: 9px;
+            text-align: center;
+            display: block;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 3px;
+            font-weight: 800;
+          }
+        }
+      }
+
+      video {
+        width: 100%;
+      }
+    }
+
+    .album_placeholder {
+      display: flex;
+      align-items: center;
+
+      span.loader {
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+
+  ion-fab {
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin-inline-start: 0;
+    bottom: 0 !important;
+
+    button {
+      text-transform: uppercase;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 5px;
+    font-family: "Montserrat", sans-serif;
+
+    label {
+      color: #494646;
+      font-weight: 500;
+      margin-bottom: 9px;
+      font-size: 13px;
+    }
+
+    textarea {
+      height: 70px;
+      max-height: 70px;
+      min-width: 100%;
+      max-width: 100%;
+      border: 1px solid #eadfdf;
+      box-shadow: none;
+    }
+  }
+
+  @keyframes spinner-border {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.26em solid var(--main-color);
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border .75s linear infinite;
+  }
+
+  .modal_eleves {
+
+    display: none;
+    
+    &.show-modal{
+      display: block;
+
+    }
+
+    .fixed-bottom {
+      position: fixed;
+      bottom: 0;
+      z-index: 999999;
+      left: 0;
+      right: 0;
+      opacity: 1;
+      text-transform: uppercase;
+    }
+  
+    .bottom-modal {
+      background-size: cover;
+      background-position: center;
+      max-height: 75vh;
+      height: 75vh;
+      overflow-x: scroll;
+  
+      &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        left: 0;
+        top: 0;
+        opacity: .5;
+      }
+  
+      .d-modal-action {
+        padding-bottom: 60px;
+      }
+  
+      .default-modal-header {
+        margin-bottom: 20px;
+        padding: 0px 20px 0px 20px;
+        display: flex;
+        align-items: center;
+        .ion-searchbar-container{
+          width: 100%;
+        }
+        .m-close{
+          z-index: 1;
+          margin-inline-start: 10px;
+        }
+      }
+    }
+  
+    ion-row {
+      flex-wrap: wrap !important;
+    }
+  
+    .eleve_container {
+      .eleve_image {
+        position: relative;
+        max-width: 100%;
+        width: 65px;
+        height: 65px;
+        background-size: cover;
+        margin: auto;
+        border-radius: 50%;
+        border: 5px solid #ebe8e8;
+      }
+  
+      h5 {
+        font-size: 10px;
+        margin: auto;
+        margin-top: 4px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+        color: #fff;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+      }
+    }
+  
+    .eleve_container.active {
+      .eleve_image {
+        border-color: var(--main-color);
+      }
+  
+      .eleve_image::before {
+        content: "";
+        background-image: url(../../../../assets/icon/checked.svg);
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+        bottom: -5px;
+        right: -5px;
+      }
+    }
+  }
+  
+  ion-searchbar {
+    position: relative;
+    --box-shadow: none;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    --border-radius: 35px;
+    --icon-color: #fff;
+    color: #fff;
+    --background: rgba(255, 255, 255, 0.4);
+    --placeholder-color: #fff;
+    --placeholder-opacity: 1;
+    font-family: 'Poppins', sans-serif;
+    --placeholder-font-weight: 300;
+  
+    input.searchbar-input {
+      font-size: 14px !important;
+    }
+  }

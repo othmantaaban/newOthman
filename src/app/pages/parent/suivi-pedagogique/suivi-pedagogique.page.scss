@@ -1,0 +1,27 @@
+ion-tab-bar{
+    --background: #FFFFFF;
+    --border: none;
+    border-radius: 25px 25px 0px 0px;
+    padding: 10px 0px;
+    box-shadow: 0px 2px 21px rgba(0, 0, 0, 0.11);
+    align-items: baseline;
+    ion-tab-button:part(native){
+
+        // padding-inline-start: 5px;
+        // padding-inline-end: 5px;
+    }
+    ion-tab-button{
+        height: fit-content;
+        ion-icon{
+            height: 25px;
+        }
+        ion-label{
+            white-space: normal;
+        }
+        &.tab-selected{
+            ion-label{
+                color:#000000;
+            }
+        }
+    }
+}

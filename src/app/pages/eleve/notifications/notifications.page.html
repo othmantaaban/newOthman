@@ -1,0 +1,22 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content>
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+		<img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+		<h3 [innerHtml]="_result.empty_text"></h3>
+	</div>
+	<section *ngIf="_result?.data?.length > 0">
+		<div class="notification-item" *ngFor="let result of _result?.data" (click)="notification(result)">
+			<div>
+				<img src="{{result.img}}" class="img-responsive" alt="">
+			</div>
+			<div class="notification-item-label">
+				<h3>{{result.label}}</h3>
+				<p [innerHTML]="result.message"></p>
+				<p class="text-muted"><span class="eleve">{{result.eleve}}</span>{{result.date }}</p>
+				<p *ngIf="result.type_ressource" class="text-right mb-0"> <span
+						class="eleve">{{_result?.translation?.consulter}}</span> </p>
+			</div>
+		</div>
+	</section>
+</ion-content>

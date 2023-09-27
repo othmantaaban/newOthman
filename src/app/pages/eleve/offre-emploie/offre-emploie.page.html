@@ -1,0 +1,88 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Offres Emploi'" />
+
+
+<ion-content>
+  <div class="back" (click)="back()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+    <span> {{ _result?.translation?.retour ? _result?.translation?.retour : "retour" }} </span>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="header">
+        <ion-item>
+          <ion-img 
+            slot="start" 
+            src="https://boti.education/u/upf/assets/images/attijari-logo.png"
+            class="img"
+          >
+          </ion-img>
+          <div class="emploi-infos">
+            <div class="date">
+              05 Nov 2023
+            </div>
+            <div class="title">
+              Conseiller clientèle
+            </div>
+            <div class="entreprise">
+              Attijari Wafa Bank
+            </div>
+            <div class="others">
+              <div class="badge first">
+                CDI
+              </div>
+              <div class="badge place">
+                <ion-icon name="location-sharp"></ion-icon>
+                Casablanca
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-col>
+      <ion-col class="content">
+        <div class="text">
+          Le centre monétique interbancaire recrute les profils suivants : 
+          <ul>
+            <li>
+              Incident Manager au niveau de la KSI 
+            </li>
+            <li>
+              Agent d'installation technique sur Casablanca. 
+            </li>
+            <li>
+              Chargé (e) de conformité avec au moins 3 ans d'expérience dans le domaines bancaire souhaitable. 
+            </li>
+            <li>
+              Chargé (e) de projets et organisation Junior avec au moins 2 ans d'expérience. 
+            </li>
+            <li>
+              Ingénieurs développeurs JAVA JEE confirmés. 
+            </li>
+            <li>
+              • Responsables commerciaux terrains sur Tanger, Casablanca, Rabat et Marrakech : avec au moins 3 ans d'expérience en prospection terrain. 
+            </li>
+          </ul>
+          <div>
+            Merci d'envoyer votre CV à l'adresse mail suivante : 
+          </div>
+          <div>
+            <span class="mail">aboussagui@cmi.co.ma</span> en précisant sur l'objet du mail l'intitulé du poste. Exemple : 
+          </div>
+          <div>
+            [chargé de conformité] ...
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="button">
+        <ion-button *ngIf="!postule_sent; else postule" (click)="postuler()" expand="block">
+          Postuler
+        </ion-button>
+        <ng-template #postule>
+          <h4 class="text-center">Votre de candidature est en cours de traitement</h4>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

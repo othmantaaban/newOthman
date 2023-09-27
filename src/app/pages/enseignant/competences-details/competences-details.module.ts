@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { CompetencesDetailsPageRoutingModule } from './competences-details-routing.module';
+
+import { CompetencesDetailsPage } from './competences-details.page';
+import { EnseignantHeaderComponentModule } from 'src/app/components/enseignant-header/enseignant-header.component.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    CompetencesDetailsPageRoutingModule,
+    EnseignantHeaderComponentModule
+  ],
+  declarations: [CompetencesDetailsPage]
+})
+export class CompetencesDetailsPageModule {}

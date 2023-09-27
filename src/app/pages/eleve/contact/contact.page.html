@@ -1,0 +1,129 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <ion-grid fixed>
+    <ion-row class="ion-margin-vertical">
+      <ion-col class="text-center">
+        <h1>{{ _result?.translation.contact }} </h1>
+      </ion-col>
+    </ion-row>
+    <ion-row class="phones ion-margin-vertical">
+      <ion-col class="text-center">
+        <ion-slides *ngIf="_result " [pager]="true"
+          [options]="{ slidesPerView: 1.2 , spaceBetween: 20 , centeredSlides: true }">
+          <ion-slide *ngFor="let tel of _result?.data?.tel.split(',')">
+            <ng-container *ngIf="tel.includes(':');else NoLabel">
+              <a [href]="'tel:'+tel.split(':')[1]" style="width: 100%;">
+                <div class="card">
+                  <div class="card-header">
+                    {{tel.split(':')[0]}}
+                  </div>
+                  <div class="card-body">
+                    <div class="d-flex">
+                      <ion-icon name="call-outline"></ion-icon> {{tel.split(':')[1]}}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </ng-container>
+            <ng-template #NoLabel>
+              <a [href]="'tel:'+tel" style="width: 100%;">
+                <div class="card">
+                  <div class="card-header">
+                    {{ _result.translation.tel }}
+                  </div>
+                  <div class="card-body">
+                    <div class="d-flex">
+                      <ion-icon name="call-outline"></ion-icon> {{tel}}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </ng-template>
+          </ion-slide>
+          <!-- <ion-slide *ngFor="let phone of _result.phones">
+            <div class="card">
+              <div class="card-header">
+                {{phone.label}}
+              </div>
+              <div class="card-body">
+                <div class="d-flex">
+                  <ion-icon name="call-outline"></ion-icon> +212 6 25 961 972
+                </div>
+              </div>
+            </div>
+          </ion-slide> -->
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="_result?.data?.website" class="website ion-margin-vertical">
+      <ion-col class="text-center">
+        <a [href]="_result.data.website">
+          <div class="card">
+            <div class="card-header">
+              {{ _result.translation.website }}
+            </div>
+            <div class="card-body">
+              <div class="d-flex">
+                <ion-icon name="globe-outline"></ion-icon> {{_result.data.website}}
+              </div>
+            </div>
+          </div>
+        </a>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="_result?.data?.socials" class="socials">
+      <ion-col class="text-center" size="12">
+        <h6> {{ _result.translation.follow }} </h6>
+      </ion-col>
+      <ion-col *ngFor="let social of _result.data.socials" class="text-center">
+        <a target="_blank" [href]="social.link">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex">
+                <ion-icon [name]="social.icone" class="ion-no-margin"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </a>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="_result?.data?.logo" class="ion-margin-top">
+      <ion-col size="12" class="text-center">
+        <img [src]="_result.data.logo" width="40%" alt="">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <div class="vertical-center" *ngIf="_result?.data">
+    <div class="container">
+      <div class="main-block text-center">
+        <img class="" src="{{_result.data.logo}}" alt="">
+        <h5 *ngIf="_result?.data?.slogan">{{_result?.data?.slogan}}</h5>
+        <h3 *ngIf="_result?.data?.title">{{_result?.data?.title}}</h3>
+
+        <div class="phones" *ngIf="_result?.data?.tel">
+          <a *ngFor="let tel of _result?.data?.tel.split(',')" href="tel:{{tel}}">
+            <span class="phone">
+              <ion-icon name="call"></ion-icon>
+              {{tel}}
+            </span>
+          </a>
+        </div>
+        <a *ngIf="_result?.data?.website" href="{{_result.data.website}}">
+          <span *ngIf="_result?.data?.website" class="website">
+            <ion-icon name="globe"></ion-icon>
+            {{_result.data.website}}
+          </span>
+        </a>
+
+        <div *ngIf="_result?.data?.socials" class="social-contact">
+          <p *ngIf="_result?.data?.social_text">{{_result.data.social_text}}</p>
+          <a *ngFor="let social of _result.data.socials" href="{{social.link}}" [ngStyle]="{'color': social.color }">
+            <ion-icon name="{{social.icone}}"></ion-icon>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div> -->
+</ion-content>

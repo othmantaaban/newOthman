@@ -1,0 +1,81 @@
+<app-parent-header [isRoot]="false" [title]="translation?.title||''" />
+
+<ion-content padding>
+  <ion-grid *ngIf="result" fixed>
+    <ion-row class="align-items-center">
+      <ion-col>
+        <div class="d-flex align-items-baseline">
+          <span class="categorie">{{result.categorie}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <time>{{ result.date }}</time>
+        <h2 class="devoir-title">{{result.title}}</h2>
+        <div class="devoir-content" [innerHtml]="description"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="files-wrapper" *ngFor="let file of result.files">
+      <ion-col size="12">
+        <ng-container [ngSwitch]="file.type">
+          <ng-container *ngSwitchCase="'file'">
+            <ng-container *ngIf="file?.mime?.type?.includes('image');else notImage">
+              <div class="image-wrapper">
+                <img [src]="file.link">
+                <div class="image-description">
+                  <button class="btn-download" (click)="downloadFile(file)" > <img src="../../../../assets/icon/download.svg" alt="download"></button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #notImage>
+              <ng-container *ngIf="file?.mime?.type?.includes('video');else notVideo">
+                <video [src]="file.link" controls></video>
+              </ng-container>
+            </ng-template>
+            <ng-template #notVideo>
+              <ng-container *ngIf="file?.mime?.type?.includes('audio');else notAudio">
+                <audio [src]="file.link" controls></audio>
+              </ng-container>
+            </ng-template>
+            <ng-template #notAudio>
+              <div class="file-wrapper">
+                  <div class="file-icon">
+                        <ion-icon name="document-text"></ion-icon>
+                  </div>
+                  <div class="file-name">
+                    {{file.filename}}
+                  </div>
+                  <div class="file-actions">
+                    <div class="action" >
+                      <button class="btn-download" (click)="downloadFile(file)" > <img src="../../../../assets/icon/download.svg" alt="download"></button>
+                    </div>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+          <ng-container *ngSwitchCase="'youtube'">
+            <iframe [src]="sanitizeUrl(file.link)" frameborder="0"></iframe>
+          </ng-container>
+          <ng-container *ngSwitchCase="'link'">
+              <div class="link-wrapper">
+                <div class="link-icon">
+                  <ion-icon name="link"></ion-icon>
+                </div>
+                <div class="link-name">
+                  {{file.filename}}
+                </div>
+                <div class="link-actions">
+                  <div class="action" >
+                    <button class="btn-download" (click)="iabOpen(file.link)" > <ion-icon name="open-outline"></ion-icon> </button>
+                  </div>
+              </div>
+              </div>
+              <!-- <iframe [src]="sanitizeUrl(file.link)" frameborder="0"></iframe> -->
+          </ng-container>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

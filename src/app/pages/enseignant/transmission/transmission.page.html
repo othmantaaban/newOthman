@@ -1,0 +1,345 @@
+<ion-header mode="md">
+  <ion-toolbar mode="md">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-grid class="ion-no-padding header">
+        <ion-row class="d-flex align-items-center">
+          <ion-col size="7">
+            <div class="classe-wrapper">
+              <img *ngIf="_result?.classe?.image" [src]="_result?.classe?.image" alt="" class="classe-img">
+              <div class="classe-description">
+                <h1 class="classe-title"> {{_result?.classe?.label}} </h1>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size="5">
+            <button (click)="toggleDate()" class="calendar-trigger">
+              <ion-icon name="calendar"></ion-icon>
+              <div class="date"> {{date}} </div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <section class="header">
+    <ion-grid>
+      <ion-row class="d-flex align-items-center">
+        <ion-col size="1">
+          <ion-icon (click)="goBack()" class="goBack" name="arrow-back"></ion-icon>
+        </ion-col>
+        <ion-col size="9">
+          <div class="classe-wrapper">
+            <img *ngIf="_result?.classe?.image" [src]="_result?.classe?.image" alt="" class="classe-img">
+            <div class="classe-description">
+              <h1 class="classe-title"> {{_result?.classe?.label}} </h1>
+              <span class="date"> {{date}} </span>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="2">
+          <button (click)="toggleDate()" class="calendar-trigger">
+            <ion-icon name="calendar"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section> -->
+  <section class="section-transmssion">
+    <ion-slides *ngIf="_result" [options]="{ slidesPerView : 1 }" (ionSlideDrag)="checkSlide()"
+      (ionSlideDidChange)="checkSlide()">
+      <ion-slide *ngFor="let rubrique of _result.data">
+        <div style="width: 100%;">
+          <ion-grid>
+            <ion-row class="slide-header d-flex align-items-center">
+              <ion-col size="2">
+                <button [disabled]="firstSlideActive" class="text-main btn btn-link">
+                  <ion-icon (click)="slideBack()" name="arrow-back"></ion-icon>
+                </button>
+              </ion-col>
+              <ion-col size="8">
+                <div class="d-flex align-items-center">
+                  <h1 class="mb-0 text-left">{{rubrique.label}}</h1>
+                  <ion-icon class="add-all" (click)="addAction(null,rubrique)" name="add"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col size="2">
+                <button [disabled]="lastSlideActive" class="text-main btn btn-link">
+                  <ion-icon (click)="slideNext()" name="arrow-forward"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="eleves-list">
+            <ion-row *ngFor="let eleve of rubrique.eleves" class="eleves-item">
+              <ion-col class="eleve-details" size="3">
+                <img [src]="eleve.img" alt="">
+                <div class="eleve-name">
+                  {{eleve.nom}}
+                </div>
+              </ion-col>
+              <ion-col class="eleve-actions swiper-no-swiping" style="overflow-y: auto;" size="7">
+                <ng-container *ngIf="eleve.actions.length > 0; else noAction">
+                  <div *ngFor="let action of eleve.actions" (click)="editAction(eleve,rubrique,action)"
+                    class="eleve-action">
+                    <img *ngIf="action.img" [src]="action.img" alt="">
+                    <div *ngIf="action.label" class="time">{{action.label}}</div>
+                    <!-- <div *ngIf="action.values" class="value">{{action.values}}</div> -->
+                  </div>
+                </ng-container>
+                <ng-template #noAction>
+                  <div class="no-action">
+                    <ion-icon name="restaurant" class="no-action-icon"></ion-icon>
+                    <div class="no-action-message">
+                      {{_result.translation.no_action}}
+                    </div>
+                  </div>
+                </ng-template>
+              </ion-col>
+              <ion-col size="2" (click)="addAction(eleve,rubrique)">
+                <div class="eleves-button">
+                  <ion-icon name="add"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <!-- <ngb-tabset class="indicateur-tabs" [justify]="'justified'" [orientation]="'horizontal'" *ngIf="_result">
+          <ngb-tab *ngFor="let indicateur of rubrique.indicateurs" [id]="'indicateur_'+indicateur.id">
+            <ng-template ngbTabTitle>
+              {{indicateur.label}}
+            </ng-template>
+            <ng-template ngbTabContent>
+              <ng-container *ngIf="indicateur.frequences && indicateur.frequences.length > 1; else oneFrequence">
+                <ngb-accordion *ngFor="let frequence of indicateur.frequences" #acc="ngbAccordion"
+                  class="no-padding-accordion">
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                      <div class="d-flex" style="align-items: center;">
+                        {{frequence.label}}
+                        <ion-icon name="arrow-forward"></ion-icon>
+                      </div>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                      <div class="eleves-all" (click)="changeAll(frequence,indicateur)">
+                        <h6>Tous les enfants : </h6>
+                        <h6 class="option">{{frequence.default}}</h6>
+                        <ion-icon name="arrow-down"></ion-icon>
+                      </div>
+                      <div class="eleves-list">
+                        <div class="eleve-item" *ngFor="let eleve of frequence.eleves"
+                          (click)="editValue(indicateur,frequence,eleve)">
+                          <ion-grid>
+                            <ion-row class="align-items-center">
+                              <ion-col size="2">
+                                <img [src]="eleve.img" alt="">
+                              </ion-col>
+                              <ion-col class="pl-1" size="9">
+                                <h5>{{eleve.nom}}</h5>
+                                <p *ngIf="eleve.value">{{eleve.value}}</p>
+                              </ion-col>
+                              <ion-col class="text-right" size="1">
+                                <ion-icon name="arrow-forward"></ion-icon>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                </ngb-accordion>
+
+                <div class="save-action">
+                  <button (click)="saveIndicateur(indicateur)" class="btn btn-main btn-round">
+                    Enregistrer
+                  </button>
+                </div>
+              </ng-container>
+              <ng-template #oneFrequence>
+                <div class="eleves-all" (click)="changeAll(indicateur.frequences[0],indicateur)">
+                  <h6>Tous les enfants : </h6>
+                  <h6 class="option">{{indicateur?.frequences[0]?.default}}</h6>
+                  <ion-icon name="arrow-down"></ion-icon>
+                </div>
+                <div class="eleves-list">
+                  <div class="eleve-item" *ngFor="let eleve of indicateur.frequences[0].eleves"
+                    (click)="editValue(indicateur,indicateur.frequences[0],eleve)">
+                    <ion-grid>
+                      <ion-row class="align-items-center">
+                        <ion-col size="2">
+                          <img [src]="eleve.img" alt="">
+                        </ion-col>
+                        <ion-col class="pl-1" size="9">
+                          <h5>{{eleve.nom}}</h5>
+                          <p *ngIf="eleve.value">{{eleve.value}}</p>
+                        </ion-col>
+                        <ion-col class="text-right" size="1">
+                          <ion-icon name="arrow-forward"></ion-icon>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </div>
+                <div class="save-action">
+                  <button (click)="saveIndicateur(indicateur)" class="btn btn-main btn-round">
+                    Enregistrer
+                  </button>
+                </div>
+              </ng-template>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset> -->
+      </ion-slide>
+    </ion-slides>
+    <!-- <ngb-tabset class="rubrique-tabs" [justify]="'justified'" [orientation]="'horizontal'" *ngIf="_result">
+      <ngb-tab *ngFor="let rubrique of _result.data" [id]="'rubrique_'+rubrique.id">
+        <ng-template ngbTabTitle>
+          {{rubrique.label}}
+        </ng-template>
+        <ng-template ngbTabContent>
+          
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset> -->
+  </section>
+
+</ion-content>
+<div *ngIf="_result" class="action-small-modal modal-date" [ngClass]="_toggleDate ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="d-modal-action">
+      <div class="form-group">
+        <!-- <label>{Date</label> -->
+        <ion-datetime [(ngModel)]="dateInput" [max]="tomorrow" name="date" presentation="date"></ion-datetime>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-link" (click)="toggleDate()">
+          <!-- Annuler -->
+          {{ _result?.translation?.annuler ? _result?.translation?.annuler : 'Annuler' }}
+        </button>
+        <button type="button" class="btn-main" (click)="changeDate()">
+          <!-- Enregistrer -->
+          {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="_result && selectedRubrique" class="action-small-modal modal-action-transmission"
+  [ngClass]="_toggleTransmission ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="d-modal-action">
+      <div *ngIf="formTransmission.indicateur" class="indicateur-preview">
+        <img *ngIf="formTransmission.indicateur.img" [src]="formTransmission.indicateur.img" alt="">
+      </div>
+      <div class="form-group">
+        <ion-item>
+          <ion-icon name="bulb" item-start></ion-icon>
+          <!-- <ion-label>Indicateur</ion-label> -->
+          <ion-select style="max-width: 100%;width: 100%;" placeholder="Indicateur"
+            [(ngModel)]="formTransmission.indicateur" mode="ios">
+            <ion-select-option *ngFor="let indicateur of selectedRubrique.indicateurs" [value]="indicateur">
+              {{indicateur.label}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <ng-container *ngIf="formTransmission.indicateur && formTransmission.indicateur.fields">
+        <div class="form-group" *ngFor="let field of formTransmission.indicateur.fields">
+          <ng-container [ngSwitch]="field.type">
+            <ion-item *ngSwitchCase="'time'">
+              <ion-icon name="clock" item-start></ion-icon>
+              <ion-datetime displayFormat="HH:mm" [(ngModel)]="field.value"></ion-datetime>
+            </ion-item>
+            <ion-item *ngSwitchCase="'text'">
+              <ion-icon name="list" item-start></ion-icon>
+              <ion-input type="text" [placeholder]="field.label" [(ngModel)]="field.value"></ion-input>
+            </ion-item>
+            <ion-item *ngSwitchCase="'number'">
+              <ion-icon name="keypad" item-start></ion-icon>
+              <ion-input type="number" [placeholder]="field.label" [(ngModel)]="field.value"></ion-input>
+            </ion-item>
+            <ion-item *ngSwitchCase="'select'">
+              <ion-icon name="checkbox" item-start></ion-icon>
+              <ion-select style="max-width: 100%;width: 100%;" [placeholder]="field.label" [(ngModel)]="field.value"
+                mode="ios">
+                <ion-select-option *ngFor="let opt of field.options" [value]="opt.value">{{opt.label}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngSwitchCase="'boolean'">
+              <ion-icon name="switch" item-start></ion-icon>
+              <ion-select style="max-width: 100%;width: 100%;" [placeholder]="field.label" [(ngModel)]="field.value"
+                mode="ios">
+                <ion-select-option *ngFor="let opt of field.options" [value]="opt.value">{{opt.label}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ng-container>
+        </div>
+
+      </ng-container>
+      <div *ngIf="!selectedEleve" class="form-group">
+        <button (click)="toggleElevesModal()" class="btn btn-eleves">{{inscriptions_selected.length >
+          0?inscriptions_selected.length+' enfants':'Toute la classe'}}</button>
+        <!-- <ion-item>
+          </ion-item> -->
+      </div>
+      <!-- 
+          <div class="form-group">
+            <ion-item>
+              <ion-icon name="create" item-start></ion-icon>
+            <ion-label>Values</ion-label> 
+              <ion-input type="text" placeholder="Values" [(ngModel)]="formTransmission.value"></ion-input>
+            </ion-item>
+          </div> 
+        -->
+      <div class="modal-actions">
+        <button type="button" class="btn-link" (click)="toggleTransmission()">
+          <!-- Annuler -->
+          {{ _result?.translation?.annuler ? _result?.translation?.annuler : 'Annuler' }}
+        </button>
+        <button type="button" class="btn-main" (click)="addTransmission()">
+          <!-- Enregistrer -->
+          {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="_result && selectedRubrique" class="action-small-modal modal_eleves"
+  [ngClass]="_toggleEleves ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="default-modal-header">
+      <div class="ion-searchbar-container">
+        <ion-searchbar placeholder="Rechercher" (ionChange)="search_key($event)">
+        </ion-searchbar>
+      </div>
+      <div class="m-close" (click)="toggleElevesModal()">
+        <img src="assets/icon/close_white.svg" alt="">
+      </div>
+    </div>
+    <div class="d-modal-action">
+      <ion-grid class="grid_eleves">
+        <ion-row>
+          <ion-col size="3" *ngFor="let inscription of inscriptions_list">
+            <div class="eleve_container" (click)="selectInscription(inscription)"
+              [ngClass]="{'active': inscriptions_selected && inscriptions_selected.includes(inscription.id)}">
+              <div class="eleve_image" [ngStyle]="{'background-image': 'url(' + inscription.img + ')'}">
+              </div>
+              <h5>{{ inscription.nom }}</h5>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <button (click)="toggleElevesModal()" class="btn-main btn-block text-center fixed-bottom">Enregistrer</button>
+  </div>
+</div>

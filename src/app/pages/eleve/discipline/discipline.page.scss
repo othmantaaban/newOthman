@@ -1,0 +1,352 @@
+.scroll-content {
+  background: #f6f6f6;
+}
+
+.suivi-header {
+  h1 {
+    font-size: 17px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    // color: var(--main-color);
+  }
+
+  .header-icon {
+    font-size: 30px;
+    color: #49BF80;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #F1FFF8;
+  }
+
+  &.header-negatif {
+    .header-icon {
+      color: #B82121;
+      background-color: #FFF4F4;
+    }
+
+  }
+
+  .user-picture-top-page {
+    margin: 0px;
+
+    img {
+      width: 35px !important;
+      height: 35px !important;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 17px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      color: var(--main-color);
+    }
+
+    span {
+      font-size: 10px !important;
+    }
+
+  }
+
+  .user-picture-top-page>div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+}
+
+.score-card {
+  padding: 20px;
+  border-radius: 15px;
+  align-items: center;
+  background-color: #F6F6F6;
+
+  .score-icon{
+    ion-icon{
+      font-size: 45px;
+    }
+  }
+
+  .score {
+    font-size: 36px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  ion-icon {
+    color: #414141;
+    font-size: 26px;
+  }
+
+  &.score-negatif {
+    background-color: #FFF4F4;
+
+    .score-icon{
+      ion-icon{
+        color: #EA3939;
+      }
+    }
+    .score {
+      color: #EA3939;
+    }
+  }
+
+  &.score-positif {
+    background-color: #F1FFF8;
+
+    .score-icon{
+      ion-icon{
+        color: #49BF80;
+      }
+    }
+    .score {
+      color: #49BF80;
+    }
+  }
+
+}
+
+.action-item {
+  &:not(:last-child):after {
+    content: '';
+    height: 50%;
+    width: 1px;
+    background: #DBDBDB;
+    position: absolute;
+    left: 25px;
+    top: 80%;
+  }
+
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0px;
+  position: relative;
+  background: #ffffff;
+
+  .action-date {
+    border: 1px solid #D2D2D2;
+    border-radius: 10px;
+    color: #12122C;
+    margin-inline-end: 20px;
+
+    >div {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .day {
+      font-size: 26px;
+    }
+
+    .month {
+      border-top: 1px solid #D2D2D2;
+
+      font-size: 14px;
+    }
+  }
+
+  .action {
+    border: 1px solid #D2D2D2;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+
+    h6 {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: 10px;
+      color: #7F7F81;
+    }
+
+    ion-badge {
+
+      margin-top: 20px;
+
+      &.flag-success {
+        background: #F1FFF8;
+        color: #49BF80;
+        padding: 5px 10px;
+        font-size: 10px;
+        border-radius: 50px;
+      }
+
+      &.flag-danger {
+        background: #FFF4F4;
+        color: #F65E40;
+        padding: 5px 10px;
+        font-size: 10px;
+        border-radius: 50px;
+
+      }
+    }
+
+    .valeur-success {
+      height: 50px;
+      width: 50px;
+      background-color: #DEFAEC;
+      color: #38C177;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline-start: auto;
+    }
+
+    .valeur-danger {
+      height: 50px;
+      width: 50px;
+      background-color: #FFE9E9;
+      color: #EA3939;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline-start: auto;
+    }
+  }
+}
+
+.score-container {
+  margin-top: -30px;
+  padding: 0px 20px;
+  padding-top: 60px;
+  text-align: center;
+
+  p {
+    font-size: 12px !important;
+  }
+
+  h1 {
+    font-size: 23px;
+    text-align: center;
+    padding: 0px;
+    font-weight: 600;
+  }
+
+  .score {
+    font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    text-align: center;
+    font-weight: 400;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: auto;
+    line-height: 100px;
+    color: #fff;
+    border: 10px solid #fff;
+    -webkit-box-shadow: 0 0px 50px 1px #ebf1e3;
+    box-shadow: 0 0px 50px 1px #ebf1e3;
+    margin-bottom: 25px;
+    margin-top: 15px;
+  }
+
+  .icone {
+    width: 90px;
+  }
+
+  .actions {
+    text-align: start;
+    position: unset !important;
+
+    .no-result {
+      background: #fff;
+      box-shadow: 0 0px 50px 1px #ebf1e3;
+      padding: 30px 10px;
+
+      h3 {
+        font-size: 10px;
+      }
+
+      img {
+        width: 50px;
+      }
+    }
+
+    h3 {
+      font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .action-box {
+      padding: 15px 5px;
+      margin-bottom: 15px;
+      box-shadow: 0 0px 50px 1px #ebf1e3;
+      background: #fff;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .valeur-thumb {
+        width: 70px;
+        height: 70px;
+        float: left;
+
+        span {
+          font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+          font-size: 18px;
+          display: block;
+          text-align: center;
+          font-weight: 400;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          margin: auto;
+          line-height: 50px;
+          color: #fff;
+          border: 5px solid #fff;
+          -webkit-box-shadow: 0 0px 50px 1px #ebf1e3;
+          box-shadow: 0 0px 50px 1px #ebf1e3;
+        }
+      }
+
+      .action-info {
+        margin-inline-start: 75px;
+
+        h6 {
+          font-size: 16px;
+          margin-top: 0px;
+          margin-bottom: 5px;
+          color: #000;
+        }
+
+        time {
+          margin-bottom: 0px;
+          color: #666;
+          display: block;
+        }
+
+        p {
+          font-size: 12.5px;
+          margin-bottom: 1px;
+          font-weight: 300;
+        }
+
+        span {
+          display: inline-block;
+          margin-top: 5px;
+          border: 1px solid;
+          padding: 5px 10px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,729 @@
+.scroll-content {
+  background: #f6f6f6;
+}
+
+.suivi-header {
+  h1 {
+    font-size: 17px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    // color: var(--main-color);
+  }
+
+  .header-icon {
+    font-size: 30px;
+    color: #F88D0F;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #FFF2E3;
+  }
+
+  .user-picture-top-page {
+    margin: 0px;
+
+    img {
+      width: 35px !important;
+      height: 35px !important;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 17px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      color: var(--main-color);
+    }
+
+    span {
+      font-size: 10px !important;
+    }
+
+  }
+
+  .user-picture-top-page>div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+}
+
+.absences-card {
+  border: 1px solid #D6D6D6;
+  border-radius: 10px;
+  padding: 20px;
+
+  ion-icon {
+    background-color: #FFE2DB;
+    padding: 10px;
+    border-radius: 10px;
+    color: #F65E40;
+    font-size: 26px;
+  }
+
+  .count {
+    padding-top: 5px;
+    color: #F65E40;
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  h6 {
+    font-size: 11px;
+    color: #12122C;
+    margin: 0;
+    overflow-wrap: normal;
+  }
+
+  .justification {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #CBCBCB;
+
+    >ion-col:first-child {
+      border-inline-end: 1px solid #CBCBCB;
+    }
+
+    p {
+      font-size: 9px;
+      font-weight: 600;
+      color: #8B8B8B;
+      margin: 0;
+    }
+
+    h5 {
+      font-size: 18px;
+      color: #12122C;
+      margin: 0;
+    }
+  }
+}
+
+.retards-card {
+  border: 1px solid #D6D6D6;
+  border-radius: 10px;
+  padding: 20px;
+
+  ion-icon {
+    background-color: #FFF1E1;
+    padding: 10px;
+    border-radius: 10px;
+    color: #F27400;
+    font-size: 26px;
+  }
+
+  .count-col {
+    position: relative;
+  }
+
+  .unite {
+    color: #F27400;
+    font-size: 10px;
+    font-weight: 500;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .count {
+    padding-top: 5px;
+    color: #F65E40;
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  h6 {
+    font-size: 11px;
+    color: #12122C;
+    margin: 0;
+  }
+
+  .justification {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #CBCBCB;
+
+    >ion-col:first-child {
+      border-inline-end: 1px solid #CBCBCB;
+    }
+
+    p {
+      font-size: 9px;
+      font-weight: 600;
+      color: #8B8B8B;
+      margin: 0;
+    }
+
+    h5 {
+      font-size: 18px;
+      color: #12122C;
+      margin: 0;
+    }
+  }
+}
+
+.date-absences {
+  box-shadow: 0px -5px 35px rgba(0, 0, 0, 0.14);
+  // padding: 20px;
+  position: relative;
+  z-index: 2;
+  margin: 0px 20px;
+  border-radius: 12px;
+ margin-bottom: 30px;
+  &::after {
+    content: "";
+    height: 0px;
+    width: 0px;
+    border-inline-start: 10px solid transparent;
+    border-inline-end: 10px solid transparent;
+    border-bottom: 12px solid #fff;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    right: 0;
+    transform: translate(-50%, 0px);
+  }
+  .header-pop-absences{
+    padding: 15px 0px;
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .absences-column{
+    padding: 30px 15px;
+
+    h6{
+      font-size: 13px;
+      margin: 0;
+    }
+
+    ul{
+      list-style: none;
+      padding-left: 0px;
+      margin: 0px;
+      margin-top: 10px;
+
+      li{
+        font-size: 11px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        // >div{
+        //  border: 1px solid var(--main-color);
+        //  border-radius: 10px 10px 0px 0px;
+        //  padding: 5px 3px;
+        //  ~button{
+        //   width: 100%;
+        //   background-color: var(--main-color);
+        //   border-radius: 0px 0px 10px 10px ;
+        //   padding: 5px 3px;
+        //  } 
+        // }
+      }
+    }
+  }
+  .retards-column{
+    padding: 30px 15px;
+
+    h6{
+      font-size: 13px;
+      margin: 0;
+    }
+
+    ul{
+      list-style: none;
+      padding-left: 0px;
+      margin: 0px;
+      margin-top: 10px;
+
+      li{
+        font-size: 11px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .justification-cta{
+    text-align: center;
+    padding: 0px 40px 30px 40px;
+    button{
+      padding: 20px;
+      width: 100%;
+      border: 1px solid #F65E40;
+      color: #F65E40;
+      border-radius: 50px;
+      background: transparent;
+      font-weight: 600;
+    }
+  }
+  .justification-badge{
+    text-align: center;
+    padding: 0px 40px 30px 40px;
+    >div{
+      padding: 20px;
+      width: 100%;
+      border-radius: 50px;
+      background: #EFFEEF;
+      color: #21AE6A;
+      // border: 1px solid #21AE6A;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      ion-icon{
+        font-size: 18px;
+        margin-inline-end: 10px;
+      }
+    }
+  }
+}
+
+.action-small-modal {
+  background-image: url(../../../../assets/icon/bg-transparent.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: -1;
+  top: 0px;
+  left: 0px;
+  transition: all 300ms ease;
+
+  .bottom-modal {
+    width: calc(100% - 20px);
+    margin: auto;
+    background-color: #FFF;
+    min-height: 200px;
+    position: absolute;
+    bottom: -100%;
+    border-radius: 15px;
+    padding: 14px 10px;
+    transition: all 300ms ease;
+    // margin-inline-start: 10px;
+  }
+
+  .default-modal-header {
+    margin-bottom: 20px;
+    padding: 0px 40px;
+
+    .m-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+
+      img {
+        width: 16px;
+      }
+    }
+  }
+
+  .d-modal-action {
+    padding-bottom: 30px;
+
+    .item {
+      div {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        line-height: 70px;
+        text-align: center;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, .09);
+        margin-bottom: 7px;
+
+        img {
+          width: 30px;
+        }
+      }
+
+      span {
+        font-size: 11px;
+        color: #212124;
+      }
+    }
+  }
+
+  &.show-modal {
+    z-index: 999;
+    transition: all 300ms ease;
+
+    .bottom-modal {
+      left: 0;
+      bottom: 35vh;
+      right: 0;
+      transition: all 300ms ease;
+    }
+  }
+}
+
+.default-modal-header-text {
+  // padding-left: 40px;
+  position: relative;
+  text-align: center;
+
+  // img {
+  //   width: 55px;
+  //   position: absolute;
+  //   left: -30px;
+  //   top: 0px;
+  // }
+
+  h4 {
+    margin-bottom: 3px;
+    font-size: 20px;
+  }
+
+  p {
+    margin-bottom: 0px;
+    font-size: 14px;
+    color: #000000;
+  }
+
+  ion-icon{
+    color: #B6B6B6;
+  }
+
+  span {
+    color: #939393;
+    font-size: 13px;
+  }
+}
+
+.justification-form {
+  // padding-bottom: 20px;
+
+  text-align: center;
+
+  label {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #F65E40;
+  }
+
+  textarea {
+    resize: none;
+    height: 80px !important;
+    border-color: #e6dada;
+    border-radius: 10px;
+    box-shadow: none !important;
+    padding-top: 15px;
+    width: 100%;
+  }
+
+  .btn-main {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 50px;
+  }
+}
+
+.upload-file {
+  .upload-file-container {
+    position: relative;
+    background-color: transparent;
+    text-align: center;
+    padding: 10px 0px;
+    color: #12122C;
+    border: 1px solid #D2D2D2;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0px;
+      top: 0px;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    // img {
+    //   width: 20px;
+    //   height: 20px;
+    //   display: inline-block;
+    //   margin-inline-end: 5px;
+    // }
+
+    ion-icon{
+      font-size: 26px;
+      color: #F65E40;
+      margin-inline-end: 10px;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+  }
+}
+
+// .scroll-content {
+//   background: #f6f6f6;
+// }
+
+// .vertical-center-absolute {
+//   top: auto;
+//   transform: none;
+//   margin-top: 50px;
+// }
+
+// .indicatorSegment {
+//   -webkit-transition: 0.3s all;
+//   -moz-transition: 0.3s all;
+//   -o-transition: 0.3s all;
+//   transition: 0.3s all;
+//   transform-origin: top 0 left 0;
+//   width: 20%;
+//   height: 2px;
+//   background-color: var(--main-color) !important;
+//   ;
+// }
+
+// h1 {
+//   font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+//   font-weight: 600;
+//   margin-bottom: 25px;
+//   font-size: 19px;
+// }
+
+// h2 {
+//   font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+//   font-weight: 300;
+//   margin-bottom: 30px;
+//   font-size: 18px;
+// }
+
+// .user-picture-top-page {
+//   padding-left: 30px;
+//   padding-top: 15px;
+//   padding-bottom: 15px;
+//   background: #fff;
+//   margin-inline-start: 0;
+//   margin-top: 0;
+
+//   img {
+//     width: 45px !important;
+//     height: 45px !important;
+//     margin-inline-end: 20px;
+//   }
+// }
+
+// .user-picture-top-page {
+//     margin: 0px;
+
+//     img {
+//       width: 45px !important;
+//       height: 45px !important;
+//       border-radius: 50%;
+//     }
+
+//     h1 {
+//       font-size: 17px;
+//       margin-top: 0px;
+//       margin-bottom: 0px;
+//       color: var(--main-color);
+//     }
+
+//     span {
+//       font-size: 10px !important;
+//     }
+
+//   }
+
+//   .user-picture-top-page>div {
+//     display: table-cell;
+//     vertical-align: middle;
+//   }
+
+
+// ion-slides {
+//   .swiper-container {
+//     height: auto;
+//   }
+
+//   ion-slide {
+//     align-items: unset !important;
+//     section{
+//         width: 100%;
+//     }
+//   }
+// }
+
+// ion-slide {
+//   .card {
+//     background: #fff;
+//     padding: 15px 15px;
+//     margin-bottom: 10px;
+//     text-align: start;
+
+//     .timetable-icon {
+//       color: var(--main-color);
+//       margin-inline-end: 5px;
+//     }
+
+//     .justification_action {
+//       margin: auto;
+//       text-align: center;
+
+//       button {
+//         border-radius: 30px;
+//         font-weight: 500;
+//         font-size: 14px;
+//         border-width: 2px !important;
+//       }
+//     }
+
+//     h6 {
+//       font-weight: 800;
+//       color: #000;
+//     }
+
+//     .card-header {
+//       a {
+//         font-size: 16px;
+//         font-weight: 600;
+//       }
+
+//       a:focus,
+//       a:hover {
+//         text-decoration: none;
+//       }
+
+//       .absence-date {
+//         color: #000000;
+//         font-weight: 600;
+//       }
+
+//       .seances {
+//         color: #000000;
+//       }
+
+//       .justifiee {
+//         background: #32db64;
+//         padding: 2px 6px;
+//         color: #fff;
+//         font-size: 11px;
+//         margin-inline-start: 10px;
+//       }
+
+//       .non-justifiee {
+//         background: #f53d3d;
+//         padding: 2px 6px;
+//         color: #fff;
+//         font-size: 11px;
+//         margin-inline-start: 10px;
+//       }
+//     }
+
+//     .card-body {
+//       margin-top: 15px;
+//       padding: 10px;
+
+//       span {
+//         font-size: 12px;
+//       }
+//     }
+//   }
+// }
+
+// .timetable-date {
+//   span {
+//     display: block;
+//     margin: auto;
+//     font-size: 1.5rem;
+//     font-weight: 500;
+//   }
+// }
+
+// ngbAccordion {
+//   color: black;
+// }
+
+// .absence-justifee {
+//   color: green;
+//   padding: 0px 5px;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   border: 1px solid green;
+// }
+
+// .absence-non-justifee {
+//   color: red;
+//   padding: 0px 5px;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   border: 1px solid red;
+// }
+
+// .absence-seances {
+//   font-size: 1rem !important;
+//   font-weight: 500;
+//   color: #91939f;
+// }
+
+// .absence-motif {
+//   font-size: 1.2rem !important;
+//   color: black !important;
+// }
+
+// .absence-date {
+//   span {
+//     display: block;
+//     margin: auto;
+//     font-size: 1.5rem;
+//     font-weight: 500;
+//   }
+// }
+
+// span.absence-matiere {
+//   font-size: 1.5rem !important;
+//   font-weight: 600;
+// }
+
+// span.absence-seance {
+//   font-size: 1.3rem !important;
+// }
+
+// span.absence-enseignant {
+//   font-size: 1.3rem !important;
+//   margin-inline-end: 10px;
+// }
+
+// .absence-icon {
+//   font-size: 26px !important;
+//   position: absolute;
+//   right: 25px;
+// }
+
+// ion-slides {
+//   height: 100%;
+// }
+
+// ion-segment {
+
+//   background: #fff;
+//   height: 50px;
+//   border-bottom-left-radius: 25px;
+//   border-bottom-right-radius: 25px;
+//   border-top: 1px solid #ece7e7;
+//   display: flex;
+
+//   ion-segment-button {
+//     flex: 1;
+//     padding: 0;
+//     min-width: unset;
+
+//   }
+// }

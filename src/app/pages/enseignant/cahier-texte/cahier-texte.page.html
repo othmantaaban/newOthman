@@ -1,0 +1,52 @@
+<ion-content padding>
+  <div style="display: flex;align-items: center;height: 100%;">
+    <form *ngIf="resulta" (ngSubmit)="send()" style="text-align: center;width: -webkit-fill-available;"
+      [formGroup]="formGroup">
+      
+      <div *ngIf="isSending">
+        <br>
+        <b>{{resulta.translation.loading_msg || "Cahier de texte en attente de saisie" }}</b>
+        <br>
+      </div>
+
+      <div *ngIf="!isSending && resulta.seance_journal">
+        <img src="assets/icon/done.png" alt="">
+        <br>
+        <b> {{ resulta.msg?.note }} </b>
+        <br>
+        <span>{{resulta.msg?.date }}</span>
+      </div>
+
+       <div *ngIf="!isSending && !resulta.seance_journal">
+        <img src="assets/icon/waiting.svg" alt="">
+        <br>
+        <span> {{ resulta.translation.loading_msg || "Cahier de texte en attente de saisie" }} </span>
+      </div>
+      <br>
+      <div class="form-group">
+        <textarea rows="5" class="form-control" placeholder="" formControlName="content"></textarea>
+      </div>
+      <ul class="list-unstyled upload-file file_upload">
+        <li class="upload-file-container">
+          <span (click)="fileUploadInput.click()">
+            <img src="assets/icon/attachment-upload.svg" alt="">
+            <span *ngIf="!file">{{resulta.translation.file}}</span>
+            <span *ngIf="file">{{file.name.slice(file.name.lastIndexOf("/") + 1)}}</span>
+          </span>
+          <span *ngIf="file" (click)="deleteFile($event)">
+            <img class="file_delete"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAjklEQVRIie2Vyw2AIBQER3uQaIlarhwsRy+Y4AfCPuTmnEx0dwg+FH4MzIAz5FzIZlmAHfCixIXMHjqSDMAaHtyAqaD8nhnVQE4ilysSc3mJpLo8J/ms/CSeEH+7tozzK/GqpZX3FdKuInuh6Ra9vVDLYSwuT92TJSWjaJYocy5LLIdIkjT/XEPjH87PgwNng1K28QMLlAAAAABJRU5ErkJggg==" />
+          </span>
+        </li>
+        <input type="file" (change)="uploadFile($event)" style="display: none;" #fileUploadInput />
+      </ul>
+      <br>
+      <br>
+      <div class="btn-actions bottom" >
+        <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+          {{resulta.translation.send}}
+        </button>
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,67 @@
+<app-parent-header [isRoot]="false" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <section *ngIf="_result">
+    <div class="form-group">
+      <label>
+        
+        {{ _result?.translation?.nouveau ? _result?.translation?.nouveau : 'Nouveau paiement exécuté pour :' }}
+      </label>
+      <ion-grid class="ion-no-padding">
+        <ion-row class="align-items-center">
+          <ion-col *ngFor="let eleve of eleves" size="3">
+            <div class="eleve-div" (click)="toggleSelectEleve(eleve.id)" [class.active]="formValues.eleves.includes(eleve.id)">
+              <div class="eleve-wrapper">
+                <div class="eleve-img">
+                  <img [src]="eleve.img" alt="">
+                </div>
+              </div>
+              <h5>{{eleve.prenom}}</h5>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="form-group">
+      <label>
+        <!-- Mode de paiement : -->
+        {{ _result?.translation?.mode ? _result?.translation?.mode : 'Mode de paiement :' }}
+      </label>
+      <ion-grid class="ion-margin-top mode-paiement">
+        <ion-row class="align-items-center">
+          <ion-col *ngFor="let mode of _result.modes" size="6">
+            <div class="card" (click)="toggleSelectType(mode)" [class.active]="formValues.type == mode.alias">
+              {{mode.label}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ng-container *ngIf="mode && mode.details?.length > 0">
+      <div *ngFor="let detail of mode.details" class="form-group">
+        <input type="text" [placeholder]="detail.label" (change)="changeDetail(detail.alias,$event)" class="form-input">
+      </div>
+    </ng-container>
+    <div class="form-group">
+      <input type="text" placeholder="Montant" [(ngModel)]="formValues.montant" class="form-input">
+    </div>
+    <div class="form-group">
+      <input type="date" placeholder="Date" [(ngModel)]="formValues.date" class="form-input">
+    </div>
+    <div class="form-group">
+      <div class="file-select">
+        <div [class.hasFile]="formValues.file?.name" (click)="toggleInput($event)">{{formValues.file.name||'Photo de reçu (file)'}}</div>
+        <input type="file" (change)="selectFile($event)" class="form-input">
+      </div>
+    </div>
+    <div class="form-group">
+      <textarea type="text" placeholder="Commentaire" [(ngModel)]="formValues.commentaire" rows="4" class="form-input"></textarea>
+    </div>
+    <div class="form-group">
+      <button (click)="sendPaiement()" class="btn btn-main">
+        <!-- Valider -->
+        {{ _result?.translation?.Valider ? _result?.translation?.Valider : 'Valider' }}
+      </button>
+    </div>
+  </section>
+</ion-content>

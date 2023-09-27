@@ -1,0 +1,79 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button (click)="pagePlaning()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{_result?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="page-container ">
+    <!-- <div class="bg-white">
+      <div class="d-main-banner banner-bottom-left-raduis  main-bg px-0" style="display: flex;align-items: center;">
+        <ion-button (click)="pagePlaning()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <div class="text-center" style="margin-inline-start: 10px;">
+          <h3 class="ion-no-margin" style="color: #fff;" *ngIf="_result">{{_result.title}}</h3>
+        </div>
+      </div>
+    </div> -->
+    <section>
+
+      <ion-grid>
+        <ion-row style="margin-inline-start: 0 !important;margin-inline-end: 0 !important;" *ngIf="_result">
+          <ion-col *ngFor="let classe of _result.data" size="12">
+            <div class="card item">
+              <ion-grid>
+                <ion-row style="margin-inline-start: 0 !important;margin-inline-end: 0 !important;">
+                  <!-- <ion-col size="12" *ngIf="classe.img" class="text-center">
+                    <img [src]="classe.img" height="30px" style="max-width: 100%;width: auto;" alt="">
+                  </ion-col> -->
+                  <ion-col class="text-left">
+                    <h2>
+                      {{classe.label}}
+                    </h2>
+                  </ion-col>
+                  <ion-col class="text-right">
+                    <div [innerHTML]="classe.description"></div>
+                  </ion-col>
+                </ion-row>
+                <ion-row 
+                  *ngIf="_result.can_see_classe||_result.can_see_transmission||_result.can_see_discipline||_result.can_see_absences"  
+                  class="align-items-center item-actions"
+                >
+                  <ion-col class="text-center" *ngIf="_result?.can_see_discipline" (click)="cahier_transmission(classe)">
+                    <div class="item-action">
+                      <ion-icon name="heart-outline"></ion-icon> <br>
+                      <h3>{{_result.translation.discipline}}</h3>
+                    </div>
+                  </ion-col>
+                  <ion-col class="text-center" *ngIf="_result?.can_see_transmission" (click)="cahier_transmission(classe)">
+                    <div class="item-action">
+                      <ion-icon name="bookmarks-outline"></ion-icon> <br>
+                      <h3>{{_result.translation.transmission}}</h3>
+                    </div>
+                  </ion-col>
+                  <ion-col class="text-center" *ngIf="_result?.can_see_absences" (click)="absence(classe)">
+                    <div class="item-action">
+                      <ion-icon name="clipboard-outline"></ion-icon> <br>
+                      <h3>{{_result.translation.absences}}</h3>
+                    </div>
+                  </ion-col>
+                  <ion-col class="text-center" *ngIf="_result?.can_see_classe" (click)="eleves(classe)">
+                    <div class="item-action">
+                      <ion-icon name="people-outline"></ion-icon> <br>
+                      <h3>{{_result.translation.classes}}</h3>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+  </div>
+</ion-content>

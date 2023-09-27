@@ -1,0 +1,113 @@
+<app-enseignant-header [isRoot]="false" [title]="result?.translation?.title"></app-enseignant-header>
+
+<ion-content>
+
+
+	<div class="chatbox" *ngIf="reference">
+
+		<div class="person align-items-center d-flex">
+			<span class="avatar">
+				<img src="{{reference.img}}" alt="Debby Jones" />
+			</span>
+			<span class="info">
+				<span class="name">{{reference.at}}</span>
+				<span class="login-status">{{reference.sujet}}</span>
+			</span>
+		</div><!-- /.person -->
+
+		<div class="chatbox-messages" #conversationMessages>
+			<div class="messages clear" *ngFor="let message of _result">
+				<span class="avatar" *ngIf="message.class == 'sender'">
+					<img src="{{message.img}}" alt="{{message.at}}" />
+					<p class="mb-0">
+						<small>{{message.at}}</small>
+					</p>
+				</span>
+				<div class="{{message.class?message.class:''}}">
+					<div class="message-container">
+						<div *ngIf="message.message||message.file" class="message">
+							<p *ngIf="message.message">{{message.message}}</p>
+							<ng-container  *ngIf="message.files&&message.files.length>0">
+								<div class="file" *ngFor="let file of message.files"
+									(click)="downloadFile(file.name,file.path)">
+									<ion-icon name="download"></ion-icon> {{file.name}}
+								</div>
+							</ng-container>
+						</div>
+						<div *ngIf="message.audio" class="message-audio">
+							<ng-container *ngIf="isCordova && message.audio && message.audio.path">
+								<ion-icon name="play" (click)="playAudio(message.audio)"
+									*ngIf="!message.audio.isPlaying;else isPLaying"></ion-icon>
+								<ng-template #isPLaying>
+									<ion-icon name="square" (click)="stopAudio(message.audio)"></ion-icon>
+								</ng-template>
+								&nbsp;&nbsp;
+								<!-- audio -->
+								{{ _result?.translation?.audio ? _result?.translation?.audio : 'audio' }}
+								<!-- <div class="audio-bar" *ngFor="let bar of message.bars" [style.height]="bar +'%'" ></div> -->
+							</ng-container>
+							<div *ngIf="!isCordova">
+								<!-- audio -->
+								{{ _result?.translation?.audio ? _result?.translation?.audio : 'audio' }}
+							</div>
+						</div>
+						<span class="delivered">{{message.envoye_le}}</span>
+					</div><!-- /.message-container -->
+
+				</div><!-- /.sender -->
+			</div><!-- /.messages -->
+
+		</div><!-- /.chatbox-messages -->
+
+
+		<div class="message-form-container">
+			<ion-grid class="py-0">
+				<ion-row class="align-items-center">
+					<ion-col class="py-0" size="10">
+						<div class="message-input-wrapper">
+							<ng-container *ngIf="!recordingAudio;else audioPreview">
+								<label [class]="(messagefile?'color-main':'')" for="file-message">
+									<ion-icon name="attach"></ion-icon>
+								</label>
+								<input id="file-message" (change)="updateFile($event)" type="file" name=""
+									style="display: none;">
+								<input type="text" name="" class="message-input" [(ngModel)]="messageContent"
+									[placeholder]="result?.translation?.send_msg">
+								<ion-icon name="mic" class="audio-trigger" [class.text-main]="recordingAudio"
+									(click)="toggleRecordAudio()"></ion-icon>
+							</ng-container>
+							<ng-template #audioPreview>
+								<div class="audio-bars-wrapper">
+									<div class="audio-bar" *ngFor="let bar of audioBars" [style.height]="bar +'%'">
+									</div>
+								</div>
+								<ion-icon *ngIf="recordOn" name="pause" class="audio-trigger text-main"
+									(click)="pauseRecordAudio()"></ion-icon>
+								<ion-icon *ngIf="!recordOn" name="play" class="audio-trigger text-main"
+									(click)="resumeRecordAudio()"></ion-icon>
+								<ion-icon name="trash" class="audio-trigger text-main"
+									(click)="toggleRecordAudio()"></ion-icon>
+							</ng-template>
+						</div>
+					</ion-col>
+					<ion-col class="py-0 text-center" size="2">
+						<button (click)="sendMessage()" class="send-button">
+							<ion-icon name="send-outline"></ion-icon>
+						</button>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+			<!-- <form (ngSubmit)="send()"  class="message-form" [formGroup]="formGroup" >
+						<textarea id="message" name="message"  [(ngModel)]="message" formControlName="message" placeholder="{{reference.translation.message}}"></textarea>
+						<button class="send-btn" type="submit" [disabled]="!formGroup.valid">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.2 30.1"><path class="st0" d="M2.1 14.6C8.9 12 28.5 4 28.5 4l-3.9 22.6c-0.2 1.1-1.5 1.5-2.3 0.8l-6.1-5.1 -4.3 4 0.7-6.7 13-12.3 -16 10 1 5.7 -3.3-5.3 -5-1.6C1.5 15.8 1.4 14.8 2.1 14.6z"/></svg>
+						</button>
+					</form> -->
+			<!-- /.search-form -->
+
+
+		</div><!-- /.message-form-container -->
+
+	</div>
+	<!-- /.chatbox -->
+</ion-content>

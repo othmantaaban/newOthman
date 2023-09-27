@@ -1,0 +1,175 @@
+<app-enseignant-header [isRoot]="false" backTo="enseignant/ressources" title="Ressources" ></app-enseignant-header>
+
+<ion-content padding>
+  <ion-grid *ngIf="result" fixed>
+    <ion-row class="align-items-center">
+      <ion-col>
+        <div class="d-flex align-items-baseline">
+          <span class="categorie">{{result.categorie}}</span>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="!result.public" size="4">
+        <div class="devoir-actions">
+          <button (click)="editDevoir(result)" class="btn-edit">
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+          <button (click)="deleteDevoir(result)" class="btn-delete">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <time>{{ result.date }}</time>
+        <h2 class="devoir-title">{{result.title}}</h2>
+        <div class="devoir-content" [innerHtml]="description"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="files-wrapper" *ngFor="let file of result.files">
+      <ion-col size="12">
+        <ng-container [ngSwitch]="file.type">
+          <ng-container *ngSwitchCase="'file'">
+            <ng-container *ngIf="file.mime.type.includes('image');else notImage">
+              <div class="image-wrapper">
+                <img [src]="file.link">
+                <div class="image-description">
+                  <button class="btn-download" (click)="downloadFile(file)" > <img src="../../../../assets/icon/download.svg" alt="download"></button>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #notImage>
+              <ng-container *ngIf="file.mime.type.includes('video');else notVideo">
+                <video [src]="file.link" controls></video>
+              </ng-container>
+            </ng-template>
+            <ng-template #notVideo>
+              <ng-container *ngIf="file.mime.type.includes('audio');else notAudio">
+                <audio [src]="file.link" controls></audio>
+              </ng-container>
+            </ng-template>
+            <ng-template #notAudio>
+              <div class="file-wrapper">
+                  <div class="file-icon">
+                        <ion-icon name="document-text"></ion-icon>
+                  </div>
+                  <div class="file-name">
+                    {{file.filename}}
+                  </div>
+                  <div class="file-actions">
+                    <div class="action" >
+                      <button class="btn-download" (click)="downloadFile(file)" > <img src="../../../../assets/icon/download.svg" alt="download"></button>
+                    </div>
+                </div>
+              </div>
+            </ng-template>
+          </ng-container>
+          <ng-container *ngSwitchCase="'youtube'">
+            <iframe [src]="sanitizeUrl(file.link)" frameborder="0"></iframe>
+          </ng-container>
+          <ng-container *ngSwitchCase="'link'">
+              <div class="link-wrapper">
+                <div class="link-icon">
+                  <ion-icon name="link"></ion-icon>
+                </div>
+                <div class="link-name">
+                  {{file.filename}}
+                </div>
+                <div class="link-actions">
+                  <div class="action" >
+                    <button class="btn-download" (click)="iabOpen(file.link)" > <ion-icon name="open-outline"></ion-icon> </button>
+                  </div>
+              </div>
+              </div>
+              <!-- <iframe [src]="sanitizeUrl(file.link)" frameborder="0"></iframe> -->
+          </ng-container>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <div class="devoir-stats">
+          <span class="span-date">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <h5>
+              {{result.date}}
+            </h5>
+          </span>
+          <span class="span-vues">
+            <ion-icon name="eye-outline"></ion-icon>
+            <h5>
+              {{result.vues}} {{translation?.vues}}
+            </h5>
+          </span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <ion-grid class="classe-grid">
+          <ion-row *ngFor="let eleve of result.eleves" class="ion-align-items-center" align-items-center>
+            <ion-col size="auto">
+              <img src="{{eleve.picture}}" alt="" class="img-circle">
+            </ion-col>
+            <ion-col>
+              <h6 class="ion-no-margin">
+                {{eleve.nom}}
+              </h6>
+            </ion-col>
+            <ion-col size="4">
+              <ion-row>
+                <ion-col class="text-center">
+                  <ion-icon [ngClass]="{ success : eleve.vu }" name="eye"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <div class="page-container">
+    <div *ngIf="result?.eleves?.length > 0" class="classe">
+      <div class="card">
+        <div class="card-body">
+          <ion-grid class="classe-grid">
+            <ion-row *ngFor="let eleve of result.eleves" class="ion-align-items-center" align-items-center>
+              <ion-col size="2">
+                <img src="{{eleve.picture}}" alt="" class="img-circle">
+              </ion-col>
+              <ion-col size="6">
+                <h6>
+                  {{eleve.nom}}
+                </h6>
+              </ion-col>
+              <ion-col size="4">
+                <ion-row>
+                  <ion-col class="text-center">
+                    <ion-icon [ngClass]="{ success : eleve.vu }" name="eye"></ion-icon>
+                  </ion-col>
+                  <ion-col class="text-center" *ngIf="type == 'devoir'">
+                    <ion-icon [ngClass]="{ success : eleve.done }" name="checkmark-circle"></ion-icon>
+                  </ion-col>
+                  <ion-col class="text-center" *ngIf="type == 'devoir'">
+  
+                    <button *ngIf="eleve.file;else noFile" style="background: transparent;"
+                      (click)="downloadFile(eleve.file)">
+                      <ion-icon [ngClass]="{ success : eleve.file }" name="document"></ion-icon>
+                    </button>
+  
+                    <ng-template #noFile>
+                      <ion-icon name="document"></ion-icon>
+                    </ng-template>
+  
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+  
+    </div>
+  </div> -->
+
+</ion-content>

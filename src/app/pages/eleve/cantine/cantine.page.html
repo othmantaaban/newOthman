@@ -1,0 +1,89 @@
+<app-parent-header [isRoot]="true" [title]="results?.translation?.title||''" />
+<ion-content class="ion-padding-top">
+<!-- 
+  <ion-grid *ngIf="results" class="suivi-header">
+    <ion-row class="d-flex align-items-center">
+      <ion-col col-3 class="text-center">
+        <ion-icon name="restaurant" ></ion-icon>
+      </ion-col>
+      <ion-col class="text-center" col-6>
+        <h1 *ngIf="results?.translation">{{results.translation.title}}</h1>
+      </ion-col>
+      <ion-col class="text-center" col-3>
+        <div class="user-picture-top-page d-grid">
+          <div>
+            <img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+          </div>
+          <div>
+            <span>{{eleve.nomcomplet}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <ion-card *ngIf="results">
+    <ion-card-header>
+      <ion-grid class="header-grid">
+        <ion-row class="flex-item-center">
+          <ion-col>
+            <button ion-button icon-only class="btn-fleche" (click)="prev(results.last_week)">
+              <ion-icon name="chevron-back"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col size="8">
+            <h3 class="timetable-week"> <b> {{results.label_du}} </b></h3>
+            <h3 class="timetable-week"><b>{{results.label_au}} </b></h3>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-only class="btn-fleche" (click)="next(results.next_week)">
+              <ion-icon name="chevron-forward"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment mode="md" [(ngModel)]="activeDay">
+        <ng-container *ngFor="let result of results.seances">
+          <ion-segment-button [value]="result.day">
+            <ion-label>{{result.label}}</ion-label>
+          </ion-segment-button>
+        </ng-container>
+      </ion-segment>
+      <ng-container [ngSwitch]="activeDay">
+        <ng-container *ngFor="let result of results.seances">
+          <ng-container *ngSwitchCase="result.day">
+            <div class="content">
+              <div class="aucun-cours" *ngIf="!result.menu">
+                <h3>{{results.translation.aucun_cantine}}</h3>
+              </div>
+              <div *ngIf="result.menu && result.img" class="cantine-img">
+                <img *ngFor="let image of result.img" [src]="image" class="img-fluid" alt="">
+              </div>
+              <div *ngIf="result.menu" class="cantine-menu" >
+                <div class="menu-content" [innerHTML]="result.menu"></div>
+                <!-- <div class="cantine-ico" >
+                  <img src="../../../../assets/icon/cantine.svg" alt="">
+                </div> -->
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <!-- <ngb-tabset [justify]="currentJustify" [activeId]="results.selected_day">
+        <ngb-tab *ngFor="let result of results.seances" title="{{result.label}}" [id]="result.day">
+          <ng-template ngbTabContent>
+            <div class="aucun-cours" *ngIf="!result.menu">
+              <h3>{{results.translation.aucun_cantine}}</h3>
+            </div>
+            <div *ngIf="result.img" class="cantine-img">
+              <img *ngFor="let image of result.img" [src]="image" class="img-fluid" alt="">
+            </div>
+            <div *ngIf="result.menu" class="cantine-menu" [innerHTML]="result.menu"></div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>

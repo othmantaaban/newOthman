@@ -1,0 +1,57 @@
+<ion-header style="background-color: white" class="ion-no-border" no-border>
+  <div style="position: absolute">
+    <img src="assets/imgs/badge/Motif.png" alt="" />
+  </div>
+  <ion-toolbar class="ion-no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <button class="back-button" (click)="navCtrl.back()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col size="10">
+          <span style="
+          color: black;
+          margin-top: 8px;
+          font-weight: 700;
+          display: inline-block;
+        ">
+        {{ results?.translation?.hitorique_title}}
+        </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="contents" *ngIf="results && results">
+
+    <div class="aucun-cours" *ngIf="results.pointages.length == 0">
+      <img src="{{results.empty_icon}}" alt="" />
+      <h3 [innerHtml]="results.empty_text"></h3>
+    </div>
+
+    <div *ngFor="let scan of results.pointages" class="col">
+      <div class="img">
+        <img src="assets/imgs/badge/calendar.png" alt="" />
+      </div>
+      <div class="text">
+        <div class="col-2">{{scan.date}}</div>
+        <div class="col-2" slot="end">
+          <div style="color: #4fb121" *ngIf="!scan.isEnter">
+            <!-- Entrée  -->
+            {{ _result?.translation?.entree ? _result?.translation?.entree : 'Entrée' }}
+            <img src="assets/imgs/badge/arrow-left.png" alt="" />
+          </div>
+          <div style="color: #6749de" *ngIf="scan.isEnter">
+            <!-- Sortie  -->
+            {{ _result?.translation?.sortie ? _result?.translation?.sortie : 'Sortie' }}
+            <img src="assets/imgs/badge/arrow-right.png" alt="" />
+          </div>
+          <span>à {{scan.time}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

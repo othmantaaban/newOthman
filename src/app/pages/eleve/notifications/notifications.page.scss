@@ -1,0 +1,52 @@
+.fixed-bottom {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+.notification-item {
+    border-bottom: 1px solid #f7f7f7;
+    position: relative;
+    padding: 10px 20px;
+    padding-bottom: 20px;
+
+    div:first-child {
+        position: absolute;
+    }
+
+    div:last-child {
+        margin-inline-start: 70px;
+    }
+
+    div {
+        img {
+            width: 55px !important;
+            height: 55px !important;
+            border-radius: 50%;
+        }
+
+        h3 {
+            margin: 0px;
+            margin-top: 4px;
+            font-family: "Montserrat", "Gotham-Medium", "Arial" !important;
+            font-size: 15px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        p {
+            font-size: 12px;
+            margin-top: -5px;
+            margin-bottom: 10px;
+
+            span {
+                display: block;
+                font-weight: bold;
+                color: var(--main-color);
+            }
+        }
+    }
+}

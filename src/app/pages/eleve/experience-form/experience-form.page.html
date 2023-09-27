@@ -1,0 +1,97 @@
+<!-- <ion-header>
+  <ion-toolbar mode="ios">
+    <ion-img slot="start" src="assets/imgs/menu_icon.svg" ></ion-img>
+    <ion-title> {{ _result.translation.monProfil }} </ion-title>
+    <ion-img slot="end" src="assets/imgs/notification.svg"></ion-img>
+  </ion-toolbar>
+</ion-header> -->
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Mon profil'" />
+
+<ion-content>
+  <div class="back" (click)="back()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+    <span> {{ _result?.translation?.retour ? _result?.translation?.retour : "retour" }} </span>
+  </div>
+  <div class="parcour-header">
+    <div class="icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <path d="M24.0001 15.8667V21.5333C24.0001 22.992 22.9507 24.248 21.5041 24.44C18.7214 24.8093 15.8827 25 13.0001 25C10.1174 25 7.27874 24.8093 4.49607 24.44C3.04941 24.248 2.00007 22.992 2.00007 21.5333V15.8667M24.0001 15.8667C24.3167 15.5915 24.57 15.2511 24.7426 14.8688C24.9152 14.4866 25.0031 14.0714 25.0001 13.652V8.608C25.0001 7.16667 23.9761 5.92133 22.5507 5.708C21.0405 5.48189 19.5226 5.30978 18.0001 5.192M24.0001 15.8667C23.7414 16.0867 23.4401 16.26 23.1027 16.3733C19.8444 17.4545 16.4331 18.0037 13.0001 18C9.56706 18.0032 6.15591 17.454 2.89741 16.3733C2.56842 16.2639 2.26371 16.0918 2.00007 15.8667M2.00007 15.8667C1.68347 15.5915 1.43016 15.2511 1.25754 14.8688C1.08492 14.4866 0.99709 14.0714 1.00007 13.652V8.608C1.00007 7.16667 2.02407 5.92133 3.44941 5.708C4.95967 5.48189 6.47753 5.30978 8.00007 5.192M18.0001 5.192V4C18.0001 3.20435 17.684 2.44129 17.1214 1.87868C16.5588 1.31607 15.7957 1 15.0001 1H11.0001C10.2044 1 9.44136 1.31607 8.87875 1.87868C8.31614 2.44129 8.00007 3.20435 8.00007 4V5.192M18.0001 5.192C14.6717 4.93477 11.3284 4.93477 8.00007 5.192M13.0001 14H13.0107V14.0107H13.0001V14Z" stroke="#EE5F5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span>
+      {{ _result?.translation?.experience ? _result?.translation?.experience : "Expérience professionnelle" }}
+    </span>
+  </div>
+
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="input">
+      <label>{{ _result?.translation?.organisme ? _result?.translation?.organisme : "Organisme" }}</label>
+      <input type="text" formControlName="organisme" class="text" [placeholder]="_result?.translation?.organisme ? _result?.translation?.organisme : 'Organisme'">
+    </div>
+    <!-- <ion-select class="select" [placeholder]="_result?.translation?.secteur ? _result?.translation?.secteur : 'Secteur d’activité'">
+      <ion-select-option value="Baccalaureat">Baccalaureat</ion-select-option>
+      <ion-select-option value="Baccalaureat2">Baccalaureat 2</ion-select-option>
+      <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
+    </ion-select> -->
+    <!-- <div class="input">
+      <label>{{ _result?.translation?.secteur ? _result?.translation?.secteur : "Secteur d’activité" }}</label>
+      <input type="text" formControlName="secteur" class="text" [placeholder]="_result?.translation?.secteur ? _result?.translation?.secteur : 'Secteur d’activité'">
+    </div> -->
+    <div class="input">
+      <label>{{ _result?.translation?.nature ? _result?.translation?.nature : "Nature de l’emploi" }}</label>
+      <!-- <ion-select class="select" [placeholder]="_result?.translation?.nature ? _result?.translation?.nature : 'Nature de l’emploi'">
+        <ion-select-option value="Baccalaureat">Baccalaureat</ion-select-option>
+        <ion-select-option value="Baccalaureat2">Baccalaureat 2</ion-select-option>
+        <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
+      </ion-select> -->
+      <input type="text" formControlName="nature" class="text" [placeholder]="_result?.translation?.nature ? _result?.translation?.nature : 'Nature de l’emploi'">
+    </div>
+    <div class="multiple">
+      <div class="input">
+        <label>{{ _result?.translation?.dateDebut ? _result?.translation?.dateDebut : "Date Début" }}</label>
+        <ion-button class="date" fill="outline" id="open-modal-debut">
+          <div>
+            <span> {{ form.get('datedebut').value ? form.get('datedebut').value : "----" }} </span>
+            <ion-icon class="icon" name="calendar-clear-outline"></ion-icon>
+          </div>
+        </ion-button>
+        <ion-modal class="modaldate" trigger="open-modal-debut">
+          <ng-template>
+            <ion-datetime formControlName="datedebut" presentation="year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+      <div class="input">
+        <label>{{ _result?.translation?.dateFin ? _result?.translation?.dateFin : "Date Fin" }}</label>
+        <ion-button class="date" fill="outline" id="open-modal-fin">
+          <div>
+            <span> {{ form.get('datefin').value ? form.get('datefin').value : "----" }} </span>
+            <ion-icon class="icon" name="calendar-clear-outline"></ion-icon>
+          </div>
+        </ion-button>
+        <ion-modal class="modaldate" trigger="open-modal-fin">
+          <ng-template>
+            <ion-datetime formControlName="datefin" presentation="year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+    </div>
+    <div class="input">
+      <label>{{ _result?.translation?.fonction ? _result?.translation?.fonction : "Fonction" }}</label>
+      <!-- <ion-select class="select" [placeholder]="_result?.translation?.fonction ? _result?.translation?.fonction : 'Fonction'">
+        <ion-select-option value="Baccalaureat">Baccalaureat</ion-select-option>
+        <ion-select-option value="Baccalaureat2">Baccalaureat 2</ion-select-option>
+        <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
+      </ion-select> -->
+      <input type="text" formControlName="fonction" class="text" [placeholder]="_result?.translation?.fonction ? _result?.translation?.fonction : 'Fonction'">
+    </div>
+    <!-- <div class="input">
+      <label>{{ _result?.translation?.mission ? _result?.translation?.mission : "Mission" }}</label>
+      <textarea formControlName="mission" class="textarea" [placeholder]="_result?.translation?.mission ? _result?.translation?.mission : 'Mission'"></textarea>
+    </div> -->
+
+    <ion-button type="submit" class="submit" [disabled]="!form.valid" type="submit" expand="block" shape="round">
+      {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : "Enregistrer" }}
+    </ion-button>
+  </form>
+</ion-content>

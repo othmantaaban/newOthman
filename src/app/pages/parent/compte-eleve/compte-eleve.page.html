@@ -1,0 +1,145 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content>
+  <section class="form-compte ion-margin-bottom" *ngIf="eleve && _result">
+    <form (ngSubmit)="send()" class="ion-margin-bottom" [formGroup]="formGroup">
+      <div class="photo_eleve" (click)=" !_result.can_not_eleve_edit_picture? cropImage() : null">
+        <div class="img_container">
+          <div class="photo_icon" *ngIf="!_result.can_not_eleve_edit_picture">
+            <ion-icon name="camera"></ion-icon>
+            <span>{{_result.translation.modifier}}</span>
+          </div>
+          <img class="img-responsive" src="{{photo}}" />
+        </div>
+      </div>
+      <!-- <div *ngIf="_result?.translation" class="form-group">
+        <label for="">{{_result.translation.sexe}}</label>
+        <ion-item *ngIf="_result.translation">
+          <ion-select okText="Ok" cancelText="Fermer" [disabled]="_result.can_not_eleve_edit_profile"
+            placeholder="{{_result.translation.sexe}}" formControlName="sexe" [(ngModel)]="sexe">
+            <ion-select-option *ngFor="let sexe of _result.translation.sexe_types" [value]="sexe.value">
+              {{sexe.label}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div> -->
+
+      <ion-grid *ngIf="_result?.translation"  fixed>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label for="">{{_result.translation.sexe}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col *ngFor="let sexe_type of _result?.translation?.sexe_types">
+                  <div class="d-flex align-items-center">
+                    <input type="radio" formControlName="sexe" [disabled]="_result.can_not_eleve_edit_profile"  [(ngModel)]="sexe" mode="md" slot="start" [id]="'sexe'+sexe_type.value" name="sexe" [value]="sexe_type.value">
+                    <label [for]="'sexe'+sexe_type.value">{{sexe_type.label}}</label>
+                  </div>
+                    <!-- <ion-label>{{sexe_type.label}}</ion-label> -->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label>{{_result.translation.nom_prenom_fr}}</label>
+          </ion-col>
+          <ion-col size="6">
+            <input type="text" class="form-control" placeholder="{{_result.translation.nom_fr}}"
+            formControlName="nom" [(ngModel)]="nom" />
+          </ion-col>
+          <ion-col size="6">
+            <input type="text" class="form-control"
+            placeholder="{{_result.translation.prenom_fr}}" formControlName="prenom" [(ngModel)]="prenom" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label>{{_result.translation.nom_prenom_ar}}</label>
+          </ion-col>
+          <ion-col size="6">
+            <input type="text" class="form-control" placeholder="{{_result.translation.nom_ar}}"
+              formControlName="nomar" [(ngModel)]="nomar" />
+          </ion-col>
+          <ion-col size="6">
+            <input type="text" class="form-control"
+              placeholder="{{_result.translation.prenom_ar}}" formControlName="prenomar" [(ngModel)]="prenomar" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <label for="">{{_result.translation.date_naissance}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-datetime displayFormat="DD/MM/YYYY" 
+              doneText="{{_result.translation.choisir}}" cancelText="{{_result.translation.annuler}}" 
+              formControlName="datenaissance" [(ngModel)]="datenaissance" />
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col size="12">
+            <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+              {{_result.translation.enregistrer}}
+              <img src="assets/imgs/icon/right-arrow.svg" alt="">
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- <div class="form-group">
+        <label for="">{{_result.translation.nom_prenom_fr}}</label>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <input type="text" class="form-control" placeholder="{{_result.translation.nom_fr}}"
+                  formControlName="nom" [(ngModel)]="nom" />
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <input type="text" class="form-control"
+                  placeholder="{{_result.translation.prenom_fr}}" formControlName="prenom" [(ngModel)]="prenom" />
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div> -->
+
+      <!-- <div class="form-group">
+        <label for="">{{_result.translation.nom_prenom_ar}}</label>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <input type="text" class="form-control" placeholder="{{_result.translation.nom_ar}}"
+                  formControlName="nomar" [(ngModel)]="nomar" />
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <input type="text" class="form-control"
+                  placeholder="{{_result.translation.prenom_ar}}" formControlName="prenomar" [(ngModel)]="prenomar" />
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div> -->
+      <!-- <div class="form-group">
+        <label for="">{{_result.translation.date_naissance}}</label>
+          <ion-datetime displayFormat="DD/MM/YYYY" 
+            doneText="{{_result.translation.choisir}}" cancelText="{{_result.translation.annuler}}" 
+            formControlName="datenaissance" [(ngModel)]="datenaissance">
+          </ion-datetime>
+      </div>
+      <div class="btn-actions bottom">
+        <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+          {{_result.translation.enregistrer}}
+          <img src="assets/imgs/icon/right-arrow.svg" alt="">
+        </button>
+      </div> -->
+    </form>
+  </section>
+</ion-content>

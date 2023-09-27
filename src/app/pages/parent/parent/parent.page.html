@@ -1,0 +1,68 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu [swipeGesture]="false" contentId="main-content" type="overlay">
+      <ion-header>
+        <div class="eleves_menu">
+          <div *ngIf="eleve" class="active_eleve">
+            <ion-grid>
+              <ion-row *ngIf="eleves;else oneEleve">
+                <ion-col size="4" class="text-center border-inline-end">
+                  <div class="img_container">
+                    <div class="statut-eleve"></div>
+                    <img class="img-responsive" src="{{eleve.img}}" />
+                  </div>
+                  <h2>{{eleve.nomcomplet}}</h2>
+                  <h3 *ngIf="eleve.code">{{eleve.code}}</h3>
+                  <h3>{{eleve.niveau}}</h3>
+                </ion-col>
+                <ion-col size="7">
+                  <div *ngIf="eleves" class="autres_eleves">
+                    <ng-container *ngFor="let item of eleves">
+                      <div *ngIf="item.id != eleve.id" class="eleve_item" (click)="switchTo(item)">
+                        <div>
+                          <div class="img_container">
+                            <div class="statut-eleve"></div>
+                            <img class="img-responsive" src="{{item.img}}" />
+                          </div>
+                          <h3>{{item.prenom}}</h3>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ng-template #oneEleve>
+                <ion-row>
+                  <ion-col col-12 class="text-center">
+                    <div class="img_container">
+                      <div class="statut-eleve"></div>
+                      <img class="img-responsive" src="{{eleve.img}}" />
+                    </div>
+                    <h2>{{eleve.nomcomplet}}</h2>
+                    <h3 *ngIf="eleve.code">{{eleve.code}}</h3>
+                    <h3>{{eleve.niveau}}</h3>
+                  </ion-col>
+                </ion-row>
+              </ng-template>
+            </ion-grid>
+          </div>
+        </div>
+      </ion-header>
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ng-container *ngFor="let p of appPages; let i = index">
+            <ion-menu-toggle auto-hide="false" *ngIf="p.visible">
+              <ion-item routerDirection="root" [routerLink]="[p.path]" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" [name]="p.icon||'grid-outline'"></ion-icon>
+                <ion-label>{{ p.label }}</ion-label>
+                <ion-badge *ngIf="p.count && p.count > 0" class="badge badge-primary" mode="ios" slot="end"> {{p.count}} </ion-badge>
+              </ion-item>
+            </ion-menu-toggle>
+          </ng-container>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

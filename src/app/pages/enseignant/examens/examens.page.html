@@ -1,0 +1,44 @@
+<app-enseignant-header [isRoot]="false" [title]="_result?.translation?.title" ></app-enseignant-header>
+
+<ion-content>
+  <div class="page-container bg-gris">
+      <!-- {{ _result | json}} -->
+      <div class="aucun-examens" [hidden]="!_result?.empty">
+          <img [src]=" _result?.empty?.img " alt="">
+          <h3>{{_result?.empty?.label}}</h3>
+      </div>
+      <div class="to-do-lists" *ngIf="_result">
+          <div class="item" *ngFor="let result of _result.data" (click)="examenDetails(result)">
+              <div class="image">
+                  <span class="date">
+                      <div class="day">{{result.date.jour}}</div>
+                      <span class="month text-uppercase">{{result.date.mois}}</span>
+                  </span>
+              </div>
+              <div class="item-description">
+                  <h3>{{result.unite}}</h3>
+                  <span class="main-color">{{result.matiere}}</span>
+                  <div style="display: flex;">
+                      <span class="group">{{result.classe}}</span>
+                      <span *ngIf="!result.valide" class="needActivation"> {{_result.translation.needActivation}} </span>
+                  </div>
+                  <ul class="list-unstyled">
+                      <li><img src="assets/icon/clock-gris.svg" alt=""> {{result.seance}}</li>
+                      <li><img src="assets/icon/salle.svg" alt=""> {{result.salle}}</li>
+                  </ul>
+                  <ion-icon *ngIf="result.active" name="arrow-forward" class="arrow-right"></ion-icon>
+              </div>
+          </div>
+          <!-- end item -->
+      </div>
+  </div>
+</ion-content>
+<div class="actions" *ngIf="_result?.can_add_examen">
+  <ul class="list-inline">
+      <li class="list-inline-item">
+          <button class="btn-main btn-circle" (click)="showExamenform()">
+              <img src="assets/icon/plus.svg" alt="">
+          </button>
+      </li>
+  </ul>
+</div>

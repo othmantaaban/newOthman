@@ -1,0 +1,288 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content>
+
+  <div class="container_result">
+    <!-- <ion-grid class="user-picture-top-page">
+      <ion-row class="align-items-center">
+        <ion-col class="text-center" col-4>
+          <img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+        </ion-col>
+        <ion-col size="8">
+          <h1 *ngIf="_result?.translation">{{_result.translation.title}}</h1>
+          <span>{{eleve.nomcomplet}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+
+    <section *ngIf="_result?.data">
+      <app-accordion *ngIf="_result.data[2]">
+        <ng-container accordionTitle>
+          <span class="ion-margin-start">{{_result.data[2].label}}</span>
+        </ng-container>
+        <ng-container *ngIf="_result.data[2].data" accordionContent>
+          <ng-container *ngFor="let result of _result.data[2].data">
+            <ion-grid class="examen_item ion-no-padding" *ngIf="result.isExam;else notExam">
+              <ion-row  align-items-center class="">
+                <ion-col size="2">
+                  <div class="date_examen">
+                    <span class="jour">{{result.date.jour}}</span>
+                    <span class="mois">{{result.date.mois}}</span>
+                  </div>
+                </ion-col>
+                <ion-col size="7">
+                  <div class="examen_infos">
+                    <div>
+                      <h1> {{result.matiere}}
+                      </h1>
+                      <span *ngIf="result.enseignant" class="prof">{{result.enseignant}}</span>
+                      <span *ngIf="result.seance" class="seance">{{result.seance}}</span>
+                    </div>
+                  </div>
+                </ion-col>
+                <ion-col size="3" class="statut-col" >
+                  <div class="statut">
+                    <span [ngStyle]="{'color': result.color }">{{result.statut}}</span>
+                  </div>
+                  <!-- <img *ngIf="result.icone" src="{{result.icone}}" alt="{{eleve.statut}}"> -->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ng-template #notExam>
+              <ion-grid  class="releve_item ion-no-padding">
+                <ion-row class="pv-ligne">
+                  <ion-col size="2" class="releve-icone">
+                    <ion-icon *ngIf="!result.icone;else hasIcone" class="icon-lg" name="document"></ion-icon>
+                    <ng-template #hasIcone>
+                      <img src="result.icone" alt="">
+                    </ng-template>
+                  </ion-col>
+                  <ion-col size="7">
+                    <div class="examen_infos">
+                      <div>
+                        <h1> {{result.title}} </h1>
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col size="3" class="statut text-right">
+                    <a (click)="downloadFile(result.file)" >
+                      <img src="../../../../assets/icon/download.svg" alt="">
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="result" *ngIf="result.value">
+                  <ion-col class="text-right">
+                    <!-- Moyenne générale : -->
+                    {{ _result?.translation?.moy ? _result?.translation?.moy : 'Moyenne générale :' }}
+                    <span>{{result.value}}</span>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </app-accordion>
+      <app-accordion [open]="true" *ngIf="_result.data[1]">
+        <ng-container accordionTitle>
+          <span class="ion-margin-start">{{_result.data[1].label}}</span>
+        </ng-container>
+        <ng-container *ngIf="_result.data[1].data" accordionContent>
+          <ng-container *ngFor="let result of _result.data[1].data">
+            <ion-grid class="examen_item ion-no-padding" *ngIf="result.isExam;else notExam">
+              <ion-row  align-items-center class="">
+                <ion-col size="2">
+                  <div class="date_examen">
+                    <span class="jour">{{result.date.jour}}</span>
+                    <span class="mois">{{result.date.mois}}</span>
+                  </div>
+                </ion-col>
+                <ion-col size="7">
+                  <div class="examen_infos">
+                    <div>
+                      <h1> {{result.matiere}}
+                      </h1>
+                      <span *ngIf="result.enseignant" class="prof">{{result.enseignant}}</span>
+                      <span *ngIf="result.seance" class="seance">{{result.seance}}</span>
+                    </div>
+                  </div>
+                </ion-col>
+                <ion-col size="3" class="statut-col" >
+                  <div class="statut">
+                    <span [ngStyle]="{'color': result.color }">{{result.statut}}</span>
+                  </div>
+                  <!-- <img *ngIf="result.icone" src="{{result.icone}}" alt="{{eleve.statut}}"> -->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ng-template #notExam>
+              <ion-grid  class="releve_item ion-no-padding">
+                <ion-row class="pv-ligne">
+                  <ion-col size="2" class="releve-icone">
+                    <ion-icon *ngIf="!result.icone;else hasIcone" class="icon-lg" name="document"></ion-icon>
+                    <ng-template #hasIcone>
+                      <img src="result.icone" alt="">
+                    </ng-template>
+                  </ion-col>
+                  <ion-col size="7">
+                    <div class="examen_infos">
+                      <div>
+                        <h1> {{result.title}} </h1>
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col size="3" class="statut text-right">
+                    <a (click)="downloadFile(result.file)" >
+                      <img src="../../../../assets/icon/download.svg" alt="">
+                    </a>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="result" *ngIf="result.value">
+                  <ion-col class="text-right">
+                    <!-- Moyenne générale : -->
+                    {{ _result?.translation?.moy ? _result?.translation?.moy : 'Moyenne générale :' }}
+                    <span>{{result.value}}</span>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </app-accordion>
+      <!-- <ngb-accordion [closeOthers]="true">
+        <ngb-panel *ngIf="_result.data[2]">
+          <ng-template ngbPanelTitle>
+            <span>{{_result.data[2].label}}</span>
+            <ion-icon name="ios-arrow-down" class="float-right"></ion-icon>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <ng-container *ngIf="_result.data[2].data">
+              <ion-grid class="examen_item" *ngFor="let result of _result.data[2].data">
+                <ion-row *ngIf="result.isExam;else notExam" align-items-center class="">
+                  <ion-col col-3>
+                    <div class="date_examen">
+                      <span class="jour">{{result.date.jour}}</span>
+                      <span class="mois">{{result.date.mois}}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col col-6>
+                    <div class="examen_infos">
+                      <div>
+                        <h1> {{result.matiere}}
+                        </h1>
+                        <span class="prof">{{result.enseignant}}</span>
+                        <span class="seance">{{result.seance}}</span>
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col col-3 class="statut">
+                    <img *ngIf="result.icone" src="{{result.icone}}" alt="{{eleve.statut}}">
+                    <span [ngStyle]="{'color': result.color }">{{result.statut}}</span>
+                  </ion-col>
+                </ion-row>
+                <ng-template #notExam>
+                  <ion-row class="pv-ligne">
+                    <ion-col col-3 class="text-center">
+                      <ion-icon *ngIf="!result.icone;else hasIcone" class="icon-lg" name="md-document"></ion-icon>
+                      <ng-template #hasIcone>
+                        <img src="result.icone" alt="">
+                      </ng-template>
+                    </ion-col>
+                    <ion-col col-6>
+                      <div class="examen_infos">
+                        <div>
+                          <h1> {{result.title}} </h1>
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col col-3 class="statut text-center">
+                      <a [href]="result.file" target="_blank" rel="noopener noreferrer">
+                        <ion-icon class="icon-lg" name="md-download"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="result" *ngIf="result.value">
+                    <ion-col class="text-right">
+                      Moyenne :
+                    </ion-col>
+                    <ion-col class="text-right">
+                      <span>{{result.value}}</span>
+                    </ion-col>
+                  </ion-row>
+                </ng-template>
+              </ion-grid>
+            </ng-container>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel *ngIf="_result.data[1]">
+          <ng-template ngbPanelTitle>
+            <span>{{_result.data[1].label}}</span>
+            <ion-icon name="ios-arrow-down" class="float-right"></ion-icon>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <ng-container *ngIf="_result.data[1].data">
+              <ion-grid class="examen_item" *ngFor="let result of _result.data[1].data">
+                <ion-row *ngIf="result.isExam;else notExam" align-items-center class="">
+                  <ion-col col-3>
+                    <div class="date_examen">
+                      <span class="jour">{{result.date.jour}}</span>
+                      <span class="mois">{{result.date.mois}}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col col-6>
+                    <div class="examen_infos">
+                      <div>
+                        <h1> {{result.matiere}}
+                        </h1>
+                        <span class="prof">{{result.enseignant}}</span>
+                        <span class="seance">{{result.seance}}</span>
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col col-3 class="statut">
+                    <img *ngIf="result.icone" src="{{result.icone}}" alt="{{eleve.statut}}">
+                    <span [ngStyle]="{'color': result.color }">{{result.statut}}</span>
+                  </ion-col>
+                </ion-row>
+                <ng-template #notExam>
+                  <ion-row class="pv-ligne">
+                    <ion-col col-3 class="text-center">
+                      <ion-icon *ngIf="!result.icone;else hasIcone" class="icon-lg" name="md-document"></ion-icon>
+                      <ng-template #hasIcone>
+                        <img src="result.icone" alt="">
+                      </ng-template>
+                    </ion-col>
+                    <ion-col col-6>
+                      <div class="examen_infos">
+                        <div>
+                          <h1> {{result.title}} </h1>
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col col-3 class="statut text-center">
+                      <a [href]="result.file" target="_blank" rel="noopener noreferrer">
+                        <ion-icon class="icon-lg" name="md-download"></ion-icon>
+                      </a>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="result" *ngIf="result.value">
+                    <ion-col class="text-right">
+                      Moyenne :
+                    </ion-col>
+                    <ion-col class="text-right">
+                      <span>{{result.value}}</span>
+                    </ion-col>
+                  </ion-row>
+                </ng-template>
+              </ion-grid>
+            </ng-container>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion> -->
+    </section>
+
+    <div *ngIf="_result?.empty == true" class="vertical-center-absolute no-result ">
+      <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+      <h3 [innerHtml]="_result.empty_text"></h3>
+    </div>
+  </div>
+</ion-content>

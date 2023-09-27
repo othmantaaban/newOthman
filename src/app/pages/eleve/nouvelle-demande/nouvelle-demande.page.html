@@ -1,0 +1,71 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content>
+  <section class="demande_types" *ngIf="!nature && _result?.data?.length > 0">
+      <h3>{{_result.translation.select_type}}</h3>
+      <div class="demande_type" *ngFor="let result of _result.data" (click)="natureDemande(result)">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="d-flex align-items-center" size="9">
+              <div class="demande_label"> {{result.label}} </div>
+            </ion-col>
+            <ion-col class="text-center">
+              <ion-icon name="add"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  </section>
+  <section class="form-demande" *ngIf="nature && _result">
+      <ion-grid>
+          <ion-row>
+              <ion-col class="text-center">
+                  <h1> {{nature.label}} </h1>
+              </ion-col>
+          </ion-row>
+          <ion-row *ngIf="nature.description">
+              <ion-col class="text-center">
+                  <h5> {{nature.description}} </h5>
+              </ion-col>
+          </ion-row>
+      </ion-grid>
+      <h3>{{_result.translation.repondre_question}}</h3>
+      <form (ngSubmit)="send()" [formGroup]="formGroup">
+          <div class="form-group" *ngFor="let question of nature.questions">
+              <label for="">{{question.label}} <b *ngIf="question.required">*</b> </label>
+              <ion-item mode="ios" *ngIf="question.type == 'datepicker' ">
+                  <ion-datetime displayFormat="MM/DD/YYYY"
+                      [doneText]="_result.translation.doneText" [cancelText]="_result.translation.cancelText"
+                      formControlName="question_{{question.id}}" [(ngModel)]="question.reponse"></ion-datetime>
+              </ion-item>
+              <ion-item mode="ios" *ngIf="question.type == 'input' ">
+                  <input type="text" class="form-control" placeholder="{{question.label}}"
+                      formControlName="question_{{question.id}}" [(ngModel)]="question.reponse" />
+              </ion-item>
+              <ion-item mode="ios" *ngIf="question.type == 'textarea' ">
+                  <textarea class="form-control" placeholder="{{question.label}}"
+                      formControlName="question_{{question.id}}" [(ngModel)]="question.reponse"></textarea>
+              </ion-item>
+              <ion-item mode="ios" *ngIf="question.type == 'select' ">
+                  <ion-select okText="Ok" cancelText="Fermer" placeholder="{{question.label}}"
+                      formControlName="question_{{question.id}}" [(ngModel)]="question.reponse">
+                      <ion-select-option *ngFor="let reponse of question.reponses" [value]="reponse.label">{{reponse.label}}
+                      </ion-select-option>
+                  </ion-select>
+              </ion-item>
+          </div>
+          <div class="btn-actions bottom">
+              <button type="submit" class="btn-block btn-main text-uppercase btn-icon" [disabled]="!formGroup.valid">
+                  {{_result.translation.terminer}}
+                  <img src="assets/imgs/icon/right-arrow.svg" alt="">
+              </button>
+          </div>
+      </form>
+  </section>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+      <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+      <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+
+</ion-content>

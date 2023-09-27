@@ -1,0 +1,197 @@
+<app-enseignant-header [isRoot]="false"  backTo="enseignant/planning" [title]="_result?.title"></app-enseignant-header>
+
+<ion-content>
+  <div class="page-container ">
+    <section *ngIf="_result">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" *ngFor="let devoir of _result.data" (click)="devoirDetails(devoir)">
+            <div class="item">
+              <ng-container *ngIf="devoir.public;else notPublic">
+                <div class="card public-card">
+                  <div class="card-body">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col size="12">
+                          <!-- <ion-icon name="ios-list-box-outline"></ion-icon> -->
+                          <div class="d-flex align-items-center item-header">
+                            <div *ngIf="devoir.matiere" class="badge-matiere" [style]="'background: '+devoir.matiere.bg+';color: '+devoir.matiere.color">
+                              {{devoir.matiere.label}}
+                            </div>
+                            <div class="date">
+                              {{devoir.date_pub}}
+                            </div>
+                          </div>
+                        </ion-col>
+                        <ion-col size="12">
+                          <div [dir]="devoir.dir">
+                            <h3>{{devoir.title}}</h3>
+                          </div>
+                        </ion-col>
+                        <ion-col class="classes-col" *ngIf="devoir.classes" size="12">
+                          <span *ngFor="let classe of devoir.classes.split(',')" class="date">{{classe}}</span>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                  <div class="card-footer">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col>
+                          <ion-icon name="calendar-outline"></ion-icon> <span>{{devoir.date}}</span>
+                        </ion-col>
+                        <ion-col>
+                          <ion-icon name="eye-outline"></ion-icon> <span>{{devoir.vues}}</span> {{_result.vues}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #notPublic>
+                <div class="card not-public-card">
+                  <div class="card-body">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col size="12">
+                          <!-- <ion-icon name="ios-list-box-outline"></ion-icon> -->
+                          <div class="d-flex align-items-center item-header">
+                            <div class="badge-matiere" [style]="'background: '+devoir.matiere.bg+';color: '+devoir.matiere.color">
+                              {{devoir.matiere.label}}
+                            </div>
+                            <div class="date">
+                              {{devoir.date_pub}}
+                            </div>
+                          </div>
+                        </ion-col>
+                        <ion-col size="12">
+                          <div [dir]="devoir.dir">
+                            <h3>{{devoir.title}}</h3>
+                          </div>
+                        </ion-col>
+                        <ion-col class="classes-col" *ngIf="devoir.classes" size="12">
+                          <span *ngFor="let classe of devoir.classes.split(',')" class="date">{{classe}}</span>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                  <div class="card-footer">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col>
+                          <ion-icon name="calendar-outline"></ion-icon> <span>{{devoir.date}}</span>
+                        </ion-col>
+                        <ion-col>
+                          <ion-icon name="eye-outline"></ion-icon> <span>{{devoir.vues}}</span> {{_result.vues}}
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+    <div class="to-do-lists" *ngIf="false && _result">
+
+      <div class="item item-new" *ngFor="let devoir of _result.data" (click)="devoirDetails(devoir)">
+
+        <ion-grid>
+          <ion-row class="align-items-center">
+            <ion-col *ngIf="devoir.image" size="3" class="text-center">
+              <div class="image">
+                <img src="{{devoir.image}}" class="rounded" alt="">
+              </div>
+            </ion-col>
+            <ion-col *ngIf="devoir.image" size="8" class="item-description-col">
+              <div class="item-description">
+                <!-- <span class="classpan" *ngIf="devoir.classes" >{{devoir.classes}}</span> -->
+                <h3>{{devoir.title}}</h3>
+                <div class="text-left state">
+                  <span class="badge badge-success" *ngIf="devoir.public;else notPublic">{{_result.publie}}</span>
+                  <ng-template #notPublic>
+                    <span class="badge badge-warning">{{_result.not_publie}}</span>
+                  </ng-template>
+                </div>
+                <hr *ngIf="type == 'devoir'">
+                <span class="span-date">{{devoir.date}}</span>
+                <span class="mr-10px span-vues"><ion-icon name="eye"></ion-icon> {{devoir.vues}}</span>
+                <span *ngIf="type == 'devoir'" class="mr-10px span-valid"><ion-icon
+                    name="ios-checkmark-circle"></ion-icon> {{devoir.count_done}} </span>
+                <span *ngIf="type == 'devoir'" class="mr-10px span-docs"><ion-icon name="ios-document"></ion-icon>
+                  {{devoir.count_files}} </span>
+              </div>
+            </ion-col>
+            <ion-col *ngIf="!devoir.image" offset-1 size="10" class="item-description-col">
+              <div class="item-description">
+                <!-- <span class="classpan" *ngIf="devoir.classes" >{{devoir.classes}}</span> -->
+                <h3>{{devoir.title}}</h3>
+                <div class="text-left state">
+                  <span class="badge badge-success" *ngIf="devoir.public;else notPublic">{{_result.publie}}</span>
+                  <ng-template #notPublic>
+                    <span class="badge badge-warning">{{_result.not_publie}}</span>
+                  </ng-template>
+                </div>
+                <hr *ngIf="type == 'devoir'">
+                <span class="span-date">{{devoir.date}}</span>
+                <span class="mr-10px span-vues"><ion-icon name="eye"></ion-icon> {{devoir.vues}}</span>
+                <span *ngIf="type == 'devoir'" class="mr-10px span-valid"><ion-icon
+                    name="ios-checkmark-circle"></ion-icon> {{devoir.count_done}} </span>
+                <span *ngIf="type == 'devoir'" class="mr-10px span-docs"><ion-icon name="ios-document"></ion-icon>
+                  {{devoir.count_files}} </span>
+              </div>
+            </ion-col>
+            <ion-col size="1" class="pl-0">
+              <div class="item-arrow text-center">
+                <ion-icon name="ios-arrow-forward" class="arrow-right"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!-- <div class="item" *ngFor="let devoir of _result.data" (click)="devoirDetails(devoir)">
+              <ion-grid>
+                  <ion-row class="align-items-center">
+                      <ion-col size="2">
+                        <div class="image">
+                            <img src="{{devoir.image}}" class="img-circle" alt="">
+                        </div>
+                      </ion-col>
+                      <ion-col size="9" class="item-description-col">
+                        <div class="item-description">
+                            <span class="classpan" *ngIf="devoir.classes" >{{devoir.classes}}</span>
+                            <h3>{{devoir.title}}</h3>
+                            <hr>
+                            <span class="span-date">{{devoir.date}}</span>
+                            <span><ion-icon name="eye"></ion-icon> {{devoir.vues}}</span>
+                        </div>
+                      </ion-col>
+                      <ion-col size="1" class="pl-0">
+                        <div class="item-arrow text-center">
+                            <ion-icon name="ios-arrow-forward" class="arrow-right"></ion-icon>
+                          </div>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </div> -->
+    </div>
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+
+    <ion-fab-button (click)="ajouterDevoir()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab>
+</ion-content>
+<!-- <div class="actions">
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <button class="btn-main btn-circle">
+        <img src="assets/icon/plus.svg" alt="">
+      </button>
+    </li>
+  </ul>
+</div> -->

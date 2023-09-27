@@ -1,0 +1,188 @@
+.d-main-banner {
+    padding: 25px 32px 22px;
+
+    h3 {
+        font-size: 22px;
+        margin-top: 0;
+    }
+}
+
+.bg-white {
+    background-color: #FFF;
+    border-bottom-left-radius: 48px;
+    margin-bottom: 50px;
+}
+
+.page-container{
+    background-color: #F6F6F6;
+    height: 100%;
+}
+
+.aucun-examens {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: .4;
+
+    img {
+        width: 80px;
+    }
+
+    h3 {
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+.to-do-lists {
+    padding: 10px 8px;
+
+    .item {
+      background-color: #FFF;
+      position: relative;
+      padding: 20px;
+      padding-left: 75px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+
+      .image {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        text-align: center;
+        width: 75px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      .item-description {
+        position: relative;
+
+        h3 {
+          margin: 0px 0px 2px;
+          font-size: 14px;
+        }
+
+        span {
+          font-size: 11px;
+          color: #A7A7A7;
+
+          ion-icon {
+            font-size: 18px;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+          }
+        }
+
+        .arrow-right {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 5px;
+          font-size: 25px;
+          color: #BBBBBC;
+        }
+      }
+    }
+  }
+.to-do-lists {
+    .item {
+        .item-description {
+            h3 {
+                font-size: 17px;
+                margin-bottom: 0px;
+                font-weight: 600;
+                font-family: "roboto";
+            }
+
+            .main-color {
+                color: #3646E8;
+            }
+        }
+
+        .image {
+            align-items: baseline !important;
+            top: 15px;
+
+            .day {
+                color: #3646E8;
+                font-size: 30px;
+            }
+
+            .month {
+                color: #5C5C5C;
+                font-size: 16px;
+                font-weight: 600;
+                position: relative;
+                top: -4px;
+            }
+        }
+    }
+
+    .group {
+        display: block;
+        width: fit-content;
+        text-align: center;
+        padding: 3px 0px 2px;
+        border-radius: 30px;
+        font-size: 12px;
+        background-color: #F0F3FF;
+        border: 1px solid #F0F3FF;
+        color: #2C4BF4 !important;
+        margin-top: 5px;
+    }
+
+    ul {
+        display: flex;
+        margin-top: 8px;
+
+        li {
+            color: #707074;
+            font-size: 12px;
+            margin-bottom: 4px;
+            width: 50%;
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+                top: -1px;
+                width: 14px;
+                margin-inline-end: 3px;
+            }
+        }
+    }
+}
+
+.list-switcher {
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+    li {
+        font-size: 11px;
+        padding: 7px 12px;
+        border-radius: 15px;
+        color: rgba(255, 255, 255, .51);
+
+        &.active {
+            background-color: #FFF;
+            color: #3646E8;
+        }
+    }
+}
+
+.to-do-lists {
+    position: relative;
+    // top: -48px;
+}

@@ -1,0 +1,77 @@
+competence-tree {
+    // margin: 10px;
+    ngb-accordion{
+        >.card{
+            // $parentCard: &;
+            margin-bottom: 15px;
+            padding: 0px !important;
+            >.card-header{
+                h5{
+                    width: 100%;
+                    button{
+                        max-width: 100%;
+                        width: 100%;
+                        text-align: start;
+                        padding: 20px;
+                        white-space: normal;
+                        outline: none;
+                        color: #12122C;
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+                        &.collapsed{
+                            border-bottom: 1px solid #E0E0E0;
+
+                        }
+                        &:hover{
+                            outline: none;
+                        }
+                        &:focus{
+                            outline: none;
+                        }
+                        .check-mark-wrapper{
+                            margin-inline-end: 10px;
+                            font-size: 25px;
+                        }
+                        .btn-proof{
+                            width: auto;
+                            margin-inline-start: 10px;
+                            padding: 10px;
+                            background-color: $main-color;
+                            border-radius: 10px;
+                            color: #fff;
+                        }
+                        ion-checkbox{
+                            margin-inline-end: 10px;
+                        }
+                    }
+                }
+            }
+            >.card-body{
+                padding: 20px 20px 20px 20px;
+                >.d-flex{
+                    justify-content: space-between;
+                }
+                .check-mark-wrapper{
+                    p{
+                        color: #12122C;
+                        font-weight: 600;
+                        font-size: 14px;
+                        margin: 0;
+                    }
+                }
+                // @at-root div#{&}{
+                //     background-color: red;
+                // }
+            }
+            ngb-accordion{
+                .card:last-child{
+                    margin-bottom: 0px;
+                }
+                .card:not(:last-child){
+                    margin-bottom: 10px;
+                }
+            } 
+        }
+    }
+}

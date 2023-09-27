@@ -1,0 +1,74 @@
+<app-enseignant-header [isRoot]="false" title="{{_result?.classe?.label}}" ></app-enseignant-header>
+<ion-content padding>
+
+  <div class="page-container" >
+   
+    <div class="etudiant-list" *ngIf="_result">
+      <div class="item" *ngFor="let eleve of _result.data">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col col-7 (click)="getEleveDetails(eleve)">
+              <div class="image">
+                <img src="{{eleve.photo}}" class="img-circle" alt="">
+              </div>
+              <span>{{eleve.nom}}</span>
+            </ion-col>
+            <ion-col col-5>
+              <div class="item-action text-center">
+                <ul style="margin-bottom: 0px;" class="list-inline d-flex">
+                  <li class="list-inline-item">
+                    <ion-icon name="mail-outline" style="font-size: 40px;" (click)="openMessage(eleve)" ></ion-icon>
+                  </li>
+                  <!-- <li class="list-inline-item" [ngClass]="{ active : eleve.absent }" (click)="checkAbsence(eleve)">
+                    <img src="{{_result.icons.absence }}" class="img-circle" alt="">
+                  </li>
+                  <li class="list-inline-item" [ngClass]="{ active : eleve.retard > 0 }" (click)="toggleRetard(eleve)">
+                    <img src="{{_result.icons.retard }}" class="img-circle" alt="">
+                  </li> -->
+                  <!-- <li class="list-inline-item" [ngClass]="{ active : eleve.action.type }"
+                                    (click)="toggleDiscipline(eleve)">
+                                    <img *ngIf="!eleve.action.type" src="{{_result.icons.discipline }}"
+                                        class="img-circle" alt="">
+                                    <img *ngIf="eleve.action.type && eleve.action.type.value < 0"
+                                        src="{{_result.icons.blame }}" class="img-circle" alt="">
+                                    <img *ngIf="eleve.action.type && eleve.action.type.value > 0"
+                                        src="{{_result.icons.smile }}" class="img-circle" alt="">
+                                </li> -->
+                </ul>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!-- end item -->
+    </div>
+  </div>
+
+</ion-content>
+
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleAppreciation ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+      <div class="main-modal-header" style="display: flex;">
+        <div class="default-modal-header-text">
+            <h4>{{_result?.translation?.modalTitle}} de <br> {{modalEleve?.nom}} </h4>
+        </div>
+          <img src="assets/icon/close.svg" class="main-close" style="margin-inline-start: auto;" (click)="closeMessage()" alt="">
+      </div>
+      <div class="main-modal-body">
+          <div class="discipline-form">
+              <form action="">
+                  <label for="">{{_result?.translation?.modalSujet}}</label>
+                  <div class="form-group">
+                      <input type="text" [(ngModel)]="sujet" id="" class="form-control" name="sujet"  />
+                  </div>
+                  <label for="">{{_result?.translation?.modalMessage}}</label>
+                  <div class="form-group">
+                      <textarea name="message" [(ngModel)]="message" id="" class="form-control" rows="4" placeholder=""></textarea>
+                  </div>
+                  <div class="btn-main" (click)="sendMessage()">{{_result?.translation?.modalSend}}</div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

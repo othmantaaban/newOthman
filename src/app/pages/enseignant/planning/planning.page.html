@@ -1,0 +1,223 @@
+<ion-content>
+  <div *ngIf="results" class="page-container">
+    <div style="padding-bottom: 105px">
+      <div class="main-banner main-bg">
+        <div class="banner-bottom-left-raduis bg-white text-center">
+          <h3 *ngIf="results?.translation">
+            <img src="assets/icon/calendar.svg" alt="" />{{results?.translation?.title}}
+          </h3>
+        </div>
+        <div class="planning-date">
+          <div class="date" text-center>
+            <img src="assets/icon/left-arrow.svg" alt="" class="arrow arrow-left" (click)="prev(results.last_week)" />
+            <img src="assets/icon/right-arrow.svg" alt="" class="arrow arrow-right" (click)="next(results.next_week)" />
+            <h3 class="text-uppercase">{{results.label_periode}}</h3>
+            <span class="text-uppercase">{{results.label_mois}}</span>
+          </div>
+        </div>
+        <ion-segment class="ion-margin-bottom" mode="md" [(ngModel)]="results.selected_day">
+          <ng-container *ngFor="let result of results.seances">
+            <ion-segment-button [value]="result.day">
+              <ion-label>{{result.label}}</ion-label>
+            </ion-segment-button>
+          </ng-container>
+        </ion-segment>
+
+        <ng-container [ngSwitch]="results.selected_day">
+          <ng-container *ngFor="let result of results.seances">
+            <ng-container *ngSwitchCase="result.day">
+              <div class="tab-content">
+                <div class="aucun-cours" *ngIf="result.seances.length == 0">
+                  <img src="{{results.empty_date.img}}" alt="" />
+                  <h3>{{results.empty_date.label}}</h3>
+                </div>
+                <div class="planning-listing">
+                  <div class="item" *ngFor="let seance of result.seances" (click)="coursDetails($event,seance)">
+                    <ion-grid class="ion-no-padding">
+                      <ion-row class="ion-align-items-center">
+                        <ion-col size="auto" style="font-size: 15px">
+                          <div class="timetable-date">
+                            <div>
+                              {{seance.start}}
+                            </div>
+                            <div>
+                              {{seance.end}}
+                            </div>
+                          </div>
+                        </ion-col>
+                        <ion-col>
+                          <div class="seance-details">
+                            <div class="seance-header">
+                              <div class="badge-classe" *ngIf="seance.classe">{{seance.classe}}</div>
+                              <div class="badge-salle" *ngIf="seance.salle">{{seance.salle}}</div>
+                            </div>
+                            <h2 class="seance-title" *ngIf="seance.matiere">{{seance.matiere}}</h2>
+                            <div class="seance-footer">
+
+                              <div *ngIf="seance.has_cahier_text; else no_cahier_text" class="badge-done">
+                                <div class="icon">
+                                  <ion-icon name="reader-outline"></ion-icon>
+                                </div>
+                                <div class="status">
+                                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                </div>
+                              </div>
+                              <ng-template #no_cahier_text>
+                                <div class="badge-undone">
+                                  <div class="icon">
+                                    <ion-icon name="reader-outline"></ion-icon>
+                                  </div>
+                                  <div class="status">
+                                    <ion-icon name="close-circle-outline"></ion-icon>
+                                  </div>
+                                </div>
+                              </ng-template>
+
+                              <div *ngIf="seance.has_absences; else no_abscence" class="badge-done">
+                                <div class="icon">
+                                  <ion-icon name="calendar-outline"></ion-icon>
+                                </div>
+                                <div class="status">
+                                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                </div>
+                              </div>
+                              <ng-template #no_abscence>
+                                <div class="badge-undone">
+                                  <div class="icon">
+                                    <ion-icon name="calendar-outline"></ion-icon>
+                                  </div>
+                                  <div class="status">
+                                    <ion-icon name="close-circle-outline"></ion-icon>
+                                  </div>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </div>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                    <img src="assets/icon/arrow-right-gris.svg" alt="" class="show-details" />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<div class="action-small-modal" [ngClass]="showModalProfil ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="default-modal-header">
+      <h4 *ngIf="results?.translation">{{results?.translation?.action}}</h4>
+      <div class="m-close" (click)="toggleModalProfil()">
+        <img src="assets/icon/close.svg" alt="" />
+      </div>
+    </div>
+    <div class="d-modal-action">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="item text-center" (click)="moncompte()">
+              <div>
+                <img src="{{results?.translation?.profilIcon||'assets/icon/edit-profil.svg'}}" alt="" />
+              </div>
+              <span *ngIf="results?.translation">{{results?.translation?.profil}}</span>
+            </div>
+          </ion-col>
+          <ion-col *ngIf="isAdmin">
+            <div class="item text-center" (click)="switchToAdmin()">
+              <div>
+                <img src="{{results?.translation?.switchAdminIcon||'assets/icon/switch-role.svg'}}" alt="" />
+              </div>
+              <span *ngIf="results?.translation">{{results?.translation?.switchAdmin}}</span>
+            </div>
+          </ion-col>
+          <ion-col *ngIf="isParent">
+            <div class="item text-center" (click)="switchToParent()">
+              <div>
+                <img src="{{results?.translation?.switchParentIcon||'assets/icon/switch-role.svg'}}" alt="" />
+              </div>
+              <span *ngIf="results?.translation">{{results?.translation?.switchParent}}</span>
+            </div>
+          </ion-col>
+          <ion-col *ngIf="isPick">
+            <div class="item text-center" (click)="switchToTransport()">
+              <div>
+                <img src="{{results?.translation?.switchTransportIcon||'assets/icon/switch-role.svg'}}" alt="" />
+              </div>
+              <span *ngIf="results?.translation">{{results?.translation?.switchTransport}}</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="item text-center" (click)="logout()">
+              <div>
+                <img src="{{results?.translation?.deconnecterIcon||'assets/icon/log-out.svg'}}" alt="" />
+              </div>
+              <span *ngIf="results?.translation">{{results?.translation?.deconnecter}}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="results" class="action-small-modal" [ngClass]="showModal ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="default-modal-header">
+      <h4>{{results?.translation?.action_dispo}}</h4>
+      <div class="m-close" (click)="toggleModal()">
+        <img src="assets/icon/close.svg" alt="" />
+      </div>
+    </div>
+    <div class="d-modal-action menu-enseignant">
+      <ion-grid>
+        <ion-row style="flex-wrap: wrap !important; justify-content: center">
+          <ng-container *ngFor="let page of results.menu">
+            <ion-col size="4" *ngIf="page.visible">
+              <div class="item text-center" (click)="goToPage(page)">
+                <div class="menu-icone" [style.backgroundColor]="page.bg">
+                  <img *ngIf="page.img;else iconeMenu" src="assets/icon/students.png" alt="" />
+                  <ng-template #iconeMenu>
+                    <ion-icon [style.color]="page.color" [name]="page.icon"></ion-icon>
+                  </ng-template>
+                </div>
+                <h4 class="menu-title">{{page.label}}</h4>
+              </div>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="results" class="actions">
+  <ul class="list-inline">
+    <li *ngIf="results.show_qr_code" class="list-inline-item">
+      <button class="btn-main btn-circle btn-white" (click)="badging()">
+        <img src="assets/icon/qr-code.png" alt="" />
+      </button>
+    </li>
+    <li class="list-inline-item">
+      <button class="btn-main btn-circle btn-white" (click)="toggleModalProfil()">
+        <img src="assets/icon/user.svg" alt="" />
+      </button>
+    </li>
+    <li class="list-inline-item">
+      <button class="btn-main btn-circle btn-white" (click)="news()">
+        <img src="assets/icon/newspaper.svg" alt="" />
+      </button>
+    </li>
+
+    <li class="list-inline-item">
+      <button class="btn-main btn-circle" (click)="toggleModal()">
+        <img src="assets/icon/plus.svg" alt="" />
+      </button>
+    </li>
+  </ul>
+</div>

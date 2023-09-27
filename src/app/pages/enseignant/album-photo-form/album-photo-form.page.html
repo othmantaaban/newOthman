@@ -1,0 +1,137 @@
+<ion-header mode="md" no-border >
+  <ion-toolbar mode="md" transparent>
+    <div (click)="pageContents()" slot="start" class="menu-toggle">
+        <ion-icon name="arrow-back"></ion-icon>
+              <!-- <img src="assets/icon/back.svg" /> -->
+    </div>
+    <ion-title mode="md" *ngIf="_result?.translation">
+      {{_result.translation.title}}
+      <div class="delete_album_photo" *ngIf="_result?.album && !album?.public" (click)="deleteAlbum()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <section *ngIf="_result?.translation">
+    <div class="album_photo">
+      <div class="form-group">
+        <label>{{_result.translation.textarea}}</label>
+        <textarea [(ngModel)]="album.label" class="form-control main-input"
+          placeholder="{{_result.translation.textarea}}"></textarea>
+      </div>
+      <div class="form-group">
+        <label>{{_result.translation.textareaDetails}}</label>
+        <textarea [(ngModel)]="album.details" class="form-control main-input"
+          placeholder="{{_result.translation.textareaDetails}}"></textarea>
+      </div>
+      <div class="checkbox_classes">
+        <span *ngFor="let classe of _result.data.classes" (click)="selectClasse(classe)"
+          [ngClass]="{'active': album.classes && album.classes.indexOf(classe.id) != -1 }">
+          <label for="class_{{classe.id}}">{{classe.label}}</label>
+        </span>
+      </div>
+      <ion-grid class="album_photos">
+        <ion-row>
+          <ion-col size="4">
+            <div class="choose_photo" (click)="presentActionSheet()">
+              <ion-icon name="add"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col size="4" *ngFor="let image of album.images; let i = index">
+            <ng-container *ngIf="!image.video_path;else isVideo">
+              <div class="album_image" [ngStyle]="{'background-image': 'url(' + image.image_path + ')'}" (click)="previewImages(i,$event)">
+                <div class="delete_photo" (click)="deleteImage(image, $event)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </div>
+                <span class="eleves" (click)="toggleElevesModal(image, false ,$event)">
+                  <span [ngStyle]="{'background-image': 'url(assets/icon/plus_image.svg)'}">
+                  </span>
+                  <span *ngFor="let inscription of image.inscriptions | slice:0:3; let i=index"
+                    [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}"></span>
+                  <span *ngIf="(image.inscriptions.length - 3) > 0">
+                    <div>+{{image.inscriptions.length - 3}}</div>
+                  </span>
+                </span>
+              </div>
+            </ng-container>
+            <ng-template #isVideo>
+              <div class="album_image" (click)="previewImages(i,$event)">
+                <video>
+                  <source [src]="image.video_path">
+                </video>
+                <div class="delete_photo" (click)="deleteImage(image, $event)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </div>
+                <span class="eleves" (click)="toggleElevesModal(image, false ,$event)">
+                  <span [ngStyle]="{'background-image': 'url(assets/icon/plus_image.svg)'}">
+                  </span>
+                  <span *ngFor="let inscription of image.inscriptions | slice:0:3; let i=index"
+                    [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}"></span>
+                  <span *ngIf="(image.inscriptions.length - 3) > 0">
+                    <div>+{{image.inscriptions.length - 3}}</div>
+                  </span>
+                </span>
+              </div>
+            </ng-template>
+            
+          </ion-col>
+          <ion-col size="4" *ngFor="let index of placeholders">
+            <div class="album_image album_placeholder" [ngStyle]="{'background-image': '#a3a3a3'}">
+              
+                <span class="loader">
+                  <div class="spinner-border m-5" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                </span>
+
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </section>
+
+
+  <ion-fab bottom *ngIf="_result">
+    <button [disabled]="!album.classes || !album.label || placeholders.length != 0" (click)="submit(true)"
+      class="btn-main btn-block text-center fixed-bottom">{{_result.translation.partager}}</button>
+  </ion-fab>
+
+</ion-content>
+
+
+<div *ngIf="_result && currentImage" class="action-small-modal modal_eleves"
+  [ngClass]="showElevesModal ? 'show-modal' : ''">
+  <div class="bottom-modal" [ngStyle]="{'background-image': 'url(' + currentImage.image_path + ')'}">
+    <div class="default-modal-header">
+      <div class="ion-searchbar-container">
+        <ion-searchbar placeholder="Rechercher" [(ngModel)]="searchKey" (ionChange)="search_key($event)">
+        </ion-searchbar>
+      </div>
+      <div class="m-close" (click)="toggleElevesModal()">
+        <img src="assets/icon/close_white.svg" alt="">
+      </div>
+    </div>
+    <div class="d-modal-action">
+      <ion-grid class="grid_eleves">
+        <ion-row>
+          <ion-col size="3" *ngFor="let inscription of inscriptions">
+            <div class="eleve_container" (click)="selectInscription(inscription)"
+              [ngClass]="{'active': inscriptions_selected && inscriptions_selected.includes(inscription.id)}">
+              <div class="eleve_image" [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}">
+              </div>
+              <h5>{{ inscription.nom }}</h5>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <button (click)="toggleElevesModal(null, true)"
+      class="btn-main btn-block text-center fixed-bottom">
+      <!-- Enregistrer -->
+      {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
+    </button>
+  </div>
+</div>

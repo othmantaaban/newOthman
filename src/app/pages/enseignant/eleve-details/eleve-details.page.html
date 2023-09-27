@@ -1,0 +1,174 @@
+<ion-header mode="md">
+  <ion-toolbar mode="md">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="result">{{result?.translation?.title}}</ion-title>
+    <ion-buttons *ngIf="result" class="eleve-details" slot="end">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="8" class="">
+            <h3>{{result.eleve.nom}}</h3>
+            <p>{{result.eleve.classe}}</p>
+          </ion-col>
+          <ion-col size="4" class="text-center">
+            <div class="eleve-picture">
+              <img [src]="result.eleve.photo" alt="">
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content padding>
+  <section *ngIf="result && result.particularites && result.particularites.length > 0  " class="particularite">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h4>
+            <!-- Particularite -->
+            {{ _result?.translation?.particularite ? _result?.translation?.particularite : 'Particularite' }}
+          </h4>
+          <ion-list mode="md">
+            <ion-item *ngFor="let particularite of result.particularites" class="particularite-item">
+              <ion-grid>
+                <ion-row class="align-items-center">
+                  <ion-col size="3">
+                    <img [src]="particularite.img" alt="">
+                  </ion-col>
+                  <ion-col size="8">
+                    <h6>{{particularite.label}}</h6>
+                    <p>{{particularite.description}}</p>
+                    <div [innerHTML]="particularite.html"></div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section *ngIf="result && result.documents && result.documents.length > 0" class="documents">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h4>
+            <!-- Documents : -->
+            {{ _result?.translation?.documents ? _result?.translation?.documents : 'Documents :' }}
+          </h4>
+          <div *ngFor="let document of result.documents" class="card documents-item">
+            <div class="card-body">
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="documents-image" size="2">
+                    <div class="image-wrapper">
+                      <!-- <ion-icon name="md-document"></ion-icon> -->
+                      <img [src]="document.img" alt="">
+                    </div>
+                  </ion-col>
+                  <ion-col size="8">
+                    <h6 class="documents-title">
+                      {{document.label}}
+                    </h6>
+                  </ion-col>
+                  <ion-col class="documents-action" size="2">
+                    <button (click)="downloadFile(document.file.name,document.file.path)" class="btn btn-outline">
+                      <ion-icon name="md-download"></ion-icon>
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section *ngIf="result && result.autorisations && result.autorisations.length > 0" class="autorisations">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h4>
+            <!-- Autorisations : -->
+            {{ _result?.translation?.autorisations ? _result?.translation?.autorisations : 'Autorisations :' }}
+          </h4>
+          <div *ngFor="let autorisation of result.autorisations" class="card autorisations-item">
+            <div class="card-body">
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="autorisations-image" size="2">
+                    <div class="image-wrapper">
+                      <img [src]="autorisation.img" alt="">
+                      <!-- <ion-icon name="md-document"></ion-icon> -->
+                    </div>
+                  </ion-col>
+                  <ion-col size="10">
+                    <h6 class="autorisations-title">
+                      {{autorisation.label}}
+                    </h6>
+                    <p class="autorisations-description">{{autorisation.description}}</p>
+                    <div [innerHTML]="null"></div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section *ngIf="result && result.planning && result.planning.length > 0" class="planning">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h4>
+            <!-- Panning : -->
+            {{ _result?.translation?.panning ? _result?.translation?.panning : 'Panning :' }}
+          </h4>
+          <div class="planning-wrapper">
+            <div *ngFor="let day of result.planning" class="planning-item ">
+              <img [src]="day.img" alt="" class="planning-img">
+              <p class="planning-label">{{day.label}}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section *ngIf="result && result.journal && result.journal.length > 0  " class="journal">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h4>
+            <!-- Suivi Pédagogique -->
+            {{ _result?.translation?.suivipedag ? _result?.translation?.suivipedag : 'Suivi Pédagogique' }}
+          </h4>
+          <ion-list mode="md">
+            <ion-item *ngFor="let journal of result.journal" class="journal-item">
+              <ion-grid>
+                <ion-row class="align-items-center">
+                  <ion-col size="3">
+                    <img [src]="journal.img" alt="">
+                  </ion-col>
+                  <ion-col size="8">
+                    <h6>{{journal.label}}</h6>
+                    <p>{{journal.description}}</p>
+                    <div [innerHTML]="journal.html"></div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section *ngIf="result" [innerHTML]="result.content"></section>
+</ion-content>

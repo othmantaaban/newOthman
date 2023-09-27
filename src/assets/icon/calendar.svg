@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.251" height="24.262" viewBox="0 0 26.251 24.262">
+  <g id="Calendar_ICON" data-name="Calendar ICON" transform="translate(0)">
+    <g id="calendar">
+      <g id="Groupe_453" data-name="Groupe 453">
+        <path id="Tracé_1679" data-name="Tracé 1679" d="M7.327,35.062h24.4a.917.917,0,0,0,.927-.927V13.445a.917.917,0,0,0-.927-.927h-4.59v-.791a.927.927,0,1,0-1.854,0v.791H13.929v-.791a.927.927,0,0,0-1.854,0v.791H7.327a.917.917,0,0,0-.927.927V34.157a.927.927,0,0,0,.927.9Zm.927-20.689h3.821v.5a.927.927,0,0,0,1.854,0v-.5H25.28v.5a.927.927,0,0,0,1.854,0v-.5H30.82v2.4H8.254v-2.4Zm0,4.251H30.8V33.23H8.254Z" transform="translate(-6.4 -10.8)" fill="#3646e8"/>
+        <path id="Tracé_1680" data-name="Tracé 1680" d="M45.168,64.2H31.827a.927.927,0,1,0,0,1.854h13.34a.927.927,0,1,0,0-1.854Z" transform="translate(-25.36 -52.126)" fill="#3646e8"/>
+        <path id="Tracé_1681" data-name="Tracé 1681" d="M38.5,84h-6.67a.927.927,0,1,0,0,1.854H38.5A.927.927,0,1,0,38.5,84Z" transform="translate(-25.36 -67.449)" fill="#3646e8"/>
+      </g>
+    </g>
+  </g>
+</svg>

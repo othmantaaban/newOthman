@@ -1,0 +1,26 @@
+ion-header{
+    ion-toolbar{
+        --background: var(--main-color);
+        --color: #fff;
+        ion-buttons[slot="end"]{
+            .notif_icon{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5em;
+                margin-inline-end: 10px;
+            }
+            .active_eleve{
+                margin: 0px 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50px;
+                }
+            }
+        }
+    }
+}

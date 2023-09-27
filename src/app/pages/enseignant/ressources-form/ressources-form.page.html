@@ -1,0 +1,164 @@
+<app-enseignant-header [isRoot]="false" [title]="_resultPage?.translation?.ressource_form_title"></app-enseignant-header>
+<ion-content padding>
+  <form *ngIf="_resultPage" [formGroup]="formGroup">
+    <div *ngIf="_resultPage.data.classes.length>1; hasOneClasse" class="form-group">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.classes}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-select [multiple]="!typeDevoir || typeDevoir != 'individuel'" *ngIf="_resultPage?.data?.classes"
+              [(ngModel)]="content.classes" name="classes" formControlName="classes"
+              okText="{{_resultPage.translation.choisir}}" cancelText="{{_resultPage.translation.fermer}}"
+              placeholder="{{_resultPage.translation.classes}}">
+              <ion-select-option *ngFor="let classe of _resultPage.data.classes" [value]="classe.id">{{classe.label}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ng-template #hasOneClasse>
+      <input type="hidden" name="classes" [(ngModel)]="content.classes">
+    </ng-template>
+
+    <div *ngIf="_resultPage.data.matieres.length > 1; hasOneMatiere" class="form-group">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.matiere}}</label>
+          </ion-col>
+          <ion-col size="12">
+            <ion-select *ngIf="_resultPage?.data?.matieres" [(ngModel)]="content.matiere" name="matiere"
+            formControlName="matiere" okText="{{_resultPage.translation.choisir}}"
+            cancelText="{{_resultPage.translation.fermer}}" placeholder="{{_resultPage.translation.matiere}}">
+              <ion-select-option *ngFor="let matiere of _resultPage.data.matieres" [value]="matiere.id">{{matiere.label}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ng-template #hasOneMatiere>
+      <input type="hidden" name="classes" [(ngModel)]="content.matiere">
+    </ng-template>
+    <div class="form-group">
+      <input type="text" [(ngModel)]="content.titre" name="titre" formControlName="titre"
+        class="form-control main-input" placeholder="{{_resultPage.translation.titre}}">
+    </div>
+    <div class="form-group">
+      <textarea [(ngModel)]="content.description" name="description" formControlName="description"
+        class="form-control main-input" placeholder="{{_resultPage.translation.description}}"></textarea>
+    </div>
+    <div class="form-group">
+      <ion-grid class="ion-no-padding" fixed>
+        <ion-row>
+          <ion-col class="ion-margin-bottom" size="12">
+            <label>{{_resultPage.translation.partager||'Partager un document :'}}</label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="partage-actions">
+          <ion-col size="6">
+            <div class="card" (click)="fileUploadInput.click()">
+              <ion-icon name="document-text"></ion-icon> 
+              <!-- Document -->
+              {{ _result?.translation?.Document ? _result?.translation?.Document : 'Document' }}
+              <input type="file" (change)="uploadFile($event)" style="display: none;" #fileUploadInput />
+          </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="recordAudio()">
+              <ion-icon name="mic"></ion-icon> 
+              <!-- Audio -->
+              {{ _result?.translation?.Audio ? _result?.translation?.Audio : 'Audio' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="captureImage()">
+              <ion-icon name="camera"></ion-icon> 
+              <!-- Image -->
+              {{ _result?.translation?.image ? _result?.translation?.image : 'Image' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="captureVideo()">
+              <ion-icon name="videocam"></ion-icon> 
+              <!-- Vidéo -->
+              {{ _result?.translation?.video ? _result?.translation?.video : 'Vidéo' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="showModalInput('youtube')" >
+              <ion-icon name="logo-youtube"></ion-icon> 
+              <!-- Youtube -->
+              {{ _result?.translation?.youtube ? _result?.translation?.youtube : 'Youtube' }}
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="card" (click)="showModalInput('link')" >
+              <ion-icon name="link"></ion-icon> 
+              <!-- Lien -->
+              {{ _result?.translation?.lien ? _result?.translation?.lien : 'Lien' }}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid *ngIf="files.length > 0" fixed class="ion-no-padding ion-margin-top">
+        <ion-row>
+          <ion-col class="ion-margin-vertical" size="12">
+            <label>{{_resultPage.translation.files||'Fichiers importés  :'}}</label>
+          </ion-col>
+        </ion-row>
+          <ion-row *ngFor="let file of files;let index = index">
+            <ion-col size="12">
+              <div class="card-file">
+                <div class="file-icon">
+                  <ng-container [ngSwitch]="file.type">
+                    <ng-container *ngSwitchCase="'document'">
+                      <ion-icon name="document-text"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'audio'">
+                      <ion-icon name="mic"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'image'">
+                      <ion-icon name="camera"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'video'">
+                      <ion-icon name="videocam"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'youtube'">
+                      <ion-icon name="logo-youtube"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'link'">
+                      <ion-icon name="link"></ion-icon>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <div class="file-name">
+                  {{file.name}}
+                </div>
+                <div class="file-actions">
+                  <!-- <div class="action">
+                    <ion-icon name="eye"></ion-icon>
+                  </div> -->
+                  <div class="action-delete" >
+                    <ion-icon (click)="files.splice(index,1)" name="close"></ion-icon>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+    </div>
+  </form>
+</ion-content>
+<ion-footer mode="md">
+  <ion-toolbar mode="md">
+    <ion-buttons *ngIf="_resultPage && !showElevesModal">
+      <button [disabled]="!formGroup.valid" (click)="submit()"
+        class="btn-main btn-block text-center fixed-bottom">{{_resultPage.translation.enregistrer}}</button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

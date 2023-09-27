@@ -1,0 +1,105 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <!-- <ion-grid *ngIf="_result" class="suivi-header ion-margin-top" [class.header-negatif]="_result.score&&_result.score < 0">
+    <ion-row class="d-flex align-items-center">
+      <ion-col size="3" class="text-center">
+      </ion-col>
+      <ion-col class="text-left" size="6">
+        <h1 *ngIf="_result?.translation">État de discipline actuel</h1>
+      </ion-col>
+      <ion-col class="text-center" size="3">
+        <div class="user-picture-top-page d-grid">
+          <div>
+            <img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+          </div>
+          <div>
+            <span>{{eleve.nomcomplet}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid *ngIf="_result">
+    <ion-row class="score-card" [class]='{ "score-card" : true , "score-negatif" : (show_score&&_result.score&&_result.score < 0), "score-positif" : (show_score&&_result.score&&_result.score >= 0) }' >
+      <ion-col class="score-icon">
+        <ng-container *ngIf="show_score">
+          <ion-icon [name]="_result.score&&_result.score < 0?'sad-outline':'happy-outline'" class="header-icon"></ion-icon>
+        </ng-container>
+      </ion-col>
+      <ion-col class="text-center">
+        <div class="score">
+          <ng-container *ngIf="show_score; else hideScore">
+            {{_result.score}}
+          </ng-container>
+          <ng-template #hideScore>
+            ****
+          </ng-template>
+        </div>
+        <p>{{ _result.translation.label_score_discipline }} </p>
+      </ion-col>
+      <ion-col class="text-right">
+        <ion-icon (click)="show_score=!show_score" [name]="show_score?'eye':'eye-off'"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="ion-margin-top">
+    <h6 *ngIf="_result?.actions?.title">{{_result.actions.title}}</h6>
+    <div *ngIf="_result?.actions?.data?.length > 0" class="actions-list">
+      <div *ngFor="let action of _result.actions.data" class="action-item">
+        <div class="action-date">
+          <div class="day">{{action.day}}</div>
+          <div class="month">{{action.month}}</div>
+        </div>
+        <div class="action">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <h6>{{action.type}}</h6>
+                <p><small>{{action.commentaire}}</small></p>
+                <ion-badge [class]="action.flag>0?'flag-success':'flag-danger'">{{action.nature}}</ion-badge>
+              </ion-col>
+              <ion-col *ngIf="action.valeur" size="3">
+                <div [class]="action.valeur>=0?'valeur-success':'valeur-danger'">
+                  {{action.valeur}}
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="_result?.actions?.empty == true" class="no-result ">
+      <img src="{{_result.actions.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+      <h3 [innerHtml]="_result.actions.empty_text"></h3>
+    </div>
+  </div>
+  <!-- <div class="score-container">
+    <h1 *ngIf="_result">{{_result.label}}</h1>
+    <p *ngIf="_result">{{_result.description}}</p>
+    <h2 *ngIf="_result && (_result.score !== null && _result.score !== undefined)" class="score"
+      [ngStyle]="{'background': _result.color}"> {{_result.score}}</h2>
+    <div class="actions">
+      <h3 *ngIf="_result?.actions?.title">{{_result.actions.title}}</h3>
+      <div *ngIf="_result?.actions?.data?.length > 0">
+        <div *ngFor="let action of _result.actions.data" class="action-box">
+          <div class="valeur-thumb" *ngIf="action.valeur">
+            <span [ngStyle]="{'background': action.couleur}">{{action.valeur}}</span>
+          </div>
+          <div class="action-info">
+            <time>{{action.date}}</time>
+            <h6>{{action.type}}</h6>
+            <p>{{action.commentaire}} </p>
+            <div *ngIf="action.html" [innerHTML]="action.html"> </div>
+            <span *ngIf="action.nature"
+              [ngStyle]="{'border-color': action.couleur, 'color': action.couleur}">{{action.nature}}</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="_result?.actions?.empty == true" class="no-result ">
+        <img src="{{_result.actions.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+        <h3 [innerHtml]="_result.actions.empty_text"></h3>
+      </div>
+    </div>
+  </div> -->
+</ion-content>

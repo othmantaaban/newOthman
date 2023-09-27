@@ -1,0 +1,26 @@
+<app-enseignant-header [isRoot]="false" [title]="translation.title"></app-enseignant-header>
+
+<ion-content>
+  <section class="details-demande">
+    <div class="overlay"></div>
+    <div class="content-scroll">
+      <div class="demande">
+        <div class="varow-xs row-pad-sm">
+          <div class="vacol-xs-8 text-left">
+            <div class="border"></div>
+            <h4>{{demande.type}}</h4>
+            <span class="date">{{demande.cree}} : {{demande.created_at}}</span>
+          </div>
+          <div class="vacol-xs-4 text-center">
+            <img src="{{demande.icone}}" class="imgicon" alt="">
+            <h6 class="{{getColor(demande.statut)}}">{{demande.statut}}</h6>
+          </div>
+        </div>
+      </div>
+      <ul class="list-unstyled">
+        <li *ngFor="let reponce of demande.reponses"><span>{{reponce.label}} : </span>{{reponce.reponse}}
+        </li>
+      </ul>
+    </div>
+  </section>
+</ion-content>

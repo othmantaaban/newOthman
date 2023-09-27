@@ -1,0 +1,249 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="location.back()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{_result?.trajet?.label_trajet}} <span class="matricule">({{_result?.trajet?.matricule}})</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <button class="btn-main btn-block" (click)="newParcours()">{{_result?.translation?.new_parcours}} </button>
+  <section>
+    <div class="bus-ecole">
+      <div *ngIf="_result?.eleves" class="bus">
+        <div *ngFor="let eleve of _result.eleves" [class]="'eleve '+((eleve.deposer)?'done':'')">
+          <ion-row no-padding class="ion-align-items-center">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+                <div class="name">
+                  <span>{{eleve.nomcomplet}}</span>
+                  <p>{{eleve.adresse}}</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center" *ngIf="eleve.picked; else notpicked">
+              <div class="button-container">
+                <button class="btn-main btn-depose">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/depose.svg" />
+                  <span> {{_result?.translation?.picked}}</span>
+                </button>
+              </div>
+            </ion-col>
+            <ng-template #notpicked>
+              <ion-col *ngIf="eleve.arrived; else notarrived" size="4" no-padding class="text-center">
+                <div *ngIf="!eleve.absent; else absent" class="button-container">
+                  <button class="btn-main btn-la" (click)="sendAction(eleve,'picked')">
+                    <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                    <span>{{_result?.translation?.picked}}</span>
+                  </button>
+                  <button class="btn-main btn-absent" (click)="sendAction(eleve,'absent')">
+                    <img class="logo_boti" src="assets/icon/close_white.svg" />
+                    <span>{{_result?.translation?.absent}}</span>
+                  </button>
+                  <button class="btn-main btn-relance" (click)="sendAction(eleve,'notifyArrive')">
+                    <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                    <span>{{_result?.translation?.relance}}</span>
+                  </button>
+                </div>
+                <ng-template #absent>
+                  <div class="button-container">
+                    <button class="btn-main btn-absente">
+                      <img class="logo_boti" src="assets/icon/close_red.svg" />
+                      <span> {{_result?.translation?.absent}}</span>
+                    </button>
+                  </div>
+                </ng-template>
+              </ion-col>
+
+            </ng-template>
+            <ng-template #notarrived>
+              <ion-col size="4" no-padding class="text-center">
+                <div class="button-container">
+                  <button class="btn-main btn-minutes" (click)="sendAction(eleve,'notify')">
+                    <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                    <span>{{_result?.translation?.coming}}</span>
+                  </button>
+                  <button class="btn-main btn-la" (click)="sendAction(eleve,'deposer')">
+                    <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                    <span>{{_result?.translation?.here}}</span>
+                  </button>
+                </div>
+              </ion-col>
+
+            </ng-template>
+          </ion-row>
+        </div>
+        <!-- <div class="eleve">
+          <ion-row no-padding class="">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                <div class="name">
+                  <span>Sara Alami</span>
+                  <p>45 Rue 12 Belvédère ,Roche Noire Casablanca</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center">
+              <div class="button-container">
+                <button class="btn-main btn-minutes">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                  <span>On arrive <br> dans 5 minutes</span>
+                </button>
+                <button class="btn-main btn-la">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                  <span>On est arrivé</span>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="eleve">
+          <ion-row no-padding class="">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                <div class="name">
+                  <span>Sara Alami</span>
+                  <p>45 Rue 12 Belvédère ,Roche Noire Casablanca</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center">
+              <div class="button-container">
+                <button class="btn-main btn-minutes">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                  <span>On arrive <br> dans 5 minutes</span>
+                </button>
+                <button class="btn-main btn-la">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                  <span>On est arrivé</span>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="eleve">
+          <ion-row no-padding class="">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                <div class="name">
+                  <span>Sara Alami</span>
+                  <p>45 Rue 12 Belvédère ,Roche Noire Casablanca</p>
+                  <div class="freres">
+                    <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                    <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                    <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center">
+              <div class="button-container">
+                <button class="btn-main btn-minutes">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                  <span>On arrive <br> dans 5 minutes</span>
+                </button>
+                <button class="btn-main btn-la">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                  <span>On est arrivé</span>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="eleve done">
+          <ion-row no-padding class="">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                <div class="name">
+                  <span>Sara Alami</span>
+                  <p>45 Rue 12 Belvédère ,Roche Noire Casablanca</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center">
+              <div class="button-container">
+                <button class="btn-main btn-depose">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/depose.svg" />
+                  <span>Déposé</span>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <div class="eleve">
+          <ion-row no-padding class="">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                <div class="name">
+                  <span>Sara Alami</span>
+                  <p>45 Rue 12 Belvédère ,Roche Noire Casablanca</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center">
+              <div class="button-container">
+                <button class="btn-main btn-minutes">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                  <span>On arrive <br> dans 5 minutes</span>
+                </button>
+                <button class="btn-main btn-la">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                  <span>On est arrivé</span>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="eleve">
+          <ion-row no-padding class="">
+            <ion-col size="8" no-padding>
+              <div class="eleve-infos">
+                <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                <div class="name">
+                  <span>Sara Alami</span>
+                  <p>45 Rue 12 Belvédère ,Roche Noire Casablanca</p>
+                  <div class="freres">
+                    <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                    <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                    <img class="img-comment" src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="team1">
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="4" no-padding class="text-center">
+              <div class="button-container">
+                <button class="btn-main btn-minutes">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-minutes.svg" />
+                  <span>On arrive <br> dans 5 minutes</span>
+                </button>
+                <button class="btn-main btn-la">
+                  <img class="logo_boti" src="assets/imgs/icon/bus/bus-arrive.svg" />
+                  <span>On est arrivé</span>
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div> 
+      -->
+      </div>
+    </div>
+  </section>
+  <button class="btn-main btn-block" style="margin-bottom:10px ;"
+    (click)="newParcours()">{{_result?.translation?.end_parcours}} </button>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+</ion-content>

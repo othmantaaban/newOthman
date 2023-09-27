@@ -1,0 +1,110 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <!--   
+  <ion-grid *ngIf="_result" class="suivi-header">
+    <ion-row class="d-flex align-items-center">
+      <ion-col col-3 class="text-center">
+        <ion-icon name="wallet-outline" ></ion-icon>
+      </ion-col>
+      <ion-col class="text-center" col-6>
+        <h1 *ngIf="_result?.translation">{{_result.translation.title}}</h1>
+      </ion-col>
+      <ion-col class="text-center" col-3>
+        <div class="user-picture-top-page d-grid">
+          <div>
+            <img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+          </div>
+          <div>
+            <span>{{eleve.nomcomplet}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <section *ngIf="_result">
+
+    <div class="card" *ngFor="let result of _result.etat">
+      <app-collapse [disabled]="result.details.length==0">
+        <ng-container collapseTitle>
+          <div class="card-header">
+            <!-- <div class="paiement-state" [ngStyle]="{'background-color': result.color}"></div> -->
+            <div class="d-flex align-items-center" style="height: 100%;">
+              <div class="paiement-mois">
+                {{result.month}}
+                <div *ngIf="result.details.length>0" class="details">
+                  <!-- details  -->
+                  {{ _result?.translation?.details ? _result?.translation?.details : "details " }}
+                  <ion-icon name="chevron-forward"></ion-icon> </div>
+              </div>
+              <div class="progress-wrapper">
+                <span [style.color]="result.color" class="pct">{{result.pct}} %</span>
+                <span class="total-paye">{{_result.translation.total_paye}}</span>
+                <!-- <round-progress [current]="result.pct" [responsive]="true" [duration]="4000" [stroke]="7" [max]="100"
+                  [color]="result.color" [background]="'#eaeaea'"></round-progress> -->
+              </div>
+              <!-- <ion-icon name="ios-arrow-dropup-outline">
+                <span>{{_result.translation.details}}</span>
+              </ion-icon> -->
+            </div>
+            <div class="progress-bar">
+              <div [style]="{ width: (result.pct+'%'), backgroundColor: result.color }" class="progress"></div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container collapseContent>
+          <div class="card-body">
+            <ion-item *ngFor="let detail of result.details" class="details_encaissement">
+              <div class="paiement-details-item">
+                <h2>
+                  <!-- <ion-icon *ngIf="detail.icone" [name]="detail.icone"></ion-icon> -->
+                  <!-- <i class="fa fa-{{detail.icone}}"></i> -->
+                  {{detail.label}}
+                  <span class="float-right">{{detail.paiement_label}}</span>
+                </h2>
+              </div>
+            </ion-item>
+            <ion-item *ngFor="let encaissement of result.encaissements">
+              <div class="paiement-encaissements-item">
+                <h2>{{encaissement.datepaiement}} <span>{{encaissement.encaissement_label}}</span></h2>
+              </div>
+            </ion-item>
+          </div>
+        </ng-container>
+      </app-collapse>
+    </div>
+    <!-- <ngb-accordion #acc="ngbAccordion">
+      <ngb-panel *ngFor="let result of _result.etat">
+        <ng-template ngbPanelTitle>
+          <div class="paiement-state" [ngStyle]="{'background-color': result.color}"></div>
+          <span class="paiement-mois">{{result.month}}</span>
+          <div class="progress-wrapper">
+            <span class="pct">{{result.pct}} %</span>
+            <span class="total-paye">{{_result.translation.total_paye}}</span>
+            <round-progress [current]="result.pct" [responsive]="true" [duration]="4000" [stroke]="7" [max]="100"
+              [color]="result.color" [background]="'#eaeaea'"></round-progress>
+          </div>
+          <ion-icon name="ios-arrow-dropup-outline">
+            <span>{{_result.translation.details}}</span>
+          </ion-icon>
+        </ng-template>
+
+        <ng-template ngbPanelContent>
+          <ion-item *ngFor="let detail of result.details" class="details_encaissement">
+            <div class="paiement-details-item">
+              <h2> <i class="fa fa-{{detail.icone}}"></i>{{detail.label}} <span
+                  class="float-right">{{detail.paiement_label}}</span></h2>
+            </div>
+          </ion-item>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ion-item *ngFor="let encaissement of result.encaissements">
+            <div class="paiement-encaissements-item">
+              <h2>{{encaissement.datepaiement}} <span>{{encaissement.encaissement_label}}</span></h2>
+            </div>
+          </ion-item>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion> -->
+  </section>
+</ion-content>

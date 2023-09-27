@@ -1,0 +1,31 @@
+<app-enseignant-header [isRoot]="false" [title]="_result?.translation?.title"></app-enseignant-header>
+
+<ion-content>
+  <div class="page-container bg-gris">
+      <div class="aucun-examens" hidden *ngIf="_result">
+          <img src="{{_result.empty.img}}" alt="">
+          <h3>{{_result.empty.label}}</h3>
+      </div>
+      <div class="to-do-lists" *ngIf="_result">
+          <div class="item" *ngFor="let result of _result.data" (click)="examenDetails(result)">
+              <div class="image">
+                  <span class="date">
+                      <div class="day">{{result.SemestreLabel}}</div>
+                      <span class="month text-uppercase">{{result.periodeLabel}}</span>
+                  </span>
+              </div>
+              <div class="item-description">
+                  <h3>{{result.label}}</h3>
+                  <h3 class="main-color">{{result.uniteLabel}}</h3>
+                   <!--<span class="group">{{result.classe}}</span>
+                  <ul class="list-unstyled">
+                      <li><img src="assets/icon/clock-gris.svg" alt=""> {{result.seance}}</li>
+                      <li><img src="assets/icon/salle.svg" alt=""> {{result.salle}}</li>
+                  </ul> -->
+                  <ion-icon name="arrow-forward" class="arrow-right"></ion-icon>
+              </div>
+          </div>
+          <!-- end item -->
+      </div>
+  </div>
+</ion-content>

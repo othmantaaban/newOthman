@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-header">
+    <h5>
+      <button [class.collapsed]="open" (click)="toggleAccordion($event)">
+        <ng-content select="[accordionTitle]"></ng-content>
+        <ion-icon  name="chevron-down-outline" class="float-right" ></ion-icon>
+      </button>
+    </h5>
+  </div>
+  <div class="card-body">
+<div *ngIf="open">
+  <ng-content select="[accordionContent]"></ng-content>
+</div>
+  </div>
+</div>

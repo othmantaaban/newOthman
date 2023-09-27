@@ -1,0 +1,40 @@
+<app-enseignant-header mode="ios" [isRoot]="false" title=""></app-enseignant-header>
+
+
+<ion-content>
+	<div *ngIf="_result" class="page-container">
+		<div class="bg-white">
+				<div class="d-main-banner banner-bottom-left-raduis main-bg px-5">
+				<div class="">
+					<h6 class="text-uppercase text-center"></h6>
+					<h3>{{_result.translation.title}}</h3>
+				</div>
+				</div>
+		</div>
+
+		<ul class="contact-list" *ngIf="_result?.data?.length > 0" >
+
+			<li class="person align-items-center d-flex" *ngFor="let result of _result.data" (click) = "detailsMessage(result)">
+				<span class="avatar">
+					<img src="{{result.img}}" alt="{{result.at}}" />
+				</span>
+				<span class="info">
+					<span class="name">{{result.at}}</span>
+					<span class="status-msg"><ion-icon [ngClass]="{'vu': result.vu_le}" name="checkmark-done-outline"></ion-icon><span>{{result.sujet}}</span></span>
+					<span class="last-login">{{result.envoye_le}}</span>
+				</span>
+			</li>
+
+
+		</ul><!-- /.contact-list -->
+		<div *ngIf="_result?.empty == true" class="aucun-messages">
+			<img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+			<h3 [innerHtml]="_result.empty_text"></h3>
+		</div>
+	</div> 
+	<ion-fab>
+		<ion-fab-button ion-fab class="background-danger fixed-bottom" (click) = "nouveauMessage()">
+			<ion-icon name="create" ></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+</ion-content>

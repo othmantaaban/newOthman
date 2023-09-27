@@ -1,0 +1,171 @@
+<ion-accordion-group
+  mode="ios"
+  class="grand-parent"
+  #albumAccordion
+  (ionChange)="getAlbumContent()"
+>
+  <ion-grid class="dash-grid">
+    <ion-row class="header-title">
+      <ion-col size="12">
+        <ion-title mode="md" class="title-style">
+          {{ _result?.translation?.album_non_valide }}
+        </ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row class="album" *ngIf="albums.length > 0">
+      <ion-col
+        class="album-col-parent"
+        *ngFor="let album of albums; let i = index"
+        size-sm="12"
+        size-lg="6"
+      >
+        <ion-accordion [value]="album.Id">
+          <div
+            class="accordion-header"
+            slot="header"
+            (mousedown)="$event.preventDefault()"
+          >
+            <div class="image">
+              <ion-img
+                *ngFor="let mainPic of album.mainImage"
+                [src]="mainPic"
+                class="albuToValide"
+                alt=""
+              ></ion-img>
+              <ion-badge class="albumBadge" mode="ios">
+                <!-- <ion-img src="assets/imageIcon.svg"></ion-img> -->
+                <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.45161 0.166667C6.45161 0.07462 6.37942 0 6.29032 0H1.77419C0.794335 0 0 0.820813 0 1.83333V11.1667C0 12.1792 0.794335 13 1.77419 13H8.22581C9.20568 13 10 12.1792 10 11.1667V4.59804C10 4.50599 9.92781 4.43137 9.83871 4.43137H6.93548C6.66826 4.43137 6.45161 4.20751 6.45161 3.93137V0.166667ZM5.64516 6.16667C5.64516 5.6144 6.07845 5.16667 6.6129 5.16667C7.14735 5.16667 7.58065 5.6144 7.58065 6.16667C7.58065 6.71893 7.14735 7.16667 6.6129 7.16667C6.07845 7.16667 5.64516 6.71893 5.64516 6.16667ZM4.44258 7.235C4.35413 7.0888 4.1991 7 4.03226 7C3.86542 7 3.71039 7.0888 3.62194 7.235L2.00903 9.90167C1.91581 10.0558 1.91087 10.2501 1.99614 10.4091C2.08141 10.568 2.24346 10.6667 2.41935 10.6667H7.58065C7.76394 10.6667 7.93148 10.5597 8.01342 10.3903C8.09542 10.2209 8.07768 10.0182 7.96774 9.86667L7 8.53333C6.90865 8.4074 6.76523 8.33333 6.6129 8.33333C6.46058 8.33333 6.31716 8.4074 6.22581 8.53333L5.68148 9.28333L4.44258 7.235Z"/>
+                  <path d="M7.41935 0.38276C7.41935 0.25976 7.54361 0.181667 7.63626 0.258927C7.71426 0.324 7.78439 0.40024 7.84419 0.486367L9.78819 3.28497C9.83245 3.34868 9.78452 3.43137 9.70858 3.43137H7.58065C7.49155 3.43137 7.41935 3.35675 7.41935 3.26471V0.38276Z"/>
+                </svg>    
+                <span>x{{ album.imageCount }}</span>
+              </ion-badge>
+            </div>
+            <div class="info">
+              <p class="album-name">
+                {{ album.label }}
+                <span
+                  class="group-style group"
+                  *ngFor="let classe of album.classes"
+                  >{{ classe }}</span
+                >
+              </p>
+              <div class="mini-content">
+                <span class="par">
+                  <!-- Par --> {{ _result.translation.par}} <span class="name">{{ album.userName }}</span>
+                </span>
+                <span class="date"> {{ album.date }} </span>
+              </div>
+            </div>
+            <div class="time-icon">
+              <div class="icon">
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="ion-accordion-toggle-icon arrow"
+                ></ion-icon>
+              </div>
+            </div>
+          </div>
+          <div slot="content" class="accordion-content">
+            <div class="album" *ngIf="albumContent !== {} && !contentIsLoad">
+              <div class="content" [innerHTML]="albumContent['content']"></div>
+              <div
+                class="main"
+                *ngIf="albumContent['images'] && album.imageCount > 0"
+              >
+                <ion-button
+                  mode="md"
+                  *ngIf="album.imageCount > 1"
+                  class="navigation nextEl"
+                  (click)="goToNext('swiper' + album.Id)"
+                >
+                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                </ion-button>
+                <ion-button
+                  mode="md"
+                  *ngIf="album.imageCount > 1"
+                  class="navigation prevEl"
+                  (click)="goToPrev('swiper' + album.Id)"
+                >
+                  <ion-icon name="chevron-back-outline"></ion-icon>
+                </ion-button>
+                <div class="eleveTag" *ngIf="albumContent['eleveTag']">
+                  <ng-container
+                    *ngFor="let tag of albumContent['eleveTag']; let i = index"
+                  >
+                    <ion-img class="img" *ngIf="i < 4" [src]="tag"></ion-img>
+                  </ng-container>
+                  <div
+                    class="count-tag img"
+                    *ngIf="albumContent['eleveTag'].length - 4 > 0"
+                  >
+                    + {{ albumContent['eleveTag'].length - 4 }}
+                  </div>
+                </div>
+                <ion-badge class="albumBadge side-fractions" mode="ios">
+                  <!-- <ion-img src="assets/imageIcon.svg"></ion-img> -->
+                  <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.45161 0.166667C6.45161 0.07462 6.37942 0 6.29032 0H1.77419C0.794335 0 0 0.820813 0 1.83333V11.1667C0 12.1792 0.794335 13 1.77419 13H8.22581C9.20568 13 10 12.1792 10 11.1667V4.59804C10 4.50599 9.92781 4.43137 9.83871 4.43137H6.93548C6.66826 4.43137 6.45161 4.20751 6.45161 3.93137V0.166667ZM5.64516 6.16667C5.64516 5.6144 6.07845 5.16667 6.6129 5.16667C7.14735 5.16667 7.58065 5.6144 7.58065 6.16667C7.58065 6.71893 7.14735 7.16667 6.6129 7.16667C6.07845 7.16667 5.64516 6.71893 5.64516 6.16667ZM4.44258 7.235C4.35413 7.0888 4.1991 7 4.03226 7C3.86542 7 3.71039 7.0888 3.62194 7.235L2.00903 9.90167C1.91581 10.0558 1.91087 10.2501 1.99614 10.4091C2.08141 10.568 2.24346 10.6667 2.41935 10.6667H7.58065C7.76394 10.6667 7.93148 10.5597 8.01342 10.3903C8.09542 10.2209 8.07768 10.0182 7.96774 9.86667L7 8.53333C6.90865 8.4074 6.76523 8.33333 6.6129 8.33333C6.46058 8.33333 6.31716 8.4074 6.22581 8.53333L5.68148 9.28333L4.44258 7.235Z"/>
+                    <path d="M7.41935 0.38276C7.41935 0.25976 7.54361 0.181667 7.63626 0.258927C7.71426 0.324 7.78439 0.40024 7.84419 0.486367L9.78819 3.28497C9.83245 3.34868 9.78452 3.43137 9.70858 3.43137H7.58065C7.49155 3.43137 7.41935 3.35675 7.41935 3.26471V0.38276Z"/>
+                  </svg>                    
+                  <span>
+                    <span style="font-weight: bold">{{ activeIndex }}/</span>
+                    <span *ngIf="albumContent['images']"
+                      >{{ albumContent['images'].length }}</span
+                    >
+                  </span>
+                </ion-badge>
+                <ion-slides
+                  #swiperContainer
+                  
+                  [option]="{ loop: true }"
+                  class="albumSwiperContainer"
+                  [id]="'swiper' + album.Id"
+                  [pagination]="PaginationConfig"
+                  [slidesPerView]="1"
+                >
+                  <ion-slide
+                    *ngFor="let image of albumContent['images'];let index = index"
+                  >
+                    <ion-img [src]="image.file" name="trash-outline"></ion-img>
+                    <ion-button
+                      (click)="removePic(image.id ,index)"
+                      class="remove"
+                      shape="round"
+                    >
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-slide>
+                </ion-slides>
+              </div>
+            </div>
+            <div class="dots" *ngIf="contentIsLoad">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="line"></div>
+            <ion-footer mode="md">
+              <ion-button
+                [disabled]="contentIsLoad"
+                shape="round"
+                fill="clear"
+                (click)="valideAlbum($event, album.Id, 'rejeter')"
+                > {{ _result?.translation?.annuler }} </ion-button
+              >
+              <ion-button
+                [disabled]="contentIsLoad"
+                shape="round"
+                fill="clear"
+                (click)="valideAlbum($event, album.Id, 'validate')"
+                >{{ _result?.translation?.valider }} </ion-button>
+            </ion-footer>
+          </div>
+        </ion-accordion>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="albums.length === 0" class="no-data">
+      <ion-col> {{ _result?.translation?.no_data}} </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-accordion-group>

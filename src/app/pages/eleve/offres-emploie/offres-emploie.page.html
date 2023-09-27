@@ -1,0 +1,149 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Offres Emploi'" />
+
+<ion-content>
+  <div class="back" (click)="back()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+    <span> {{ _result?.translation?.retour ? _result?.translation?.retour : "retour" }} </span>
+  </div>
+  <div class="emploi-header">
+    <div class="icon">
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="stroke" d="M36.0001 27.8667V33.5333C36.0001 34.992 34.9507 36.248 33.5041 36.44C30.7214 36.8093 27.8827 37 25.0001 37C22.1174 37 19.2787 36.8093 16.4961 36.44C15.0494 36.248 14.0001 34.992 14.0001 33.5333V27.8667M36.0001 27.8667C36.3167 27.5915 36.57 27.2511 36.7426 26.8688C36.9152 26.4866 37.0031 26.0714 37.0001 25.652V20.608C37.0001 19.1667 35.9761 17.9213 34.5507 17.708C33.0405 17.4819 31.5226 17.3098 30.0001 17.192M36.0001 27.8667C35.7414 28.0867 35.4401 28.26 35.1027 28.3733C31.8444 29.4545 28.4331 30.0037 25.0001 30C21.5671 30.0032 18.1559 29.454 14.8974 28.3733C14.5684 28.2639 14.2637 28.0918 14.0001 27.8667M14.0001 27.8667C13.6835 27.5915 13.4302 27.2511 13.2575 26.8688C13.0849 26.4866 12.9971 26.0714 13.0001 25.652V20.608C13.0001 19.1667 14.0241 17.9213 15.4494 17.708C16.9597 17.4819 18.4775 17.3098 20.0001 17.192M30.0001 17.192V16C30.0001 15.2044 29.684 14.4413 29.1214 13.8787C28.5588 13.3161 27.7957 13 27.0001 13H23.0001C22.2044 13 21.4414 13.3161 20.8788 13.8787C20.3161 14.4413 20.0001 15.2044 20.0001 16V17.192M30.0001 17.192C26.6717 16.9348 23.3284 16.9348 20.0001 17.192M25.0001 26H25.0107V26.0107H25.0001V26Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="fill" d="M33.3327 13.6747L33.1585 13.694L33.1515 13.7009C32.5493 13.8049 31.9917 14.0907 31.555 14.522C31.075 14.9961 30.7693 15.6183 30.6877 16.2878L30.6877 16.2878L30.6874 16.2901C30.4375 18.4228 30.4375 20.5773 30.6874 22.71L30.6877 22.7124C30.7693 23.382 31.0751 24.0042 31.5553 24.4784C32.0355 24.9525 32.6618 25.2507 33.3328 25.3248C35.4378 25.5584 37.5622 25.5584 39.6672 25.3248C40.3382 25.2507 40.9645 24.9525 41.4447 24.4784C41.9249 24.0042 42.2307 23.382 42.3123 22.7124L42.3126 22.71C42.5625 20.5771 42.5625 18.4224 42.3126 16.2895C42.1506 14.9063 41.0395 13.8283 39.6679 13.6748L39.6673 13.6747C37.5622 13.4418 35.4378 13.4418 33.3327 13.6747ZM36.5014 18.9995V19.4995H37.0014H39.3369C39.3375 19.4995 39.338 19.4997 39.3382 19.4999L39.3383 19.5001L39.3382 19.5002C39.338 19.5004 39.3375 19.5007 39.3369 19.5007H37.0014H36.5014V20.0007V22.3321L36.5013 22.3323C36.5012 22.3324 36.501 22.3325 36.5008 22.3326C36.5005 22.3327 36.5003 22.3327 36.5 22.3327C36.4996 22.3327 36.4993 22.3326 36.499 22.3325C36.4989 22.3324 36.4988 22.3323 36.4987 22.3323L36.4986 22.3321V20.0007V19.5007H35.9986H33.6631C33.6625 19.5007 33.662 19.5004 33.6618 19.5002L33.6617 19.5001L33.6618 19.4999C33.662 19.4997 33.6625 19.4995 33.6631 19.4995H35.9986H36.4986V18.9995V16.668L36.4987 16.6679L36.1454 16.314L36.4987 16.6679C36.4989 16.6677 36.4993 16.6674 36.5 16.6674C36.5007 16.6674 36.5011 16.6677 36.5013 16.6679L36.8546 16.314L36.5013 16.6679L36.5014 16.668V18.9995Z" stroke="#F1F0FF"/>
+      </svg>  
+    </div>
+    <span>
+      {{ _result?.translation?.emploi ? _result?.translation?.emploi : "Offres Emploi" }}
+    </span>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item button (click)="goTo(1)">
+          <ion-img 
+            slot="start" 
+            src="https://boti.education/u/upf/assets/images/attijari-logo.png"
+            class="img"
+          >
+          </ion-img>
+          <div class="emploi-infos">
+            <div class="date">
+              05 Nov 2023
+            </div>
+            <div class="title">
+              Conseiller clientèle
+            </div>
+            <div class="entreprise">
+              Attijari Wafa Bank
+            </div>
+            <div class="others">
+              <div class="badge first">
+                CDI
+              </div>
+              <div class="badge place">
+                <ion-icon name="location-sharp"></ion-icon>
+                Casablanca
+              </div>
+            </div>
+          </div>
+          
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item button (click)="goTo(2)">
+          <ion-img 
+            slot="start" 
+            src="https://boti.education/u/upf/assets/images/cih-logo.png"
+            class="img"
+          >
+          </ion-img>
+          <div class="emploi-infos">
+            <div class="date">
+              05 Nov 2023
+            </div>
+            <div class="title">
+              Plusieurs profils
+            </div>
+            <div class="entreprise">
+              CIH BANK
+            </div>
+            <div class="others">
+              <div class="badge first">
+                CDI
+              </div>
+              <div class="badge place">
+                <ion-icon name="location-sharp"></ion-icon>
+                Rabat
+              </div>
+            </div>
+          </div>
+          
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item button (click)="goTo(1)">
+          <ion-img 
+            slot="start" 
+            src="https://boti.education/u/upf/assets/images/attijari-logo.png"
+            class="img"
+          >
+          </ion-img>
+          <div class="emploi-infos">
+            <div class="date">
+              05 Nov 2023
+            </div>
+            <div class="title">
+              Conseiller clientèle
+            </div>
+            <div class="entreprise">
+              Attijari Wafa Bank
+            </div>
+            <div class="others">
+              <div class="badge first">
+                CDI
+              </div>
+              <div class="badge place">
+                <ion-icon name="location-sharp"></ion-icon>
+                Casablanca
+              </div>
+            </div>
+          </div>
+          
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item button (click)="goTo(2)">
+          <ion-img 
+            slot="start" 
+            src="https://boti.education/u/upf/assets/images/cih-logo.png"
+            class="img"
+          >
+          </ion-img>
+          <div class="emploi-infos">
+            <div class="date">
+              05 Nov 2023
+            </div>
+            <div class="title">
+              Plusieurs profils
+            </div>
+            <div class="entreprise">
+              CIH BANK
+            </div>
+            <div class="others">
+              <div class="badge first">
+                CDI
+              </div>
+              <div class="badge place">
+                <ion-icon name="location-sharp"></ion-icon>
+                Rabat
+              </div>
+            </div>
+          </div>
+          
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

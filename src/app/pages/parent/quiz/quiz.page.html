@@ -1,0 +1,98 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <section *ngIf="_result?.data">
+    <div class="quiz-matiere">
+      <div *ngIf="!currentQuestion">
+        <h2>{{_result?.translation?.quiz}}</h2>
+        <h5>{{_result.data.matiere}} - {{_result.data.niveau}}</h5>
+      </div>
+      <div class="quiz">
+        <div class=" ressource" [ngStyle]="{'background-color': _result.data.color}">
+          <ion-row *ngIf="currentQuestion" align-items-center class="progress_counter">
+            <ion-col col-2 class="text-center">
+              <p class="questions">{{ countCorrectAnswers+'/'+_result.data.questions.length}}</p>
+            </ion-col>
+            <ion-col size="6">
+              <div class="progress">
+                <div [ngStyle]="{'width': pourcentageQuiz+'%','color': _result.data.color}" class="progress-bar"
+                  style="min-width: 20px;" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                  {{pourcentageQuiz}}%
+                </div>
+              </div>
+            </ion-col>
+            <ion-col col-2 class="text-center">
+              <p class="time">{{ displayTime }}</p>
+            </ion-col>
+          </ion-row>
+          <div *ngIf="currentQuestion" class="questions_quiz">
+
+            <h3>{{currentQuestion.question}}</h3>
+            <img *ngIf="currentQuestion.image" class="icon" src="{{currentQuestion.image}}" />
+            <div *ngIf="!currentQuestion.image" class="icon_placeholder"></div>
+            <div class="reponses">
+              <span *ngFor="let reponse of currentQuestion.reponses; let i=index" (click)="answerQuestion(reponse, i)"
+                [ngStyle]="{'color': _result.data.color}"
+                [ngClass]="reponseIndex == i ? (reponse.correct?'correct' : 'wrong'):'' ">{{reponse.reponse}}</span>
+            </div>
+          </div>
+          <div *ngIf="textDemarrage.show" class="play_quiz">
+            <div *ngIf="!textDemarrage.resultat">
+              <p>{{ _result.data.label }}</p>
+              <ion-grid>
+                <ion-row *ngIf="_result?.data?.image" >
+                  <ion-col>
+                    <img src="{{ _result.data.image }}" alt="">
+                  </ion-col>
+                </ion-row>
+                <ion-row align-items-center>
+                  <ion-col col-6 class="text-left">
+                    <p>{{_result.data.questions.length}}<span>
+                      <!-- Questions -->
+                      {{ _result?.translation?.questions ? _result?.translation?.questions : "Questions" }}
+                    </span></p>
+                  </ion-col>
+                  <ion-col col-6 class="text-right">
+                    <p>{{_result.data.minutes}}<span>
+                      <!-- Minutes -->
+                      {{ _result?.translation?.minutes ? _result?.translation?.minutes : "Minutes" }}
+                    </span></p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <button *ngIf="_result?.data?.can_play; else no_play" (click)="startQuiz()" ion-button icon-start>
+                <ion-icon name="ios-play-outline"></ion-icon>
+                {{textDemarrage.button}}
+              </button>
+              <ng-template #no_play>
+                  <p> {{_result.no_play }} </p>
+              </ng-template>
+            </div>
+            <div *ngIf="textDemarrage.resultat && resultatScore">
+              <p>RÉSULTAT</p>
+              <ion-grid>
+                <ion-row align-items-center>
+                  <ion-col col-6 class="text-left">
+                    <p>{{resultatScore.score}}<span>
+                      <!-- Score -->
+                      {{ _result?.translation?.score ? _result?.translation?.score : "Score" }}
+                    </span></p>
+                  </ion-col>
+                  <ion-col col-6 class="text-right">
+                    <p>{{resultatScore.time}}<span>
+                      {{ _result?.translation?.time ? _result?.translation?.time : "Time" }}
+                    </span></p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <button *ngIf="resultatScore?.can_replay"  (click)="startQuiz()" ion-button icon-start>
+                <ion-icon name="ios-play-outline"></ion-icon>
+                {{textDemarrage.button}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>

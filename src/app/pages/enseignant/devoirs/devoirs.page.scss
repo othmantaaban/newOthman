@@ -1,0 +1,197 @@
+ion-header{
+    ion-toolbar{
+        --background: var(--main-color);
+        --color: #fff;
+        ion-button{
+            --color: #fff;
+            color: #fff;
+        }
+        
+    }
+}
+.row {
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+}
+
+.back-button {
+    display: none !important;
+}
+
+.scroll-content {
+    // background-color: $main-color;
+}
+
+.d-main-banner {
+    padding: 15px 25px 20px;
+
+    color: #fff;
+    h3 {
+        margin-top: 0px;
+        font-size: 22px;
+    }
+}
+
+.bg-white {
+    background-color: #FFF;
+}
+
+.item {
+    // margin-top: 5px;
+    padding: 5px 0px;
+    height: 100%;
+
+    .card {
+        height: 100%;
+        background-color: #fff;
+        border-radius: 13px;
+        overflow: hidden;
+        // padding: 5px 5px;
+
+        .card-body{
+            padding: 15px 15px 10px 15px;
+
+            h3 {
+                margin: 15px 0px;
+                color: #12122C;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                letter-spacing: -0.54px;
+            }
+        }
+
+        .card-footer{
+            text-align: center;
+            border-top: 1px solid #B5B5B5;
+            padding: 10px 5px;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 25px; /* 178.571% */
+            letter-spacing: -0.28px;
+            color: #12122C;
+            ion-col{
+                &:not(:last-child){
+                    border-inline-end: 1px solid #B5B5B5;
+                }
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                ion-icon{
+                    font-size: 16px;
+                    color: var(--main-color);
+                }
+            }
+        }
+
+        .classes-col {
+            // margin: 15px 0px;
+            line-height: 30px;
+            // display: flex;
+            span {
+                background: #fff;
+                padding: 3px 15px;
+                border-radius: 7px;
+                font-weight: 700;
+                font-size: 14px;
+                margin: 5px 3px;
+                white-space: nowrap;
+            }
+        }
+
+        ion-icon {
+            font-size: 34px;
+        }
+
+        .item-header{
+            gap: 10px;
+            .date {
+                color: #888;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 141.6%;
+                letter-spacing: -0.36px;
+            }
+
+        }
+
+
+        .details-row {
+            margin-top: 10px;
+            padding-top: 7px;
+            border-top: 1px solid #ffffffcc;
+
+            ion-col:first-child {
+                border-inline-end: 1px solid #ffffffcc;
+
+            }
+
+            span {
+                font-weight: 700;
+                font-size: 14px;
+            }
+
+            font-size: 10px;
+        }
+
+        ion-col {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    .public-card {
+        border: 1px solid #5AD098;
+        // background-color: #EDFFFB;
+
+        .classes-col {
+            span {
+                background: #ffffff;
+                color: var(--main-color);
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                letter-spacing: -0.22px;
+                padding: 5px 15px;
+                border-radius: 50px;
+                border: 1px solid var(--main-color);
+            }
+        }
+
+    }
+
+    .not-public-card {
+        border: 1px solid #FF9D2B;
+        background-color: #FFFCFB;
+
+        .classes-col {
+            span {
+                background: #ffffff;
+                color: var(--main-color);
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                letter-spacing: -0.22px;
+                padding: 5px 15px;
+                border-radius: 50px;
+                border: 1px solid var(--main-color);
+            }
+        }
+    }
+}
+
+.badge-matiere{
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.56px;
+}

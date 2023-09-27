@@ -1,0 +1,80 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <section>
+    <div class="text-right">
+      <button (click)="addPaiement()" class="btn btn-secondary">
+        <!-- Nouveau paiement -->
+        {{ _result?.translation?.newpay ? _result?.translation?.newpay : "Nouveau paiement" }}
+      </button>
+    </div>
+    <div class="paiements-list" *ngIf="_result?.paiements?.length > 0;else noPaiements">
+      <div *ngFor="let paiement of _result.paiements"
+        [class]="{ 'paiement-item' : true , 'paiement-valide' : (paiement.etat == 'valide')  , 'paiement-annule' : (paiement.etat == 'annule') }">
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col class="ion-padding-end" size="auto">
+              <div class="date">
+                {{paiement.date.dayLabel}}
+                <span class="day">{{paiement.date.day}}</span>
+                {{paiement.date.mois}}
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="paiement-details">
+                <span class="badge">{{paiement.type}}</span>
+                <h4>{{paiement.montant}}</h4>
+                <small>{{paiement.reference}}</small>
+                <p>{{paiement.commentaire}}</p>
+              </div>
+            </ion-col>
+
+            <ion-col *ngIf="paiement.etat == 'valide';else notValide" size="auto">
+              <div class="paiement-statut">
+                <div class="paiement-icon">
+                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                </div>
+                <span>
+                  <!-- Validé -->
+                  {{ _result?.translation?.valide ? _result?.translation?.valide : "Validé" }}
+                </span>
+              </div>
+            </ion-col>
+            <ng-template #notValide>
+              <ion-col *ngIf="paiement.etat == 'annule';else notAnnule" size="auto">
+                <div class="paiement-statut">
+                  <div class="paiement-icon">
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                  </div>
+                  <span>
+                    <!-- Annulé -->
+                    {{ _result?.translation?.annule ? _result?.translation?.annule : "Annulé" }}
+                  </span>
+                </div>
+              </ion-col>
+            </ng-template>
+            <ng-template #notAnnule>
+              <ion-col size="auto">
+                <div class="paiement-statut">
+                  <div class="paiement-icon">
+                    <ion-icon name="ellipsis-horizontal-circle-outline"></ion-icon>
+                  </div>
+                  <span>
+                    <!-- En cours -->
+                    {{ _result?.translation?.encours ? _result?.translation?.encours : "En cours" }}
+                  </span>
+                </div>
+              </ion-col>
+            </ng-template>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <ng-template #noPaiements>
+      <div class="vertical-center no-result ">
+        <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+        <h3 [innerHtml]="_result.empty_text"></h3>
+      </div>
+    </ng-template>
+  </section>
+</ion-content>

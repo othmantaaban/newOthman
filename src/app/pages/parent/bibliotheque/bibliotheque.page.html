@@ -1,0 +1,31 @@
+<ion-content padding>
+  <section>
+    <div class="bibliotheque-matiere">
+      <div class="bibliotheque">
+          <div *ngFor="let unite of unites" (click)="unitePost(unite.id)" class="ressource" [ngStyle]="{'background-color': unite.color }">
+            <ion-row align-items-center  class="ion-no-padding">
+              <ion-col size="9" class="ion-no-padding">
+                <h3>{{unite.label}}</h3>
+                <span><span>{{unite.count_resources}}</span> {{_result?.translation?.ressources}}</span>
+              </ion-col>
+              <ion-col col-3 no-padding class="text-center ion-no-padding">
+                <div class="icon-container">
+                  <img class="icon" src="{{unite.icon}}" />
+                </div>
+              </ion-col>
+            </ion-row>
+            <div *ngIf="false" class="notification">
+              <ion-icon name="ios-notifications-outline"></ion-icon>
+              <p>{{ _result.translation.label_new_ressource }}</p>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+</ion-content>

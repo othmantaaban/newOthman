@@ -1,0 +1,16 @@
+<app-parent-header [isRoot]="true" [title]="tabTranslation?.title||''" />
+
+<ion-content padding>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="bibliotheque">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>{{tabTranslation?.tab1}}</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="quizs">
+        <ion-icon name="reader-outline"></ion-icon>
+        <ion-label>{{tabTranslation?.tab2}}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

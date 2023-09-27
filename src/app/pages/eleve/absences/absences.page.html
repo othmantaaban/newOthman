@@ -1,0 +1,377 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content #content>
+
+  <!-- <ion-grid *ngIf="_result" class="suivi-header ion-no-padding ion-margin-top"
+    [class.header-negatif]="_result.score&&_result.score < 0">
+    <ion-row class="d-flex align-items-center">
+      <ion-col size="3" class="text-center">
+        <ion-icon name="today-outline" class="header-icon"></ion-icon>
+      </ion-col>
+      <ion-col class="text-left" size="6">
+        <h1 *ngIf="_result?.translation">Absences et Retards</h1>
+      </ion-col>
+      <ion-col class="text-center" size="3">
+        <div class="user-picture-top-page d-grid">
+          <div>
+            <img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+          </div>
+          <div>
+            <span>{{eleve.nomcomplet}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <ion-grid  *ngIf="_result" class="ion-margin-top">
+    <ion-row>
+      <ion-col size="6">
+        <div class="absences-card">
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col size="7">
+                <ion-icon name="clipboard-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="5" class="text-center">
+                <div class="count">{{_result.stats_absences.total}}</div>
+                <!-- absences -->
+                <h6> {{ _result?.translation?.absences }} </h6>
+              </ion-col>
+            </ion-row>
+            <ion-row class="justification">
+              <ion-col size="6">
+                <p>
+                  <!-- Justifie -->
+                  {{_result.translation.justifie }}
+                </p>
+                <h5>
+                  {{_result.stats_absences.justifie}}
+                </h5>
+              </ion-col>
+              <ion-col size="6">
+                <p>
+                  <!-- Non Justifie -->
+                  {{_result.translation.justifie }}
+                </p>
+                <h5>
+                  {{_result.stats_absences.nonjustifie}}
+                </h5>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="retards-card">
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col size="7">
+                <ion-icon name="time-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="5" class="text-center count-col">
+                <div class="unite">
+                  <!-- min -->
+                  {{ _result?.translation?.min ? _result?.translation?.min : "min" }}
+                </div>
+                <div class="count">{{_result.stats_retards.total}}</div>
+                <h6>
+                  <!-- Retards -->
+                  {{ _result?.translation?.retards ? _result?.translation?.retards : "Retards" }}
+                </h6>
+              </ion-col>
+            </ion-row>
+            <ion-row class="justification">
+              <ion-col size="6">
+                <p>
+                  <!-- Justifie -->
+                  {{ _result?.translation?.justifie ? _result?.translation?.justifie : "Justifie" }}
+                </p>
+                <h5>
+                  {{_result.stats_retards.justifie}}
+                </h5>
+              </ion-col>
+              <ion-col size="6">
+                <p>
+                  <!-- Non Justifie -->
+                  {{ _result?.translation?.njustifie ? _result?.translation?.njustifie : "Non Justifie" }}
+                </p>
+                <h5>
+                  {{_result.stats_retards.nonjustifie}}
+                </h5>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-margin-top">
+    <ion-row>
+      <ion-col size="12">
+        <h4>
+          <!-- Absences et Retards -->
+          {{ _result?.translation?.absret ? _result?.translation?.absret : "Absences et Retards" }}
+        </h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="absences-calendar">
+        <ion-calendar 
+          (change)="changeAbsenceDate($event)" 
+          [(ngModel)]="selected_date" 
+          [options]="calendarOptions"
+          format="DD/MM/YYYY"
+        ></ion-calendar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="selected_absences" class="date-absences">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="header-pop-absences">
+        <ion-col>
+            {{selected_date}} • {{selected_absences.count_sceances}} 
+            <!-- séances  -->
+            {{ _result?.translation?.seance ? _result?.translation?.seance : "séances" }}
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="p-0">
+      <ion-row>
+        <ion-col class="absences-column" *ngIf="selected_absences.absences&&selected_absences.absences.length>0">
+          <h6>
+            <!-- Absences : -->
+            {{ _result?.translation?.abs ? _result?.translation?.abs : "Absences :"}}
+          </h6>
+          <ul>
+              <li *ngFor="let absence of selected_absences.absences">
+                <div *ngIf="absence.periode">
+                  {{absence.periode}}
+                </div>
+                <div *ngFor="let seance of absence.seances">
+                  {{seance.seance}} <b>• {{seance.matiere}}</b>
+                </div>
+              </li>
+          </ul>
+        </ion-col>
+        <ion-col class="retards-column" *ngIf="selected_absences.retards&&selected_absences.retards.length>0">
+          <h6>
+            <!-- Retards : -->
+            {{ _result?.translation?.retards ? _result?.translation?.retards : "Retards :" }}
+          </h6>
+          <ul>
+              <li *ngFor="let retard of selected_absences.retards">
+                <div *ngIf="retard.periode">
+                  {{retard.periode}}
+                </div>
+                <div *ngFor="let seance of retard.seances">
+                  {{seance.seance}} <b>• {{seance.matiere}}</b>
+                </div>
+              </li>
+          </ul>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="selected_absences">
+        <ion-col *ngIf="!selected_absences.justifie;else justifieBadge" class="justification-cta" size="12">
+          <button (click)="toggleJustification(selected_absences)" > 
+            <!-- Justifier  -->
+            {{ _result?.translation?.justifier ? _result?.translation?.justifier : "Justifier " }}
+          </button>
+
+        </ion-col>
+        <ng-template #justifieBadge>
+          <ion-col class="justification-badge" size="12">
+            <div>
+              <ion-icon name="checkmark"></ion-icon> 
+              <!-- Justifiés -->
+              {{ _result?.translation?.justifie ? _result?.translation?.justifie : "Justifiés" }}
+            </div>
+          </ion-col>
+
+        </ng-template>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="false" class="container_result">
+    <div class="user-picture-top-page">
+      <div>
+        <img src="{{eleve.img}}" alt="{{eleve.nomcomplet}}">
+      </div>
+      <div>
+        <h1> {{_result.translation.title}}</h1>
+        <span>{{eleve.nomcomplet}}</span>
+      </div>
+    </div>
+
+    <ion-segment class="ion-margin-bottom" mode="md" (ionChange)="changeSlide($event)" [(ngModel)]="selected">
+      <ion-segment-button [value]="0">
+        <span>{{_result.translation.non_justifiees}}</span>
+      </ion-segment-button>
+      <ion-segment-button [value]="1">
+        <span>{{_result.translation.justifiees}}</span>
+      </ion-segment-button>
+
+    </ion-segment>
+    <ion-slides #mySlider [options]="{allowTouchMove: false,initialSlide: 0,slidesPerView: 1,speed: 400}">
+      <ion-slide>
+        <div *ngIf="_result?.non_justifiees?.empty == true" class="vertical-center-absolute no-result ">
+          <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+          <h3 [innerHtml]="_result.empty_text"></h3>
+        </div>
+        <section *ngIf="_result?.data?.non_justifiees?.length > 0">
+          <div class="card" *ngFor="let result of _result.data.non_justifiees">
+            <app-collapse>
+              <ng-container collapseTitle>
+                <div class="card-header">
+                  <span class="absence-date">{{result.date}}</span>
+                  <span *ngIf="result.nombreseances == 1" class="absence-seances">({{result.nombreseances}}
+                    {{_result.translation.seance}})</span>
+                  <span *ngIf="result.nombreseances > 1" class="absence-seances">({{result.nombreseances}}
+                    {{_result.translation.seances}})</span>
+                  <ion-icon name="chevron-forward-outline" class="absence-icon" />
+                </div>
+              </ng-container>
+              <ng-container collapseContent>
+                <div class="card-body">
+                  <div *ngFor="let seance of result.seances">
+                    <h6>
+                      <span *ngIf="seance.matiere" class="absence-matiere">{{seance.matiere}}</span>
+                    </h6>
+                    <p>
+                      <ion-icon name="person" class="timetable-icon"></ion-icon>
+                      <span *ngIf="seance.enseignant" class="absence-enseignant">{{seance.enseignant}}</span>
+                      <ion-icon name="time" class="timetable-icon"></ion-icon>
+                      <span *ngIf="seance.seance" class="absence-seance">{{seance.seance}}</span>
+                    </p>
+                    <hr />
+                  </div>
+                  <div *ngIf="result.button" class="justification_action">
+                    <button class="btn-main btn-outline btn-block"
+                      (click)="toggleJustification(result)">{{_result.translation.envoyer_justif}}</button>
+                  </div>
+                </div>
+              </ng-container>
+            </app-collapse>
+          </div>
+        </section>
+      </ion-slide>
+
+      <ion-slide>
+
+        <div *ngIf="_result?.justifiees?.empty == true" class="vertical-center-absolute no-result ">
+          <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+          <h3 [innerHtml]="_result.empty_text"></h3>
+        </div>
+        <section *ngIf="_result?.data?.justifiees?.length > 0">
+          <div class="card" *ngFor="let result of _result.data.justifiees">
+            <app-collapse>
+              <ng-container collapseTitle>
+                <div class="card-header">
+                  <span class="absence-date">{{result.date}}</span>
+                  <span *ngIf="result.nombreseances == 1" class="absence-seances">({{result.nombreseances}}
+                    {{_result.translation.seance}})</span>
+                  <span *ngIf="result.nombreseances > 1" class="absence-seances">({{result.nombreseances}}
+                    {{_result.translation.seances}})</span>
+                  <ion-icon name="chevron-forward-outline" class="absence-icon" />
+                </div>
+              </ng-container>
+              <ng-container collapseContent>
+                <div class="card-body">
+                  <div *ngFor="let seance of result.seances">
+                    <h6>
+                      <span *ngIf="seance.matiere" class="absence-matiere">{{seance.matiere}}</span>
+                    </h6>
+                    <p>
+                      <ion-icon name="person" class="timetable-icon"></ion-icon>
+                      <span *ngIf="seance.enseignant" class="absence-enseignant">{{seance.enseignant}}</span>
+                      <ion-icon name="time" class="timetable-icon"></ion-icon>
+                      <span *ngIf="seance.seance" class="absence-seance">{{seance.seance}}</span>
+                    </p>
+                    <hr />
+                  </div>
+                  <div *ngIf="result.button" class="justification_action">
+                    <button class="btn-main btn-outline btn-block"
+                      (click)="toggleJustification(result)">{{_result.translation.envoyer_justif}}</button>
+                  </div>
+                </div>
+              </ng-container>
+            </app-collapse>
+          </div>
+          <!-- <ngb-accordion #acc="ngbAccordion" class="card card-md">
+            <ngb-panel *ngFor="let result of _result.data.justifiees">
+              <ng-template ngbPanelTitle>
+                <span class="absence-date">{{result.date}}</span>
+                <span *ngIf="result.nombreseances == 1" class="absence-seances">({{result.nombreseances}}
+                  {{_result.translation.seance}} )</span>
+                <span *ngIf="result.nombreseances > 1" class="absence-seances">({{result.nombreseances}}
+                  {{_result.translation.seances}})</span>
+                <i aria-hidden="true" class="fa fa-angle-right absence-icon"></i>
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <div *ngFor="let seance of result.seances">
+                  <h6>
+                    <span *ngIf="seance.matiere" class="absence-matiere">{{seance.matiere}}</span>
+                  </h6>
+                  <p>
+                    <ion-icon name="person" class="timetable-icon"></ion-icon>
+                    <span *ngIf="seance.enseignant" class="absence-enseignant">{{seance.enseignant}}</span>
+                    <ion-icon name="time" class="timetable-icon"></ion-icon>
+                    <span *ngIf="seance.seance" class="absence-seance">{{seance.seance}}</span>
+                  </p>
+                  <hr *ngIf="seance.html" />
+                  <div *ngIf="seance.html" [innerHTML]="seance.html"></div>
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion> -->
+        </section>
+      </ion-slide>
+
+    </ion-slides>
+
+  </div>
+</ion-content>
+<div *ngIf="_result" class="action-small-modal" [ngClass]="_toggleJustification ? 'show-modal' : ''">
+  <div class="bottom-modal">
+    <div class="default-modal-header">
+      <div class="default-modal-header-text">
+        <h4>{{_result.translation.justification}}</h4>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngIf="currentAbsence" size="6">
+              <ion-icon name="calendar-outline"></ion-icon> {{currentAbsence?.date}}
+            </ion-col>
+            <ion-col *ngIf="currentAbsence" size="6">
+              <ion-icon name="albums-outline"></ion-icon> {{currentAbsence?.count_sceances}} {{_result.translation.seances}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="m-close" (click)="toggleJustification()">
+        <img src="assets/icon/close.svg" alt="">
+      </div>
+    </div>
+    <div class="d-modal-action">
+      <div class="justification-form">
+        <form action="" [formGroup]="formGroup">
+          <label for="">{{_result.translation.motif_absence}}</label>
+          <div class="form-group ion-margin-top">
+            <textarea name="motif" formControlName="motif" id="" cols="30" rows="10" [(ngModel)]="motifAbsence"
+              class="form-control main-input" placeholder="{{_result.translation.motif_absence}}"></textarea>
+          </div>
+          <ul class="list-unstyled upload-file">
+            <li class="upload-file-container" (click)="openGallery()">
+              <ion-icon name="camera-outline"></ion-icon>
+              <span>{{_result.translation.ajout_file}}</span>
+            </li>
+          </ul>
+          <div class="btn-main" (click)="checkJustification()">{{_result.translation.btn_envoyer}}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Etat de paiement'" />
+<!-- <app-doughnuts></app-doughnuts> -->
+
+
+<ion-content>
+  <div class="head">
+    <!-- <canvas id="paiment-progress" ></canvas> -->
+    <!-- {{ _result.ptc ? _result?.ptc : 0 }} -->
+    <app-doughnut
+      #doughnut
+      selectedId="hello2"
+      mainColor="#2ED08B"
+      backColor="#EDEDED"
+      textColor="#12122C"
+      [percent]="percent ? percent : 0"
+      [fontSize]="16"
+      [fontWeight]="600"
+      [letterSpacing]="-0.906"
+    ></app-doughnut>
+
+    
+    <div class="content">
+      {{ _result?.translation?.paiement ? _result?.translation?.paiement : "Etat de paiement" }}
+    </div>
+    <div class="rib-parent">
+      <div class="rib">
+        <div class="rib-number">
+          <div></div>
+          <div class="number">
+            <span *ngIf="!visible">*** ***</span>
+            <span *ngIf="visible"> {{ _result.totalPayed }} MAD </span>
+          </div>
+          <span class="show-hide" (click)="setRibVisble()">
+            <ion-icon *ngIf="!visible" name="eye-outline"></ion-icon>
+            <ion-icon *ngIf="visible" name="eye-off-outline"></ion-icon>
+          </span>
+        </div>
+        <div class="button">
+          <ion-button id="open-modal">
+            {{ _result?.translation?.rib ? _result?.translation?.rib : "Afficher les RIBS" }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="titles">
+    <div class="title">
+      {{ _result?.translation?.effectues ? _result?.translation?.effectues : "Paiements effectués" }}
+    </div>
+    <div class="subtitle"> {{ _result?.classe }} {{ _result?.promotion }} </div>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let paiement of _result?.paiement">
+        <ion-item>
+          <div class="icon done" slot="start">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </div>
+          <div class="content">
+            <div class="type">{{ paiement.mode }}</div>
+            <div class="to">{{ paiement.to }}</div>
+            <div class="id">{{ paiement.recu }}</div>
+          </div>
+          <div class="price-date" slot="end">
+            <div class="price">{{ paiement.montant }} DH</div>
+            <div class="date">{{ paiement.date }}</div>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>  
+
+<ion-modal trigger="open-modal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>Infos bancaires</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div class="main">
+        <div class="card" *ngFor="let compte of _result.comptes">
+          <div class="ligne">
+            <div class="label">
+              banque
+            </div>
+            <div class="val">
+              {{ compte.banque }}
+            </div>
+          </div>
+          <div class="ligne">
+            <div class="label">
+              agence
+            </div>
+            <div class="val">
+              {{ compte.agence }}
+            </div>
+          </div>
+          <div class="rib">
+            {{ displayRibs(compte.rib) }}
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

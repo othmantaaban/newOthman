@@ -1,0 +1,283 @@
+.suivi-header {
+  h1 {
+    font-size: 17px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    // color: var(--main-color);
+  }
+
+  ion-icon {
+    font-size: 30px;
+    color: #FFA877;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #FFF2EB;
+  }
+
+
+  .user-picture-top-page {
+    margin: 0px;
+
+    img {
+      width: 35px !important;
+      height: 35px !important;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 17px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      color: var(--main-color);
+    }
+
+    span {
+      font-size: 10px !important;
+    }
+
+  }
+
+  .user-picture-top-page>div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+}
+
+// ion-item {
+//   height: 75px;
+
+//   &:last-child {
+//     border-bottom: none !important;
+//   }
+
+//   border-bottom: 0.55px solid #ebebeb !important;
+
+//   .item-inner {
+//     border-bottom: none !important;
+//   }
+// }
+
+.paiement-total {
+  p {
+    font-size: 3rem;
+    text-align: end;
+    font-weight: bold;
+
+  }
+
+  span {
+    font-size: 1rem;
+  }
+}
+
+.paiment-complet {
+  color: green;
+}
+
+.paiment-incomplet {
+  color: red;
+}
+
+
+.paiement-mois {
+  font-size: 18px;
+  color: black;
+  font-weight: bold;
+  display: block;
+  margin-inline-start: 10px;
+  font-family: "Gotham-Bold", Arial, Helvetica, sans-serif;
+
+  .details {
+    font-size: 10px;
+    font-weight: 400;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    color: #7F7F81;
+
+    ion-icon {
+      font-size: 10px;
+      font-weight: 500;
+      margin-inline-start: 5px;
+      color: #7F7F81;
+    }
+  }
+}
+
+.paiement-state {}
+
+.paiement-total {
+
+  span {}
+
+}
+
+.float-right {
+  float: right;
+}
+
+ion-list {
+  margin: 0px !important;
+}
+
+ion-thumbnail i {
+  font-size: 25px !important;
+  display: block !important;
+  text-align: center !important;
+  margin-top: 27px;
+  color: var(--main-color);
+}
+
+.card {
+  border: 1px solid #eae7e7;
+  // border-inline-start: 0px;
+  padding: 10px 15px;
+  margin: 20px 10px;
+  position: relative;
+  border-radius: 10px;
+
+  app-collapse {
+
+    .paiement-state {
+
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      background: #000;
+      display: block;
+      left: 0;
+      top: 0;
+    }
+
+    .progress-wrapper {
+      width: 60px;
+      margin-inline-start: auto;
+      // position: absolute;
+      // top: 10px;
+      // right: 20px;
+
+      .pct {
+        text-align: center;
+        display: block;
+        // position: absolute;
+        // top: 50%;
+        // transform: translateY(-50%);
+        // left: 0;
+        // right: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #000;
+      }
+
+      .total-paye {
+        text-align: center;
+        display: block;
+        // position: absolute;
+        // bottom: -17px;
+        // left: 0;
+        // right: 0;
+        font-size: 10px;
+        color: #000;
+        font-weight: 600;
+      }
+    }
+
+    .card-header {
+      min-height: 80px;
+      width: 100%;
+      // height: 80px;
+      padding: 10px 0px;
+      // display: flex;
+      // align-items: center;
+
+      a {
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      a:focus,
+      a:hover {
+        text-decoration: none;
+      }
+
+      a[aria-expanded="false"] {
+        ion-icon {
+          &:before {
+            content: "\f110";
+          }
+        }
+      }
+
+      .date {
+        color: #000000;
+        font-size: 17px;
+        font-family: "Gotham-Bold", Arial, Helvetica, sans-serif;
+      }
+
+      ion-icon {
+        // color: #000;
+        // position: absolute;
+        // top: 77px;
+        // display: block;
+        // left: 25px;
+        // font-size: 15px;
+
+        span {
+          font-size: 13px;
+        }
+      }
+
+      .total {
+        color: #000000;
+        font-weight: 300;
+        font-size: 14px;
+      }
+
+      .progress-bar{
+        width: 100%;
+        height: 10px;
+        border-radius: 10px;
+        background-color: #E4E2E2;
+        margin: 20px 0px 0px 0px;
+        .progress{
+          height: 100%;
+          border-radius: 50px;
+        }
+      }
+    }
+
+    .card-body {
+      margin-top: 15px;
+      border-top: 1px solid #D2D2D2;
+
+      span {
+        font-size: 12px;
+      }
+
+      .details_encaissement {
+        height: 40px;
+        --padding-start: 0px;
+
+        .paiement-details-item {
+          width: 100%;
+
+          h2 {
+            margin-bottom: 5px;
+            font-size: 13px;
+
+            i {
+              margin-inline-end: 5px;
+            }
+          }
+
+        }
+
+      }
+    }
+  }
+}

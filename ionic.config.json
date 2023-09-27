@@ -1,0 +1,7 @@
+{
+  "name": "Botischool",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

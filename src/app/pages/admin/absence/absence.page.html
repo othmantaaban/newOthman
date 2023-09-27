@@ -1,0 +1,92 @@
+<div class="grand-parent">
+  <ion-grid class="dash-grid">
+    <ng-container *ngIf="!dataIsLoad">
+      <ion-row class="header-title">
+        <ion-col size="12">
+          <ion-title mode="md" class="title-style">
+            
+          </ion-title>
+        </ion-col>
+      </ion-row>
+      <ion-row class="absence" *ngIf="absences?.length !== 0">
+        <ion-col
+          class="absence-col-parent"
+          size-sm="12"
+          size-lg="6"
+          *ngFor="let ab of absences"
+          [id]="ab.id"
+        >
+          <div class="header">
+            <div class="date">
+              <!-- Le --> {{ _result?.translation?.le }} {{ ab.coursDate.date }}, {{ ab.coursDate.from }} > {{ ab.coursDate.to }}
+            </div>
+          </div>
+          <div class="main">
+            <div class="info">
+              <ion-img class="pic" [src]="ab.pic"></ion-img>
+              <div class="userInfo">
+                <div class="name">{{ ab.username }}</div>
+                <div class="absence-info">
+                  <span class="parent">{{ ab.class }}</span>
+                  <span class="parent">
+                    <ng-container *ngIf="ab.isRetard">
+                      {{ _result?.translation.retard }}
+                    </ng-container>
+                    <ng-container *ngIf="!ab.isRetard">
+                      <span class="num"> {{ ab.count }} </span>
+                      {{ _result?.translation.seances }}
+                    </ng-container>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="absence-validation">
+              <ion-button class="validate parent-icon" (click)="validateAbsence(ab.id, 'validate')">
+                <ion-icon name="checkmark-outline"></ion-icon>
+              </ion-button>
+              <ion-button class="refuse parent-icon" (click)="validateAbsence(ab.id, 'delete')">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="absences.length === 0" class="no-data">
+        <ion-col>
+          {{ _result?.translation.no_data}}
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ion-row class="loading" *ngIf="dataIsLoad">
+      <div class="header"> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </div>
+      <ion-col
+        *ngFor="let i of [1, 2, 3, 4]"
+        class="discipline-col-parent"
+        size="12"
+      >
+        <div class="head">
+          <div>
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </div>
+        </div>
+        <div class="content">
+          <div class="main">
+            <span class="img"> <ion-skeleton-text [animated]="true"></ion-skeleton-text>  </span>
+            <div class="infos">
+              <div class="username">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </div>
+              <div class="class">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </div>
+            </div>
+          </div>
+          <div class="buttons">
+            <span> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </span>
+            <span> <ion-skeleton-text [animated]="true"></ion-skeleton-text> </span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

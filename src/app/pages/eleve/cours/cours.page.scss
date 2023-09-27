@@ -1,0 +1,526 @@
+.suivi-header {
+  h1 {
+    font-size: 17px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    // color: var(--main-color);
+  }
+
+  ion-icon {
+    font-size: 30px;
+    color: #51A792;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #EDFFFB;
+  }
+
+
+  .user-picture-top-page {
+    margin: 0px;
+
+    img {
+      width: 35px !important;
+      height: 35px !important;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 17px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      color: var(--main-color);
+    }
+
+    span {
+      font-size: 10px !important;
+    }
+
+  }
+
+  .user-picture-top-page>div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+}
+
+.aucun-cours {
+  text-align: center;
+  margin: 100px 10px;
+}
+
+.btn-fleche {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.btn-fleche:focus,
+.btn-fleche:active,
+.btn-fleche:hover {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.card-content {
+  padding: 0;
+  // margin: 0px 20px;
+}
+
+.card-header {
+  padding: 0;
+  color: #000 !important;
+  background: var(--main-color);
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin: 0px 10px;
+
+  button {
+    color: #fff;
+  }
+}
+
+ion-card {
+  margin-inline: 0px;
+}
+
+ion-card-header {
+  padding: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --color: #000 !important;
+  --background: var(--main-color);
+  //   padding: 10px 10px;
+  border-radius: 10px;
+  margin: 0px 10px;
+
+  button {
+    color: #fff;
+  }
+}
+
+ion-card-content {
+  padding: 0px 0px;
+
+  .content {
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background: rgba($color: var(--main-color-rgb), $alpha: .1);
+  }
+
+  ion-segment {
+    padding: 10px 0px;
+    border-bottom: 1px solid #DBDBDB;
+  }
+}
+
+.card-md {
+  border-radius: 2px;
+  width: 100%;
+}
+
+.card-ios {
+  border-radius: 2px;
+  width: 100%;
+}
+
+.tab-pane {
+  border: 1px solid #f0F0F0;
+  // margin: 10px;
+}
+
+ion-card-header h3 {
+  color: #fff !important;
+  font-size: 15px !important;
+  font-family: "Montserrat", "Gotham-Medium", 'Arial' !important;
+}
+
+.card-header h3 {
+  color: #fff !important;
+  font-size: 15px !important;
+  font-family: "Montserrat", "Gotham-Medium", 'Arial' !important;
+}
+
+.nav-tabs {
+  margin-top: 10px;
+  padding: 0px 25px;
+}
+
+.nav-tabs.nav-justified>li>a {
+  font-size: 17px;
+  font-family: "Gotham-Bold", Arial, Helvetica, sans-serif;
+  border-radius: 0;
+  color: #9c9c9c;
+  border-width: 0px;
+  // border-bottom-width: 2px;
+  border-color: #f0f0f0;
+  margin: auto;
+}
+
+.nav-tabs.nav-justified>li>a.active {
+  padding: 0 !important;
+  border-radius: 50% !important;
+  width: 30px;
+  height: 30px;
+  line-height: 30px !important;
+  margin-bottom: 0px !important;
+  background-color: var(--main-color);
+  color: #FFFFFF;
+}
+
+//   border-color: var(--main-color);
+//   border-radius: 50px;
+//   background-color: var(--main-color);
+//   color: #FFFFFF;
+//   font-weight: bold;
+//   // background: transparent;
+// }
+.nav-tabs.nav-justified>li {
+  display: table-cell;
+  width: 1%;
+}
+
+.timetable-date {
+  background: #FFFFFF;
+  border: 1px solid #D2D2D2;
+  border-radius: 5px;
+
+  div {
+    padding: 5px;
+    font-size: 16px;
+    color: #12122C;
+
+    &:first-child {
+      border-bottom: 1px solid #D2D2D2;
+
+    }
+  }
+}
+
+ion-card {
+  box-shadow: none !important;
+  margin: 0;
+}
+
+.header-grid {
+  padding: 10px;
+  text-align: center;
+
+  button {
+    width: 100%;
+    font-size: 32px;
+    margin: 0 auto;
+  }
+}
+
+.seances-grid {
+  padding: 10px 0px;
+  margin: 0px 10px;
+  text-align: center;
+  border-bottom: 1px solid #f0F0F0;
+
+  .left-grid {
+    // border-inline-end: 1px solid #f0F0F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+  }
+
+  .links {
+    text-align: end;
+
+    img {
+      max-height: 25px;
+      width: 25px;
+      display: inline-block;
+      margin-inline-start: 15px;
+    }
+
+    .files {
+      img {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .right-grid {
+    text-align: start;
+    padding-left: 10px;
+
+    h6 {
+      span {
+        font-size: 11px;
+      }
+    }
+
+    .cahier_texte {
+
+      // box-shadow: 0 1px 3px #00000033;
+      ngb-accordion {
+        .card-header {
+          text-align: end;
+
+          h5 {
+            background-color: white;
+            margin: 0;
+
+            button {
+              color: #356eb5;
+              font-size: 10px;
+              outline: none;
+              text-decoration: none;
+
+              .icon {
+                margin-inline-start: 2px;
+                transition-duration: .3s;
+              }
+
+            }
+
+            button.collapsed {
+              .icon {
+                transform: rotateZ(-90deg);
+              }
+            }
+          }
+        }
+
+        .collapse {
+          border-bottom: 1px solid #f0F0F0;
+          padding: 10px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+}
+
+.holiday-col {
+  ion-icon {
+    font-size: 52px;
+  }
+
+  h4 {
+    color: #51A792;
+    font-size: 16px;
+  }
+}
+
+.timetable-week {
+  color: #fff !important;
+  font-size: 14px !important;
+  margin: 0;
+}
+
+.timetable-absent {
+  color: red;
+  padding: 0px 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 1px solid red;
+}
+
+.timetable-retard {
+  color: orange;
+  padding: 0px 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 1px solid orange;
+}
+
+.timetable-examen {
+  color: #673AB7;
+  padding: 0px 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 1px solid #673AB7;
+}
+
+.cahier_texte {
+  border-top: 1px solid #f0F0F0;
+
+  .card-header {
+    background: transparent;
+  }
+
+  // box-shadow: 0 1px 3px #00000033;
+  ngb-accordion {
+    .card-header {
+      text-align: start;
+      padding: 5px 0px;
+      margin: 0px;
+
+      h5 {
+        background-color: white;
+        margin: 0;
+
+        button {
+          color: #356eb5;
+          font-size: 10px;
+          outline: none;
+          text-decoration: none;
+
+          .icon {
+            margin-inline-start: 2px;
+            transition-duration: .3s;
+          }
+
+        }
+
+        button.collapsed {
+          .icon {
+            transform: rotateZ(90deg);
+          }
+        }
+      }
+    }
+
+    .collapse {
+      // border-bottom: 1px solid #f0F0F0;
+      text-align: start;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+span.timetable-matiere_intro {
+  font-size: 10px !important;
+}
+
+span.timetable-matiere {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #12122C;
+}
+
+.seance-actions {
+  display: grid;
+
+  .seance-action {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 5px 10px;
+      background: #FFFFFF;
+      border: 1px solid #E4E3E3;
+      color: #F65E40;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 50px;
+    }
+
+    &.cahier-texte button {
+      color: #5260E8;
+    }
+
+
+  }
+}
+
+.files-card {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #D4D4D4;
+
+  .file-item {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #BDBDBD;
+    }
+
+    img {
+      margin-inline-end: 20px;
+      border-radius: 10px;
+      height: 40px;
+      width: 40px;
+    }
+
+    h5 {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .actions {
+      margin-inline-start: auto;
+      display: flex;
+      align-items: center;
+
+      button {
+        padding: 10px;
+        background-color: transparent;
+        border: 1px solid #E4E3E3;
+        border-radius: 10px;
+        font-size: 22px;
+        color: #12122C;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:not(:last-child) {
+          margin-inline-end: 10px;
+        }
+      }
+    }
+  }
+}
+
+span.timetable-salle {
+  font-size: 14px !important;
+}
+
+span.timetable-enseignant {
+  font-size: 14px !important;
+
+}
+
+.timetable-icon {
+  font-size: 15px !important;
+}
+
+
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+
+
+ion-segment {
+  ion-segment-button.segment-button-checked::part(native) {
+    background-color: rgba($color: var(--main-color-rgb), $alpha: .1);
+    color: var(--main-color);
+    font-weight: 700;
+  }
+
+  ion-segment-button::part(indicator) {
+    display: none
+  }
+
+  ion-segment-button::part(native) {
+    height: 40px;
+    width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    border-radius: 50px;
+    margin: auto;
+  }
+
+  ion-segment-button {
+    padding: 0;
+    min-width: unset;
+  }
+}

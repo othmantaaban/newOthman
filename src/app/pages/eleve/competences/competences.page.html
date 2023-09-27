@@ -1,0 +1,44 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <section *ngIf="_result?.empty == false">
+    <ion-grid *ngFor="let exam of _result?.examens" >
+      <ion-row>
+        <ion-col>
+          <h3>{{exam.label}}<br /><small></small></h3>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="card">
+            <ion-grid>
+              <ion-row *ngFor="let competence of exam.competences" class="d-flex align-items-center">
+                <ion-col size="12">
+                  <p class="p-2">
+                    {{competence.label}}
+                  </p>
+                </ion-col>
+                <ion-col col-5>
+                  <div class="d-flex">
+                    <div *ngFor="let niveauMaitrise of _result?.niveauxMaitrise" class="check-mark-wrapper text-center">
+                      <div [class]="(niveauMaitrise.alias == competence.note)?'check-mark checked':'check-mark'" [ngStyle]="{'border-color': (niveauMaitrise.alias == competence.note)?'#d3d3d3':niveauMaitrise.color,'color':(niveauMaitrise.alias == competence.note)?niveauMaitrise.color:'#fff'}" >
+                        <ion-icon name="{{(niveauMaitrise.alias == competence.note)?'checkmark':'remove'}}-circle"></ion-icon>
+                      </div>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+    <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+    <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+
+</ion-content>

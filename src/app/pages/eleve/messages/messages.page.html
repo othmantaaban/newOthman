@@ -1,0 +1,51 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <ion-row class="d-flex align-items-center suivi-header">
+		<ion-col col-3 class="text-center">
+		  <ion-icon name="calendar-outline" color="success"></ion-icon>
+		</ion-col>
+		<ion-col class="text-left" size="8">
+		  <h1 *ngIf="_result?.translation">{{_result.translation.pageTitle}}</h1>
+		</ion-col>
+	</ion-row>
+	<div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+		<img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+		<h3 [innerHtml]="_result.empty_text"></h3>
+	</div>
+	<section *ngIf="_result?.data.length > 0">
+		<ion-grid>
+			<ion-row class="align-items-center">
+				<ng-container *ngFor="let conversation of _result?.data" >
+					<ion-col size="12" (click)="detailsMessage(conversation)" >
+						<div class="card-other ion-padding-horizontal">
+							<ion-grid>
+								<ion-row  class="align-items-center">
+									<ion-col size="2">
+										<img [src]="conversation.img" class="image-profile" alt="">
+									</ion-col>
+									<ion-col size="7">
+										<h4 class="ion-no-margin">
+											{{conversation.sujet}}
+											<span *ngIf="conversation.count_new" class="badge-unread">{{conversation.count_new}}</span>
+											<!-- <span class="badge-unread">2</span> -->
+										</h4>
+									</ion-col >
+									<ion-col col-1 class="text-right">
+										<ion-icon name="arrow-forward" ></ion-icon>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</div>
+					</ion-col>
+				</ng-container>
+			</ion-row>
+		</ion-grid>
+	</section>
+  
+	<!-- <ion-fab>
+		<ion-fab-button class="background-danger fixed-bottom" (click)="nouveauMessage()">
+			<ion-icon name="create"></ion-icon>
+		</ion-fab-button>
+	</ion-fab> -->
+</ion-content>

@@ -1,0 +1,41 @@
+.card {
+  .card-header {
+    h5 {
+
+      button {
+        background: rgba(var(--main-color-rgb), 0.25);
+        color: var(--main-color);
+        width: 100%;
+        text-decoration: none;
+        border-radius: 10px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: start;
+        outline: none !important;
+
+        &:focus {
+          outline: none;
+        }
+
+        ion-icon {
+          padding: 0 30px;
+          transition: .2s;
+        }
+
+        &.collapsed {
+          background: var(--main-color);
+          color: #ffffff;
+
+          ion-icon {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+}
+
+

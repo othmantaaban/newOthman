@@ -1,0 +1,92 @@
+<ion-header style="background-color: white" class="ion-no-border" no-border>
+  <div style="position: absolute">
+    <img src="assets/imgs/badge/Motif.png" alt="" />
+  </div>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <button class="back-button" (click)="navCtrl.back()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col size="7">
+          <span style="
+          color: black;
+          margin-top: 8px;
+          font-weight: 700;
+          display: inline-block;
+        "> {{ _result?.translation?.pointage }} </span>
+        </ion-col>
+        <ion-col size="3" (click)="history()">
+          <span style="color: #171656; font-weight: 600">{{ _result?.translation?.history_label }}</span>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content style="background: none transparent;">
+  <ng-container *ngIf="enseignant">
+    <div class="contents" *ngIf="!resultQr">
+      <div class="col">
+        <img src="assets/imgs/badge/Illustration.png" alt="" />
+      </div>
+      <div class="col">
+        <p>{{ _result?.translation.bonjour }} {{enseignant.nomComplet}} !</p>
+        <div class="text">
+          <p [innerHTML]="_result?.translation.scan_text">
+        
+          </p>
+        </div>
+        <button class="super-btn" (click)="scan()">{{ _result.translation.scan_now_text}}</button>
+      </div>
+      <div class="col"></div>
+    </div>
+    <div *ngIf="resultQr && resultQr.success" class="contents-1">
+      <div class="col">
+        <img [src]="'assets/imgs/badge/' +( resultQr.in ? 'p-in.png' : 'p-out.png' )" alt="" />
+      </div>
+      <div class="col">
+        <p>
+          <!-- C’est parfait  -->
+					{{ _result?.translation?.parfait ? _result?.translation?.parfait : 'C’est parfait' }}
+          {{enseignant.nomComplet}} !
+        </p>
+        <div class="text">
+          <p [innerHtml]="resultQr.message">
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="resultQr && !resultQr.success" class="contents-1">
+      <div class="col">
+        <img src="assets/icon/warning.png" alt="" style="width: 100px;" />
+      </div>
+      <div class="col">
+        <p> 
+          <!-- Qr code incorrect ! -->
+					{{ _result?.translation?.incorrectqr ? _result?.translation?.incorrectqr : 'Qr code incorrect !' }}
+        </p>
+        <div class="text">
+          <button class="super-btn" (click)="scan()"> 
+            <!-- Veuillez réessayer ! -->
+  					{{ _result?.translation?.reessayer ? _result?.translation?.reessayer : 'Veuillez réessayer !' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
+<div class="bottom-modal" [ngStyle]="{'display':cameraModal?'block' : 'none'} ">
+  <div class="default-modal-header text-center">
+  </div>
+  <div class="d-modal-action">
+    <video
+      style="width: 100%;transform: scaleX(-1); height: 100vh;background-color: #000; position: absolute;top: 0px; bottom: 0px;"
+      id="qr-video" playsinline> 
+      <!-- starting ...... -->
+      {{ _result?.translation?.starting ? _result?.translation?.starting : 'starting ......' }}
+    </video>
+  </div>
+</div>

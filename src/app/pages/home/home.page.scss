@@ -1,0 +1,48 @@
+.illustration-page {
+  padding: 50px 15px 0px 15px;
+
+  .illustration_pattern {
+    position: absolute;
+    width: 95%;
+    margin: auto;
+    right: 0;
+    top: 24px;
+    z-index: -1;
+  }
+
+  button {
+    margin-top: 10px;
+    font-size: 15px;
+    padding: 17px 15px;
+    border-radius: 7px;
+  }
+
+  .logo_boti {
+    width: 150px;
+  }
+
+  .illustration_img {
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    width: 80%;
+    margin: auto;
+    right: 0;
+    z-index: -1;
+  }
+
+  .conf_terms_link {
+    position: absolute;
+    top: calc(100vh - 30px);
+    left: 0;
+    right: 0;
+    padding: 6px;
+    text-align: center;
+    background-color: #fff;
+
+    a {
+      font-size: 12px;
+      color: #808080;
+    }
+  }
+}

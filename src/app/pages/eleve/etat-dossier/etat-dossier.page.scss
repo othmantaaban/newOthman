@@ -1,0 +1,151 @@
+* {
+    --white-rbg: 255, 255, 255;
+    --main-text-color: #12122C;
+    
+    }
+    ion-header {
+    // background: var(--main-color) !important;
+    // border-radius:  0 0 20px 20px;
+    
+    &::after {
+        display: none;
+    }
+    ion-toolbar {
+        // background: rgba($color: var(--white-rbg), $alpha: .1) !important;
+        --background: var(--main-color);
+        --padding-start: 20px;
+        --padding-end: 20px;
+        --border-width: 0;
+        ion-img {
+            width: 20px;
+        }
+    
+        ion-title {
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 25px;
+            letter-spacing: -0.32px;
+        }
+    }
+    }
+    
+    ion-content {
+        --offset-bottom: 15px;
+        --padding-bottom: 15px;
+        &::part(scroll) {
+          background: #F9F9F9;
+        }
+      
+        .head {
+            background: white;
+            border-radius:  0 0 17px 17px;
+            position: relative;
+            padding: 25px;
+            margin-bottom: 17px;
+            box-shadow: 0px 7px 15px 0px rgba(164, 164, 164, 0.13);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+    
+    
+            #scolarite-progress {
+                width: 154px !important;
+                height: 154px !important;
+            }
+            .content {
+                color: var(--main-text-color);
+                text-align: center;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                letter-spacing: -0.54px;
+            }
+        }
+    
+        .filter {
+            display: flex;
+            justify-content: flex-end;
+            padding-inline: 30px;
+            margin-bottom: 15px;
+            ion-button {
+                width: 37px;
+                height: 37px;
+                margin: 0;
+                --box-shadow: none;
+                color: var(--main-color);
+                &::part(native) {
+                    border-radius: 9px;
+                    border: 1px solid #F0F0F0;
+                    background: #FFF;
+                    padding: 0;
+                }
+    
+                svg {
+                    stroke: var(--main-color);
+                }
+            }
+        }
+    
+        ion-grid {
+            ion-row {
+                ion-col {
+                    ion-item {
+                        border-radius: 13px;
+                        --min-height: 66px;
+                        background: #FFF;
+                        box-shadow: 0px 0px 15px 0px rgba(164, 164, 164, 0.02);
+                        --inner-border-width: 0;
+    
+                        .icon {
+                            width: 36px;
+                            height: 36px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 50%;
+                            margin-right: 14px;
+                            ion-icon {
+                                width: 20px;
+                                height: 20px;
+                            }   
+    
+                            &.done {
+                                background: #E7FBF2;
+                                ion-icon {
+                                    color: #35DB95;
+                                }
+                            }
+    
+                            &.undone {
+                                background: #FFE9E9;
+                                ion-icon {
+                                    color: #FF4747;
+                                }
+                            }
+                        }
+    
+                        .text {
+                            color: var(--main-text-color);
+                            text-align: center;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: normal;
+                            letter-spacing: -0.28px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @keyframes dashoffset {
+       100% {
+            stroke-dashoffset: calc(440 - (440 * var(--num)) / 100);
+            // stroke-dashoffset: calc(440 - (440 * 62.5) / 100);
+       }     
+    }

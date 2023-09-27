@@ -1,0 +1,376 @@
+    ion-content,
+    body,
+    .app-root,
+    ion-app,
+    .scroll-content,
+    .fixed-content,
+    page-app {
+      --background: none transparent !important;
+    }
+
+    // .modal{
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 50%;
+    //     transform: translate(-50%,-50%);
+    // }
+    .super-btn {
+      color: white;
+      background: #171656;
+      padding: 20px 35px;
+      border-radius: 30px;
+    }
+
+    .back-button {
+      color: black !important;
+      background: white;
+      width: 50px;
+      height: 50px;
+    //   margin-inline-start: 20px;
+      box-shadow: 0px 1px 3px 0px rgba(158, 119, 119, 0.75);
+      border-radius: 100%;
+    //   margin-top: 5px;
+    }
+
+    .contents {
+      text-align: center;
+      margin-top: 150px;
+
+      .col {
+        p {
+          margin-top: 20px;
+          color: #12122C;
+          font-weight: 600;
+        }
+
+        .text {
+          p {
+
+            font-size: 18px;
+          }
+        }
+
+      }
+    }
+
+    .contents-1 {
+      text-align: center;
+      margin-top: 150px;
+
+      .col {
+        p {
+          margin-top: 20px;
+          color: #12122C;
+          font-weight: 600;
+        }
+
+        .text {
+          p {
+
+            font-size: 18px;
+          }
+        }
+
+      }
+    }
+
+    ion-navbar.toolbar {
+      margin: 5px -13px;
+    }
+
+    .menu_notif .img_container {
+      display: flex;
+      align-items: center;
+    }
+
+    .status_item {
+      padding: 5px 5px;
+      border-radius: 25px;
+      color: #000;
+      margin-inline-end: 10px;
+      white-space: nowrap;
+
+      .status_icon {
+        width: 14px;
+        padding: 2px;
+        background: #33333322;
+        border-radius: 10px;
+      }
+    }
+
+
+    .remote_item {
+      color: #fff;
+      font-weight: 800;
+    }
+
+    ion-toolbar{
+        --background: transparent;
+    }
+
+    .page-container {
+      background-color: #F6F6F6;
+    }
+
+    .banner-bottom-left-raduis {
+      padding: 40px 0px 18px;
+      background-color: #FFF;
+
+      h3 {
+        margin: 0px;
+        vertical-align: middle;
+        font-weight: 800;
+
+        img {
+          margin-inline-end: 7px;
+          width: 20px;
+          display: inline-block;
+          vertical-align: middle;
+          position: relative;
+          top: -2px;
+        }
+      }
+    }
+
+    ngb-tabset,
+    .planning-days {
+      // background-color: #FFF;
+      padding: 7px 0px;
+      margin-bottom: 5px;
+
+      .tab-content {
+        height: calc(100vh - 196px);
+        background: #f7f7f7;
+        padding-top: 1px;
+        position: relative;
+
+        .tab-pane {
+          background: #f7f7f7;
+          padding-bottom: 105px;
+        }
+
+        .aucun-cours {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          right: 0;
+          text-align: center;
+          opacity: .4;
+
+          img {
+            width: 80px;
+          }
+
+          h3 {
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
+      }
+
+      ul {
+        background-color: #FFF;
+        padding: 7px 0px;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-bottom: 0px;
+
+        li {
+          display: inline-block !important;
+          text-align: center;
+          color: #B4B4B4;
+          border-radius: 50%;
+          padding: 0px 8px;
+
+          &.active {
+            background-color: var(--main-color);
+            color: #FFF;
+          }
+
+          a {
+            padding: 0 !important;
+            margin: 0;
+            border-radius: 50% !important;
+            width: 30px;
+            height: 30px;
+            line-height: 30px !important;
+            margin-bottom: 0px !important;
+
+            &:focus,
+            &:hover {
+              background-color: transparent !important;
+              border: none;
+              margin-bottom: 0px !important;
+            }
+
+            &.active {
+              background-color: var(--main-color) !important;
+              color: #FFF;
+              margin-bottom: 0px !important;
+
+            }
+          }
+        }
+      }
+    }
+
+    .planning-date {
+      padding: 14px 0px;
+      position: relative;
+
+      h3 {
+        margin: 0px;
+        color: #FFF;
+      }
+
+      span {
+        font-size: 11px;
+        color: #fff9;
+      }
+
+      .arrow {
+        position: absolute;
+        top: 26px;
+        width: 8px;
+      }
+
+      .arrow-left {
+        left: 17px;
+      }
+
+      .arrow-right {
+        right: 17px;
+      }
+
+    }
+
+    .planning-listing {
+      padding: 0px;
+
+      .item {
+        background-color: #FFF;
+        margin-bottom: 3px;
+        padding: 20px 0px;
+        position: relative;
+
+        .show-details {
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 8px;
+        }
+
+        h5 {
+          font-family: "Roboto", Arial, "Helvetica Neue", Helvetica, sans-serif;
+          color: #ccc;
+          font-size: 11px;
+          margin-bottom: 0;
+          font-weight: 400;
+        }
+
+        h6 {
+          font-family: "Roboto", Arial, "Helvetica Neue", Helvetica, sans-serif;
+          margin: 0px 0px 5px;
+          font-weight: 500;
+          color: #020202;
+          font-size: 15px;
+        }
+
+        p {
+          margin-bottom: 0;
+          color: #9A9A9A;
+          font-size: 13px;
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-inline-end: 7px;
+            width: 15px;
+          }
+        }
+
+        .examen {
+          display: inline-block;
+          font-size: 11px;
+          border-radius: 18px;
+          background-color: #FF6A6A;
+          padding: 5px 16px 6px;
+          color: #FFF;
+          margin-top: 7px;
+        }
+      }
+    }
+
+
+    .actions {
+      padding: 8px;
+      background-color: #fff;
+      border-radius: 50px;
+      box-shadow: 2px 2px 10px RGB(0 0 0 / 9%);
+      bottom: 15px;
+
+      ul {
+        margin-bottom: 0px;
+
+        .btn-main:not(.btn-white) {
+          img {
+            width: 18px;
+          }
+        }
+      }
+    }
+
+    .action-small-modal {
+      .d-modal-action {
+        .item {
+          div {
+            margin: 0px auto 7px;
+          }
+
+          span {
+            font-size: 12px !important;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+
+    .ar-version page-prof-planning {
+      .banner-bottom-left-raduis h3 img {
+        margin-inline-end: 0;
+        margin-inline-start: 7px;
+      }
+
+      ngb-tabset .tab-content .aucun-cours,
+      .planning-days .tab-content .aucun-cours {
+        right: 0;
+        left: 0;
+      }
+
+      .planning-date {
+        .arrow-left {
+          left: auto;
+          right: 17px;
+        }
+
+        .arrow-right {
+          right: auto;
+          left: 17px;
+        }
+      }
+
+      .planning-listing .item {
+        .show-details {
+          right: auto;
+          left: 20px;
+        }
+
+        p img {
+          margin-inline-end: 0;
+          margin-inline-start: 7px;
+        }
+      }
+    }

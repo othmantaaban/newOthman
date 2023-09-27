@@ -1,0 +1,70 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Suivi de scolarité'" />
+
+<ion-content>
+  <div class="head">
+    <!-- <canvas id="scolarite-progress"></canvas> -->
+    <app-doughnut
+    selectedId="hello"
+      #doughnut
+      mainColor="#2ED08B"
+      backColor="#EDEDED"
+      textColor="#12122C"
+      [percent]="percent ? percent : 0"
+      [fontSize]="16"
+      [fontWeight]="600"
+      [letterSpacing]="-0.906"
+    ></app-doughnut>
+
+    <div class="content">
+      {{ _result?.translation?.dossier ? _result?.translation?.dossier : "Votre Dossier" }}
+    </div>
+  </div>
+
+  <div class="filter">
+    <ion-button>
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17" fill="none">
+        <path d="M3 16V1M10 15L10 4M10 5V1M1 10H6M7 5H12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </ion-button>
+  </div>
+
+  <ion-grid>
+      <ion-row>
+        
+        <ion-col size="12" *ngFor="let doc of _result?.listdocument">
+          <ion-item>
+            <div class="icon" [class]="doc.isDone ? 'done' : 'undone'" slot="start">
+              
+              <ion-icon [name]="doc.isDone ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+              <!-- <ion-icon name="close-circle"></ion-icon> -->
+            </div>
+            <div class="text"> {{ doc.doc_label }} </div>
+          </ion-item>
+        </ion-col>
+        <!-- <ion-col size="12">
+          <ion-item>
+            <div class="icon undone" slot="start">
+              <ion-icon name="close-circle"></ion-icon>
+            </div>
+            <div class="text">Copies légalisées de CIN</div>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <div class="icon done" slot="start">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+            <div class="text">Copies légalisées de CIN</div>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item>
+            <div class="icon undone" slot="start">
+              <ion-icon name="close-circle"></ion-icon>
+            </div>
+            <div class="text">Copies légalisées de CIN</div>
+          </ion-item>
+        </ion-col> -->
+      </ion-row>
+  </ion-grid>
+</ion-content>

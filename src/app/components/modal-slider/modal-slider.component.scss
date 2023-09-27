@@ -1,0 +1,277 @@
+ion-content {
+  z-index: -2;
+  position: relative;
+
+
+  &::part(scroll) {
+    padding: 20px;
+  }
+
+  &::part(background) {
+    transition: .5s linear;
+  }
+
+  ion-header {
+    ion-toolbar {
+      --opacity: none;
+      --background: transparent;
+      --border-width: 0;
+      --min-height: fit-content;
+
+      ion-button {
+        margin: 0;
+        height: fit-content;
+
+        &::part(native) {
+          padding: 0;
+          background: transparent;
+          --background-activated: transparent;
+          --background-focused: transparent;
+          --background-hover: transparent;
+        }
+      }
+    }
+  }
+
+  .main {
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 55vh;
+      width: 100%;
+      background: white;
+      z-index: -1;
+    }
+
+    z-index: 999;
+    padding: 0;
+
+    ion-row {
+      padding: 0;
+
+      ion-col {
+        padding: 0;
+
+        &#videoPlayer {
+          overflow: hidden;
+          border-radius: 25px;
+          width: 100%;
+          // height: 250px;
+          margin-bottom: 10px;
+
+          video {
+            width: 100%;
+            object-fit: cover;
+          }
+
+          // .control {
+          //   position: absolute;
+          //   bottom: 00px;
+          //   background-image: linear-gradient(to top, rgb(0 0 0 / 80%), transparent);
+          //   padding: 10px;
+          //   width: 100%;    
+
+          //   .slider {
+          //     -webkit-appearance: none;  
+          //     appearance: none;
+          //     width: 100%; 
+          //     height: 5px;
+          //     background: #d3d3d3;
+          //     outline: none; 
+          //     border: none;          
+          //     border-radius: 0;
+
+          //     &::-webkit-slider-thumb {
+          //       -webkit-appearance: none;  
+          //       appearance: none;
+          //       height: 15px;
+          //       width: 15px;
+          //       background: #4e539e;
+          //       border-radius: 50%;
+          //       // display: none;
+          //     }
+          //     &::-moz-range-progress {
+          //       -webkit-appearance: none;  
+          //       appearance: none;
+          //       background: #4e539e;
+          //     }
+          //   }
+
+          //   .buttons {
+          //     display: flex;
+          //     justify-content: space-between;
+          //     align-items: center;
+          //     .playPauseRange {
+          //       display: flex;
+          //       align-items: center;
+          //       gap: 10px;
+          //       .btn {
+          //         &::part(native) {
+          //           padding: 0;
+          //           border-radius: 50%;
+          //           height: 35px;
+          //           width: 35px;
+          //           color: #4e539e;
+          //           background: white;
+          //         }
+          //         ion-icon {
+          //           font-size: 25px;
+          //         }
+          //       }
+
+          //       .range {
+          //         display: flex;
+          //         gap: 2px;
+          //         color: white;
+          //         font-weight: 500;
+          //         font-size: 13px;
+          //       }
+          //     }
+          //     .volumeFullScreen {
+          //       display: flex;
+          //       ion-button {
+          //         &::part(native) {
+          //           padding: 0;
+          //           height: 35px;
+          //           width: 35px;
+          //           border-radius: 50%;
+          //           background: transparent;
+          //           color: white;
+          //           box-shadow: none;
+          //         }
+          //       }
+          //     }
+          //   }
+          // }
+        }
+
+        &.slides {
+          .success {
+            height: 25px;
+            margin-bottom: 10px;
+          }
+
+          ion-slides {
+            margin-bottom: 50px;
+
+            ion-slide {
+              font-weight: 600;
+              font-size: 15px;
+              letter-spacing: -0.5px;
+
+              .video-slide {
+                border-radius: 25px;
+                width: 100%;
+                margin-bottom: 10px;
+                object-fit: cover;
+              }
+
+              .img-slide {
+                border-radius: 25px;
+                width: 100%;
+                margin-bottom: 10px;
+              }
+
+              .iframe-slide {
+                border-radius: 25px;
+                width: 100%;
+                margin-bottom: 10px;
+                border: none;
+              }
+            }
+          }
+
+        }
+      }
+
+      &.header {
+        margin-bottom: 20px;
+        gap: 20px;
+
+        ion-col {
+          padding: 0;
+          display: flex;
+          justify-content: center;
+
+          ion-img {
+            &::part(image) {
+              width: 50px;
+              height: 50px;
+            }
+          }
+
+          .label {
+            text-transform: uppercase;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 2.5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+ion-footer{
+  border:none;
+  ion-toolbar{
+    border:none;
+    --background: #FFFFFF;
+  }
+}
+.sliderOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  ion-button {
+    &::part(native) {
+      padding: 0;
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+      background: transparent;
+    }
+
+    &.skip {
+      color: #919191;
+      --color: #919191;
+
+      &::part(native) {
+        padding: 5px;
+        box-shadow: none;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 13px;
+      }
+    }
+
+    &.next {
+      &::part(native) {
+        background: #d85f40;
+      }
+    }
+  }
+
+  .pagination {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+
+    span {
+      display: inline-block;
+      height: 5px;
+      width: 20px;
+      background: #ddd;
+      border-radius: 20px;
+
+      &.active {
+        background: #d85f40;
+      }
+    }
+  }
+}

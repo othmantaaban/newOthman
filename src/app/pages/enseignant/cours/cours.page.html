@@ -1,0 +1,133 @@
+<ion-content padding>
+  <div class="page-container" *ngIf="_result">
+      <div class="etudiant-list">
+          <div class="item" *ngFor="let eleve of _result.data?.eleves">
+              <ion-grid>
+                  <ion-row class="align-items-center">
+                      <ion-col size="4">
+                        <div class="eleves-item text-center">
+                            <div class="image">
+                                <img src="{{eleve.photo}}" class="img-circle" alt="">
+                            </div>
+                            <p>{{eleve.nom}}</p>
+                        </div>
+                      </ion-col>
+                      <ion-col>
+                        <!-- <div class="action-list d-flex align-items-center">
+                                <div *ngIf="_result.can_absence" class="action"  [ngClass]="{ active : eleve.absent }">
+                                    <img src="{{_result.icons.absence}}" class="img-circle" alt="">
+                                </div>
+                                <div class="action">
+                                    <img src="{{_result.icons.retard}}" class="img-circle" alt="">
+                                </div>
+                                <div (click)="toggleDiscipline(eleve)"   (click)="toggleRetard(eleve)" *ngIf="_result.can_discipline" ngClass]="{ active : eleve.action.type }" class="action">
+                                    <img *ngIf="!eleve.action.type" src="{{_result.icons.discipline}}"
+                                    class="img-circle" alt="">
+                                    <img *ngIf="eleve.action.type && eleve.action.type.value < 0"
+                                        src="{{_result.icons.blame}}" class="img-circle" alt="">
+                                    <img *ngIf="eleve.action.type && eleve.action.type.value > 0"
+                                        src="{{_result.icons.smile}}" class="img-circle" alt="">
+                                </div>
+                        </div> -->
+                          <div class="item-action text-center">
+                              <ul class="list-inline d-flex">
+                                  <li *ngIf="_result.can_absence" class="list-inline-item" [ngClass]="{ active : eleve.absent }"
+                                      (click)="checkAbsence(eleve)">
+                                      <img src="{{_result.icons.absence}}" class="img-circle" alt="">
+                                  </li>
+                                  <li *ngIf="_result.can_retard" class="list-inline-item" [ngClass]="{ active : eleve.retard > 0 }"
+                                      (click)="toggleRetard(eleve)">
+                                      <img src="{{_result.icons.retard}}" class="img-circle" alt="">
+                                  </li>
+                                  <li *ngIf="_result.can_discipline" class="list-inline-item" [ngClass]="{ active : eleve.action.type }"
+                                      (click)="toggleDiscipline(eleve)">
+                                      <img *ngIf="!eleve.action.type" src="{{_result.icons.discipline}}"
+                                          class="img-circle" alt="">
+                                      <img *ngIf="eleve.action.type && eleve.action.type.value < 0"
+                                          src="{{_result.icons.blame}}" class="img-circle" alt="">
+                                      <img *ngIf="eleve.action.type && eleve.action.type.value > 0"
+                                          src="{{_result.icons.smile}}" class="img-circle" alt="">
+                                  </li>
+                              </ul>
+                          </div>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </div>
+          <!-- end item -->
+          <ion-grid>
+              <ion-row>
+                  <ion-col class="text-center" *ngIf="_result.data.auccune_absences">
+                      <button class="btn btn-success btn-round btn-main" (click)="setNoAbsence()"> Aucune Abscence </button>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </div>
+  </div>
+</ion-content>
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleDiscipline ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+      <div class="main-modal-header">
+          <div class="main-modal-header-text">
+              <img src="{{_result?.icons?.discipline}}" alt="">
+              <h4>{{_result.translation.disciplines}}</h4>
+          </div>
+          <img src="assets/icon/close.svg" class="main-close" (click)="toggleDiscipline()" alt="">
+      </div>
+      <div class="main-modal-body">
+          <form action="">
+
+              <div class="discipline-form">
+                  <form action="">
+                      <label for="">{{_result.translation.discipline}} <span class="type-discipline-value"
+                              *ngIf="typeDiscipline"
+                              [ngStyle]="{'background-color': typeDiscipline.color}">{{typeDiscipline.value}}</span></label>
+                      <div class="form-group">
+                          <select name="type" id="" [(ngModel)]="typeDisciplineId" (change)="disciplineChange($event)"
+                              class="form-control main-input">
+                              <optgroup *ngFor="let nature of _result?.data?.natures" label="{{nature.label}}">
+                                  <option *ngFor="let type of nature.types" value="{{type.id}}">{{type.label}}
+                                  </option>
+                              </optgroup>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <textarea name="commentaire" [(ngModel)]="commentaireDiscipline" cols="30" rows="10"
+                              class="form-control main-input"
+                              placeholder="{{_result.translation.commentaire}}"></textarea>
+                      </div>
+                      <div class="btn-main" (click)="checkDiscipline()">{{_result.translation.enregistrer}}</div>
+                  </form>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="_result" class="main-modal" [ngClass]="_toggleRetard ? 'show-main-modal' : ''">
+  <div class="main-modal-center">
+      <div class="main-modal-header">
+          <div class="default-modal-header-text">
+              <img src="assets/icon/clock.svg" alt="">
+              <h4>{{_result.translation.retard}}</h4>
+              <p *ngIf="currentEleve">{{currentEleve?.nom}} {{_result?.data?.creneau}}</p>
+              <span>{{_result?.data?.date}}</span>
+          </div>
+          <img src="assets/icon/close.svg" class="main-close" (click)="toggleRetard()" alt="">
+      </div>
+      <div class="main-modal-body">
+          <div class="discipline-form">
+              <form action="">
+                  <label for="">{{_result.translation.minutes_retard}}</label>
+                  <div class="form-group">
+                      <select name="retard" id="" [(ngModel)]="retardMinutes" class="form-control main-input">
+                          <option *ngFor="let minute of _result?.data?.minutes" value="{{minute}}">{{minute}}</option>
+                      </select>
+                  </div>
+                  <div class="btn-main" (click)="checkRetard()">{{_result.translation.enregistrer}}</div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- end item -->

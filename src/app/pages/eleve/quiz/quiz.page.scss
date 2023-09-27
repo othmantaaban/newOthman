@@ -1,0 +1,209 @@
+.border-tlr-radius {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.radius {
+  border-radius: 2px;
+}
+
+.padding-tb {
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+
+.shadowDepth0 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.shadowDepth1 {
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.quiz-matiere {
+  padding: 20px 0px;
+  min-height: 200px;
+  padding-top: 5px;
+
+  h2 {
+    color: #171656;
+    font-size: 3.5rem;
+    font-family: "Montserrat";
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  h5 {
+    margin-top: 0px;
+    color: #dc4473;
+    font-family: "Montserrat";
+    font-weight: 500;
+    font-size: 1.7rem;
+    margin-bottom: 25px;
+  }
+
+  .quiz {
+    position: relative;
+
+    .play_quiz {
+      background: -webkit-gradient(linear, left bottom, left top, color-stop(30%, #c44348), to(#d56a4a));
+      background: linear-gradient(to bottom, #c44348 30%, #d56a4a 100%);
+      border-radius: 9px;
+
+      div {
+        padding: 25px 0px;
+        text-align: center;
+
+        p {
+          display: block;
+          color: #fff;
+          font-size: 22px;
+          font-weight: 700;
+          margin-bottom: 50px;
+        }
+
+        ion-row {
+          margin-inline-end: 0px !important;
+          margin-inline-start: 0px !important;
+
+          p {
+            text-align: center;
+            font-size: 30px;
+
+            span {
+              display: block;
+              font-size: 12px;
+              font-weight: 400;
+            }
+          }
+        }
+
+        button {
+          border-radius: 20px;
+          color: #c44348;
+          background-color: #fff;
+          padding: 14px 25px;
+          height: auto;
+        }
+      }
+    }
+
+    .ressource {
+      position: relative;
+      font-family: "Montserrat";
+      border-radius: 9px;
+
+      .questions_quiz {
+        padding: 15px 15px;
+        padding-top: 10px;
+      }
+
+      h3 {
+        color: #fff;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      p {
+        font-size: 1.3rem;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+
+      .progress {
+        background-color: #ffffff6b;
+        box-shadow: none;
+        border-radius: 20px;
+        margin-bottom: 0px;
+        height: 15px;
+
+        .progress-bar {
+          background-color: #fff;
+          font-weight: 600;
+          line-height: 15px;
+          font-size: 11px;
+          border-radius: 20px;
+          white-space: nowrap;
+
+          text-align: center;
+          transition: ease .5s;
+        }
+      }
+
+      .progress_counter {
+        color: #fff;
+        margin-inline-end: 0;
+        margin-inline-start: 0;
+        border-bottom: 1px solid #b7b7b7;
+        padding: 7px;
+
+        ion-col {
+          padding: 0;
+        }
+
+        .questions {
+          font-size: 13px;
+          margin: 0px;
+          font-weight: 600;
+        }
+
+        .time {
+          font-size: 11px;
+          margin: 0px;
+          color: #e7e2ec;
+        }
+      }
+
+      img {
+        margin: auto;
+        margin-bottom: 25px;
+        text-align: center;
+        display: block;
+        position: relative;
+        border: 1px solid #ffffff45;
+      }
+
+      .icon_placeholder {
+        min-height: 170px;
+        background: #ffffff29;
+        width: 100%;
+        margin-bottom: 25px;
+      }
+
+      .reponses {
+        span {
+          display: block;
+          text-align: center;
+          background-color: #fff;
+          border-radius: 6px;
+          padding: 12px 0;
+          font-size: 1.4rem;
+          text-transform: uppercase;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+
+        span.wrong {
+          color: #fff !important;
+          background-color: #c0392b;
+        }
+
+        span.correct {
+          color: #fff !important;
+          background-color: #27ae60;
+        }
+
+        span:last-child {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+}

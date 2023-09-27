@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55.055" height="55.055" viewBox="0 0 55.055 55.055">
+  <defs>
+    <filter id="Ellipse_40" x="0" y="0" width="55.055" height="55.055" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feFlood flood-color="#f84e4e" flood-opacity="0.424"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Absent" transform="translate(10.5 7.5)">
+    <g id="activ" transform="translate(0 0)">
+      <g transform="matrix(1, 0, 0, 1, -10.5, -7.5)" filter="url(#Ellipse_40)">
+        <ellipse id="Ellipse_40-2" data-name="Ellipse 40" cx="17.027" cy="17.027" rx="17.027" ry="17.027" transform="translate(10.5 7.5)" fill="#fc5c5c"/>
+      </g>
+      <g id="Groupe_452" data-name="Groupe 452" transform="translate(7.393 5.891)">
+        <path id="Tracé_1672" data-name="Tracé 1672" d="M103.176,69.31l5.42,4.057c.695.52,1.364-.648.678-1.161l-5.42-4.057c-.694-.52-1.364.648-.678,1.161Z" transform="translate(-102.889 -68.019)" fill="#333"/>
+        <path id="Tracé_1673" data-name="Tracé 1673" d="M282.587,68.147l-5.42,4.057c-.685.513-.016,1.681.678,1.161l5.42-4.057c.685-.513.016-1.681-.678-1.161Z" transform="translate(-264.377 -68.016)" fill="#333"/>
+        <ellipse id="Ellipse_41" data-name="Ellipse 41" cx="2.674" cy="2.674" rx="2.674" ry="2.674" transform="translate(1.784 3.593)" fill="#333"/>
+        <ellipse id="Ellipse_42" data-name="Ellipse 42" cx="2.674" cy="2.674" rx="2.674" ry="2.674" transform="translate(11.896 3.593)" fill="#333"/>
+      </g>
+      <path id="Tracé_1674" data-name="Tracé 1674" d="M99.494,231.209a9.05,9.05,0,0,0-18.1,0Z" transform="translate(-73.417 -205.132)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

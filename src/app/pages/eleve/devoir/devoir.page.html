@@ -1,0 +1,227 @@
+<app-parent-header [title]="_result?.translation?.title||''" />
+<ion-content padding>
+  <ng-container *ngIf="devoir?.id">
+    <div class="devoir" [class.devoir_fait]="devoir.devoir_fait.fait">
+      <div  class="card devoir-card">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <ion-grid class="ion-no-padding">
+                <ion-row>
+                  <ion-col size="2">
+                    <ion-icon class="devoir-icon" name="document-outline"></ion-icon> 
+                  </ion-col>
+                  <ion-col class="ion-padding-end">
+                    <h4 class="devoir-title ion-no-margin">{{devoir.title}}</h4>
+                    <p class="devoir-info" ><b *ngIf="devoir.enseignant" >{{devoir.enseignant}}</b>{{devoir.enseignant&&devoir.unite?' - ':''}}<ng-container *ngIf="devoir.unite">{{devoir.unite}}</ng-container> </p>
+                  </ion-col>
+                  <ion-col size="auto">
+                    <div class="date-card">
+                      {{devoir.date.jourLabel}}
+                      <span class="date-day">{{devoir.date.jour}}</span>
+                      {{devoir.date.mois}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <hr>
+              <ion-grid class="ion-no-padding">
+                <ion-row class="align-items-center">
+                  <ion-col>
+                    <p class="devoir-intro" [innerHTML]="devoir.description"></p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <ion-grid *ngIf="devoir.files&&devoir.files.length > 0" fixed>
+                <ion-row class="files-wrapper" *ngFor="let file of devoir.files">
+                  <ion-col size="12">
+                    <ng-container [ngSwitch]="file.type">
+                      <ng-container *ngSwitchCase="'file'">
+                        <ng-container *ngIf="file.mime.type.includes('image');else notImage">
+                          <div class="image-wrapper">
+                            <img [src]="file.link">
+                            <div class="image-description">
+                              <button class="btn-download" (click)="downloadFile(file)" > <img src="../../../../assets/icon/download.svg" alt="download"></button>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <ng-template #notImage>
+                          <ng-container *ngIf="file.mime.type.includes('video');else notVideo">
+                            <video [src]="file.link" controls></video>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #notVideo>
+                          <ng-container *ngIf="file.mime.type.includes('audio');else notAudio">
+                            <audio [src]="file.link" controls></audio>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #notAudio>
+                          <div class="file-wrapper">
+                              <div class="file-icon">
+                                    <ion-icon name="document-text"></ion-icon>
+                              </div>
+                              <div class="file-name">
+                                {{file.filename}}
+                              </div>
+                              <div class="file-actions">
+                                <div class="action" >
+                                  <button class="btn-download" (click)="downloadFile(file)" > <img src="../../../../assets/icon/download.svg" alt="download"></button>
+                                </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'youtube'">
+                        <iframe [src]="sanitizeUrl(file.link)" frameborder="0"></iframe>
+                      </ng-container>
+                      <ng-container *ngSwitchCase="'link'">
+                          <div class="link-wrapper">
+                            <div class="link-icon">
+                              <ion-icon name="link"></ion-icon>
+                            </div>
+                            <div class="link-name">
+                              {{file.filename}}
+                            </div>
+                            <div class="link-actions">
+                              <div class="action" >
+                                <button class="btn-download" (click)="iabOpen(file.link)" > <ion-icon name="open-outline"></ion-icon> </button>
+                              </div>
+                          </div>
+                          </div>
+                          <!-- <iframe [src]="sanitizeUrl(file.link)" frameborder="0"></iframe> -->
+                      </ng-container>
+                    </ng-container>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <!-- <div *ngIf="devoir.files&&devoir.files.length > 0" class="files">
+                <button *ngFor="let file of devoir.files" (click)="downloadFile(file)" class="btn btn-outline-white">
+                  {{file.text}} <ion-icon name="open-outline"></ion-icon>
+                </button>
+              </div> -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="devoir-footer" *ngIf="devoir?.can_set_done">
+        <div class="d-flex align-items-center">
+          <span [class.active]="!devoir.devoir_fait.fait">
+            <!-- Pas encore fait -->
+            {{ _result?.translation?.pasfait ? _result?.translation?.pasfait : 'Pas encore fait' }}
+          </span>
+          <ion-toggle mode="ios" color="success" (ionChange)="marquerFait($event,devoir)" [disabled]="devoir.devoir_fait.fait" [checked]="devoir.devoir_fait.fait">
+
+          </ion-toggle>
+          <span [class.active]="devoir.devoir_fait.fait">
+            <!-- Devoir fait -->
+            {{ _result?.translation?.fais ? _result?.translation?.fais : 'Devoir fait' }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="devoir.devoir_fait.fait && (devoir.can_add_files||devoir.show_files)" class="devoir_files">
+      <div *ngIf="devoir.can_add_files" class="send-section">
+        <h6>
+          <!-- Apportez vos devoirs faits -->
+          {{ _result?.translation?.apportez ? _result?.translation?.apportez : 'Apportez vos devoirs faits' }}
+        </h6>
+        <div class="sending-file-wrapper">
+          <button class="btn btn-file" (click)="fileUploadInput.click()">
+            <ion-icon name="attach-outline"></ion-icon> 
+            <!-- Joindre un fichier -->
+            {{ _result?.translation?.joindre ? _result?.translation?.joindre : 'Joindre un fichier' }}
+          </button>
+          <button class="btn btn-send" (click)="send_file(devoir)" [disabled]="devoir.devoir_fait.files.length == 0">
+            <ion-icon name="paper-plane-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+      <div  *ngIf="devoir.show_files" class="files-section">
+        <ion-list mode="md" class="file-list" lines="full">
+          <ion-item *ngFor="let file of devoir.devoir_fait.files">
+            <ion-icon slot="start" name="document"></ion-icon>
+            <ion-label>{{file.name}}</ion-label>
+            <div slot="end">
+              <button (click)="deleteFile(devoir, file)" class="btn-outline-secondary"> <ion-icon name="trash-outline"></ion-icon> </button>
+              <button (click)="downloadFile(file)" class="btn-outline-primary"> <ion-icon name="download-outline"></ion-icon> </button>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </ng-container>
+  <ion-grid *ngIf="false && devoir">
+    <ion-row>
+      <ion-col class="text-center">
+        <h3 style="font-size: 26px;">{{devoir.title}}</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-center">
+        <ion-icon name="person"></ion-icon> {{devoir.enseignant}}
+      </ion-col>
+      <ion-col class="text-center">
+        {{devoir.date}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-center">
+        <img [src]="devoir.image" style="max-height: 225px;" alt="">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col [innerHTML]="devoir.description"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-center">
+
+        <hr />
+        <div *ngIf="devoir.devoir_fait.fait && !devoir.devoir_fait.file_sent" class="card__file_upload">
+          <p class="text_done">{{devoir.txt_fait}}</p>
+          <div *ngFor="let file of devoir.devoir_fait.files" class="files">
+            <div >
+              <ion-row style="flex-wrap: wrap !important;align-items:center">
+                <ion-col size="8" >
+                  <div class="exists-file-container">
+                    <ion-icon name="attach-outline"></ion-icon> <span>{{file.name}}</span>
+                  </div>
+                </ion-col>
+                <ion-col class="text-left" col-4>
+                  <ion-icon class="delete-btn" (click)="deleteFile(devoir, file)" name="close-circle-outline"></ion-icon>
+                </ion-col>
+              </ion-row>
+             
+            </div>
+          </div>
+          <ion-grid>
+            <ion-row style="flex-wrap: wrap !important;align-items:center" align-items-center>
+              <ion-col size="12" class="text-center">
+                <div (click)="fileUploadInput.click()" class="download-file-container">
+                  <ion-icon name="attach-outline"></ion-icon> <span>
+                    <!-- Joindre un fichier -->
+                    {{ _result?.translation?.joindre ? _result?.translation?.joindre : 'Joindre un fichier' }}
+                  </span>
+                </div>
+              </ion-col>
+              <ion-col size="12" class="text-center">
+                <button (click)="send_file(devoir)" [disabled]="devoir.devoir_fait.files.length == 0"
+                  class="btn btn-block btn-success">
+                  <!-- Envoyer -->
+                  {{ _result?.translation?.envoyer ? _result?.translation?.envoyer : 'Envoyer' }}
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div *ngIf="!devoir.devoir_fait.fait" class="card__file marquerFait">
+          <button (click)="marquerFait(devoir)" class="btn btn-success btn-block">{{devoir.txt_btn_fait}}</button>
+        </div>
+        <div *ngIf="devoir.devoir_fait.file_sent" class="card__file_sent">
+          <img class="img-responsive" style="max-height: 50px;margin: auto;" src="{{devoir.icon_sent}}" />
+          <p>{{devoir.txt_sent}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <input type="file" (change)="uploadFile($event)" style="display: none;" #fileUploadInput multiple/>
+</ion-content>

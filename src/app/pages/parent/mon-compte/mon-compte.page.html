@@ -1,0 +1,105 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <ion-grid class="parent-picture" *ngIf="_result">
+    <ion-row class="align-items-center">
+      <ion-col size="3" class="text-center">
+        <div class="picture-wrapper">
+          <img src="{{_result.image}}" alt="">
+        </div>
+      </ion-col>
+      <ion-col class="ion-padding-start">
+        <h1 (click)="compteParent(_result.parent)">
+          {{_result.nomcomplet}} 
+          <!-- <ion-icon name="create-outline"></ion-icon> -->
+            <span *ngIf="_result.parent.lang=='fr'" class="flag-icon flag-icon-fr bradius-5"></span>
+            <span *ngIf="_result.parent.lang=='ar'" class="flag-icon flag-icon-ma bradius-5"></span>
+            <span *ngIf="_result.parent.lang=='en'" class="flag-icon flag-icon-us bradius-5"></span>
+          <!-- <ion-icon (click)="logout()" class="edit_compte ml-2" name="md-log-out"></ion-icon> -->
+        </h1>
+        <p class="contact">
+          <ion-icon name="call-outline"></ion-icon> <span>{{_result.tel}}</span>
+        </p>
+        <p class="contact">
+          <ion-icon name="mail-outline"></ion-icon> <span>{{_result.email}}</span>
+        </p>
+        <a class="contact" (click)="changePassword()">{{_result?.translation?.changer_password}}</a>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="eleves" *ngIf="_result?.eleves?.length > 0">
+    <h4>{{ _result.translation.enfants}}</h4>
+      <div (click)="compteEleve(currentEleve)" class="eleve-list current">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="text-center" size="3">
+              <div class="eleve-image-wrapper">
+                <img src="{{currentEleve.img}}" alt="">
+              </div>
+            </ion-col>
+            <ion-col>
+              <h3> {{currentEleve.nomcomplet}} </h3>
+              <p>{{currentEleve.mat}} {{currentEleve.mat&&currentEleve.niveau?'-':''}} {{currentEleve.niveau}}</p>
+              <span *ngIf="currentEleve.massar"> {{currentEleve.massar}} </span>
+              <p class="status"> 
+                <!-- connecté  -->
+                {{ _result?.translation?.connecte ? _result?.translation?.connecte : "connecté" }}
+              </p>
+              
+              <ion-icon class="edit_compte" name="create-outline"></ion-icon>
+
+            </ion-col>
+            <!-- <ion-col size="2">
+              <div class="actions-eleve">
+                <button *ngIf="!(_result.can_not_eleve_edit_picture && _result.can_not_eleve_edit_profile)"
+                  (click)="compteEleve(item)" class="btn btn-main">
+                  <ion-icon class="edit_compte" name="pencil"></ion-icon>
+                </button>
+              </div>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+      </div>
+    <ng-container *ngFor="let item of otherEleves">
+      <ng-container *ngIf="item">
+          <div class="others-list">
+            <ion-grid>
+              <ion-row>
+                <ion-col class="text-center" size="3">
+                  <div *ngIf="item.id == eleve.id" class="statut-eleve"></div>
+                  <img src="{{item.img}}" alt="">
+                </ion-col>
+                <ion-col>
+                  <h3> {{item.nomcomplet}} </h3>
+                  <p>{{item.mat}} {{item.mat&&item.niveau?'-':''}} {{item.niveau}}</p>
+                  <span *ngIf="item.massar"> {{item.massar}} </span>
+                </ion-col>
+              </ion-row>
+              <ion-row class="actions">
+                <ion-col (click)="compteEleve(item)">
+                  <ion-icon name="create-outline"></ion-icon> 
+                  <!-- Editer -->
+                  {{ _result?.translation?.editer ? _result?.translation?.editer : "Editer" }}
+                </ion-col>
+                <ion-col class="action-switch" (click)="switchTo(item)">
+                  <!-- Se connecter -->
+                  {{ _result?.translation?.connecter ? _result?.translation?.connecter : "Se connecter" }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="disconnect">
+    <button class="btn btn-outline-secondary" (click)="logout()">{{_result?.translation?.disconnect}}</button>
+  </div>
+</ion-content>
+<!-- <ion-footer>
+  <ion-toolbar mode="md" transparent>
+    <div class="disconnect">
+      <button class="btn btn-outline-secondary" (click)="logout()">{{_result?.translation?.disconnect}}</button>
+    </div>
+  </ion-toolbar>
+</ion-footer> -->

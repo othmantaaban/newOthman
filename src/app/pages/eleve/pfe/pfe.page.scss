@@ -1,0 +1,418 @@
+* {
+    --white-rbg: 255, 255, 255;
+    --main-text-color: #12122C;    
+}
+
+ion-content {
+    --offset-bottom: 15px;
+    --padding-bottom: 15px;
+    scroll-behavior: smooth;
+    &::part(scroll) {
+      background: #F9F9F9;
+    }
+  
+    .head {
+        background: white;
+        border-radius:  0 0 17px 17px;
+        position: relative;
+        padding: 20px;
+        margin-bottom: 80px;
+        box-shadow: 0px 7px 15px 0px rgba(164, 164, 164, 0.13);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .title {
+            color: #515ED4;
+            text-align: center;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            letter-spacing: -0.48px;
+        }
+
+        .subtitle {
+            color: #12122C;
+            text-align: center;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 107.79%; /* 21.558px */
+            letter-spacing: -0.6px;
+        }
+
+        .parent {
+            height: 50px;
+            position: relative;
+            align-self: flex-start;
+            width: 100%;
+            .item {
+                position: absolute;
+                bottom: calc(0px - 20px);
+                transform: translateY(50%);
+                width: 100%;
+                height: fit-content;
+                border-radius: 13px;
+                background: #FFF;
+                box-shadow: 0px 4px 39px 0px rgba(0, 0, 0, 0.11);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                padding: 22px;
+
+                .time-percent {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: flex-end;
+                    gap: 10px;
+                    justify-content: space-between;
+                    .date {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        .title {
+                            color: #878787;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                            letter-spacing: -0.28px;
+                        }
+                    }
+
+                    .arrow {
+                        color: #C8C8C8;
+                    }
+                }
+
+                .progress {
+                    width: 100%;
+                    height: 13px;
+                    background: #E4E2E2;
+                    border-radius: 30px;
+                    overflow: hidden;
+
+                    span {
+                        position: relative;
+                        display: inline-block;
+                        width: 40%;
+                        height: 100%;
+                        background: #2ED08B;
+
+                        &::after {
+                            content: "";
+                            width: 13px;
+                            height: 13px;
+                            border-radius: 50%;
+                            background: #23AC71;
+                            z-index: 3;
+                            position: absolute;
+                            right: 0;
+                            transform: translateX(50%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    ion-grid {
+        padding: 0;
+
+        ion-row {
+            padding: 0;
+            padding-inline: 20px;
+            ion-col {
+                &.title {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 10px;
+                    margin-bottom: 10px;
+                    flex-wrap: nowrap;
+                    .main {
+                        color: #12122C;
+                        font-size: 18px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        letter-spacing: -0.54px;
+                        flex: 1;
+                    }
+
+                    .to {
+                        color: #515ED4;
+                        height: fit-content;
+                        font-size: 10px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: normal;
+                        letter-spacing: -0.3px;
+                    }
+                }
+
+                &.items {
+                    border-radius: 13px;
+                    background: #FFF;
+                    box-shadow: 0px 0px 15px 0px rgba(164, 164, 164, 0.02);
+                    padding: 15px 20px;
+
+                    .parent {
+                        background: transparent;
+                        display: flex;
+                        gap: 8px;
+
+                        &:not(:last-child) {
+                            margin-bottom: 10px;
+                        }
+
+                        .icon {
+                            .container-icon {
+                                border-radius: 8px;
+                                background: #F3F3FF;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 10px;
+                            }
+                        }
+
+                        .main {
+                            flex: 1;
+      
+
+                            .msg-container {
+                                border-radius: 5px;
+                                background: #F5F5F5;
+                                padding: 7px;
+
+                                .msg {
+                                    color: #12122C;
+                                    font-size: 10px;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    line-height: 139.836%; /* 13.984px */
+                                    margin-bottom: 5px;
+
+                                    .plus {
+                                        color: #515ED4;
+                                        font-size: 10px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: normal;
+                                        letter-spacing: -0.3px;
+                                    }
+                                }
+
+                                .file {
+                                    height: 32px;
+                                    border-radius: 4px;
+                                    border: 0.415px solid #D8D8D8;
+                                    background: #FFF;
+                                    display: flex;
+                                    gap: 8px;
+                                    align-items: center;
+                                    padding: 7px 10px;
+                                    .type {
+                                        height: 20px;
+                                    }   
+                                    .title {
+                                        flex: 1;
+                                        color: #12122C;
+                                        font-size: 8.145px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: normal;
+                                    }
+                                    .download {
+                                        margin: 0;
+                                        height: 22px;
+                                        width: 22px;
+                                        --box-shadow: none;
+
+                                        &::part(native) {
+                                            padding: 0;
+                                            background: rgba($color: var(--main-color), $alpha: 1);
+                                        }
+                                        svg {
+                                            path {
+                                                stroke: var(--main-color);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.echanges {
+                        .parent {
+                            &:not(:last-child) {
+                                .icon {
+                                    display: flex;
+                                    flex-direction: column;
+                                    flex-wrap: nowrap;
+                                    align-items: center;
+                                    gap: 10px;
+                                
+                                    &::after {
+                                        content: "";
+                                        flex: 1;
+                                        width: .4px;
+                                        background: #BDBDBD;
+                                        transition: 1s;
+                                    }
+                                }
+                            }
+
+                            .main {
+                                .header {
+                                    margin-bottom: 5px;
+                                    padding-left: 8px;
+                                    .name-date {
+                                        margin-bottom: 4px;
+                                        .username {
+                                            display: inline-block;
+                                            color: #12122C;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: normal;
+                                            letter-spacing: -0.42px;
+                                            margin-right: 5px;
+                                        }
+    
+                                        .date {
+                                            display: inline-block;
+                                            color: #848484;
+                                            font-size: 10px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            line-height: normal;
+                                            letter-spacing: -0.1px;
+                                        }
+                                    }
+                                    .type {
+                                        color: #878787;
+                                        font-size: 10px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: normal;
+                                        letter-spacing: -0.3px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.encadrement {
+                        &:not(:last-child) {
+                            margin-bottom: 14px;
+                        }
+                        .parent {
+                            
+                            .main {
+                                .header {
+                                   display: flex; 
+                                   margin-bottom: 10px;
+
+                                   .infos {
+                                        flex: 1;
+                                        .seance {
+                                            color: #12122C;
+                                            font-size: 16px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: normal;
+                                            letter-spacing: -0.48px;
+                                        }
+
+                                        .other {
+                                            display: flex;
+                                            flex-wrap: wrap;
+                                            .par {
+                                                margin-right: 20px;
+                                                text-wrap: nowrap;
+                                                display: inline-block;
+                                                color: #12122C;
+                                                font-size: 10px;
+                                                font-style: normal;
+                                                font-weight: 500;
+                                                line-height: normal;
+                                                letter-spacing: -0.1px;
+
+                                                .username {
+                                                    font-weight: 700;
+                                                }
+                                            }
+
+                                            .date {
+                                                flex: 1;
+                                                text-wrap: nowrap;
+                                                display: list-item;
+                                                list-style: disc;
+                                                color: #12122C;
+                                                font-size: 10px;
+                                                font-style: normal;
+                                                font-weight: 500;
+                                                line-height: normal;
+                                                letter-spacing: -0.1px;
+                                            }
+                                        }
+                                   }
+
+                                   .badge {
+                                        height: fit-content;
+                                        border-radius: 50px;
+                                        padding: 5px 10px;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 4px;
+                                        text-transform: capitalize;
+                                        font-size: 12px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: normal;
+                                        letter-spacing: -0.24px;
+
+                                        .icon {
+                                            margin-right: 5px;
+                                        }
+
+                                        &.faite {
+                                            background: #E3FFEE;
+
+                                            color: #31C76A;
+                                            .icon {
+                                                color: #31C76A;
+                                            }
+                                        }                                        
+
+                                        &.annuler {
+                                            background: #FFF0EC;
+                                            color: #F65E40;
+                                            .icon {
+                                                color: #F65E40;
+                                            }
+                                        }
+                                   }
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+
+
+            }
+        }
+    }
+
+    ion-fab {
+        bottom: 34px;
+        right: 34px;
+    }
+}

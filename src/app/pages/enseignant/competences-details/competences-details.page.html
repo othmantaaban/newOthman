@@ -1,0 +1,82 @@
+<app-enseignant-header [isRoot]="false" title="Compétences"></app-enseignant-header>
+
+<ion-content>
+  <div class="page-container" *ngIf="_result">
+    <ion-slides [options]="{ slidesPerView : 1 }" (ionSlideDidChange)="slideChanged()">
+      <ion-slide *ngFor="let competence of _result?.data?.competence">
+        <div>
+          <div class="main-banner banner-bottom-left-raduis main-banner-light">
+            <ion-grid>
+              <ion-row>
+                <ion-col class="text-center">
+                  <h6 class="slides-counter">
+                    <span [innerHtml]="this.slideIndex"></span> / <span
+                      [innerHtml]="(_result?.data?.competence?.length)"></span>
+                  </h6>
+                </ion-col>
+              </ion-row>
+              <ion-row class="align-items-center">
+                <ion-col class="text-center" col-2>
+                  <ion-icon class="color-main" (click)="previousSlide()" *ngIf="_result?.data?.competence.length > 1"
+                    name="arrow-back-circle-outline"></ion-icon>
+                </ion-col>
+                <ion-col class="text-center" col-8>
+                  <div class="">
+                    <h6 class="text-uppercase text-center">{{competence.label}}</h6>
+                  </div>
+                </ion-col>
+                <ion-col class="text-center" col-2>
+                  <ion-icon class="color-main" (click)="nextSlide()" *ngIf="_result?.data?.competence.length > 1"
+                    name="arrow-forward-circle-outline"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <!-- <div class="seance-date banner-bottom-left-raduis">
+                  <h4>{{_result.data.date}}</h4>
+                  <p>{{_result.data.creneau}}</p>
+              </div> -->
+          <div class="etudiant-list">
+            <div class="item" *ngFor="let eleve of competence.eleves;let index = index;">
+              <ion-grid [ngStyle]="{'background-color' : eleve.absent?'#D3D3D3':'#fff'}">
+                <ion-row align-items-center>
+                  <ion-col>
+                    <div class="image">
+                      <img src="{{eleve.photo}}" class="img-circle" alt="">
+                    </div>
+                    <span class="text-left">{{eleve.nom}}</span>
+                  </ion-col>
+                  <ion-col class="text-center">
+                    <div class="item-action text-center d-flex">
+                      <label *ngFor="let nivMaitrise of _result?.niveauxMaitrise"
+                        for="{{competence.id}}-{{nivMaitrise.alias}}-{{eleve.id}}">
+                        <div class="choix-note"
+                          [ngStyle]="{'background-color' : (eleve.note == nivMaitrise.alias)?nivMaitrise.color:'#fff','color' : (eleve.note == nivMaitrise.alias)?'#fff':nivMaitrise.color}"
+                          [class.selected]="eleve.note == nivMaitrise.alias">
+                          {{nivMaitrise.code}}
+                          <input type="radio" [(ngModel)]="eleve.note"
+                            name="note-{{competence.id}}-{{nivMaitrise.alias}}-{{eleve.id}}"
+                            id="{{competence.id}}-{{nivMaitrise.alias}}-{{eleve.id}}" value="{{nivMaitrise.alias}}">
+                        </div>
+                      </label>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+            <!-- end item -->
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+
+  </div>
+
+</ion-content>
+<div *ngIf="_result && _result.data?.btnsave" class="btn-actions bottom">
+  <button type="submit" (click)="submit()" class="btn-block btn-main text-uppercase btn-icon">
+    {{_result.translation.enregistrer}}
+    <img src="assets/imgs/icon/right-arrow.svg" alt="">
+  </button>
+</div>

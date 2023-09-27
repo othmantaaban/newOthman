@@ -1,0 +1,45 @@
+<app-enseignant-header [isRoot]="false" [title]="_result?.translation.title"></app-enseignant-header>
+
+<ion-content padding>
+  <section *ngIf="_result?.data?.length > 0" class="demandes">
+      <div *ngFor="let demande of _result.data" class="demande">
+        <button (click)="detail_demande(demande)">
+          <ion-grid>
+            <ion-row class="ion-align-items-center">
+              <ion-col size="4">
+                <img src="{{demande.icone}}" class="imgicon" alt="">
+                <h6 class="{{getColor(demande.statut)}}">{{demande.statut}}</h6>
+              </ion-col>
+              <ion-col size="7">
+                <div class="border"></div>
+                <h4>{{demande.type}}</h4>
+                <span class="date">{{demande.cree}} : {{demande.date}}</span>
+              </ion-col>
+              <ion-col size="1">
+                <ion-icon name="chevron-forward"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+            <!-- <div class="varow-xs row-pad-sm">
+                  <div class="vacol-xs-4">
+                  </div>
+                  <div class="vacol-xs-8 text-left">
+                      
+                  </div>
+            </div> -->
+            <!-- <i class="fa fa-angle-right" aria-hidden="true"></i> -->
+        </button>
+      </div>
+
+  </section>
+   <!-- Real floating action button, fixed. It will not scroll with the content -->
+ <ion-fab bottom right >
+    <ion-fab-button mini class="add-new" (click) = "nouvelleDemande()"><ion-icon name="add"></ion-icon></ion-fab-button> 
+  </ion-fab>
+
+  <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+      <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+      <h3 [innerHtml]="_result.empty_text"></h3>
+  </div>
+
+</ion-content>

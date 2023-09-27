@@ -1,0 +1,73 @@
+<ng-container>
+  <app-accordion *ngFor="let compt of data" [type]="(compt.isCompetence||!compt.children||compt.children.length == 0)?'false':'true'"  [id]="'panel-'+compt.id">
+    <ng-container accordionTitle>
+      <ng-container *ngIf="compt.isCompetence&&compt.value">
+        <ng-container *ngFor="let niveau of niveaux">
+          <div *ngIf="niveau.id == compt.value" class="check-mark-wrapper">
+            <div [ngStyle]="{'border-color': (niveau.id == compt.value)?'#d3d3d3':niveau.color,'color':(niveau.id == compt.value)?niveau.color:'#fff'}" >
+              <ion-icon name="ios-{{(niveau.id == compt.value)?'checkmark':'remove'}}-circle"></ion-icon>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ion-checkbox *ngIf="selectable&&!compt.isCompetence" (ionChange)="updateChecks(compt.id)" mode="ios" ></ion-checkbox>
+      {{compt.label}}
+      <button *ngIf="compt.proof" (click)="showProof(compt.proof)" class="btn-proof"><ion-icon name="bulb"></ion-icon></button>
+    </ng-container>
+    <ng-container accordionContent>
+      <competence-tree #childTree (checkChange)="triggerChange()" [selectable]="selectable" *ngIf="compt.children&&compt.children.length > 0; else noChildren" [data]="compt.children" [niveaux]="niveaux" ></competence-tree>
+        <ng-template #noChildren>
+          <div *ngIf="!selectable" class="d-flex">
+            <div *ngFor="let niveau of niveaux" class="check-mark-wrapper">
+              <div 
+                [class]="(niveau.id == compt.value)?'check-mark checked':'check-mark'" 
+                [ngStyle]="{'border-color': (niveau.id == compt.value)?'#d3d3d3':niveau.color,'color':(niveau.id == compt.value)?niveau.color:'#fff'}"
+              >
+                <ion-icon name="ios-{{(niveau.id == compt.value)?'checkmark':'remove'}}-circle"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </ng-template>>
+    </ng-container>
+  </app-accordion>
+  <!-- <ngb-accordion #acc="ngbAccordion" (panelChange)="checktoggle($event)" [destroyOnHide]="false">
+    <ngb-panel *ngFor="let compt of data" [type]="(compt.isCompetence||!compt.children||compt.children.length == 0)?'false':'true'"  [id]="'panel-'+compt.id">
+      <ng-template ngbPanelTitle>
+        <ng-container *ngIf="compt.isCompetence&&compt.value">
+          <ng-container *ngFor="let niveau of niveaux">
+            <div *ngIf="niveau.id == compt.value" class="check-mark-wrapper">
+              <div [ngStyle]="{'border-color': (niveau.id == compt.value)?'#d3d3d3':niveau.color,'color':(niveau.id == compt.value)?niveau.color:'#fff'}" >
+                <ion-icon name="ios-{{(niveau.id == compt.value)?'checkmark':'remove'}}-circle"></ion-icon>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ion-checkbox *ngIf="selectable&&!compt.isCompetence" (ionChange)="updateChecks(compt.id)" mode="ios" ></ion-checkbox>
+        {{compt.label}}
+        <button *ngIf="compt.proof" (click)="showProof(compt.proof)" class="btn-proof"><ion-icon name="bulb"></ion-icon></button>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <competence-tree #childTree (checkChange)="triggerChange()" [selectable]="selectable" *ngIf="compt.children&&compt.children.length > 0; else noChildren" [data]="compt.children" [niveaux]="niveaux" ></competence-tree>
+        <ng-template #noChildren>
+          <div *ngIf="!selectable" class="d-flex">
+            <div *ngFor="let niveau of niveaux" class="check-mark-wrapper">
+              <div 
+                [class]="(niveau.id == compt.value)?'check-mark checked':'check-mark'" 
+                [ngStyle]="{'border-color': (niveau.id == compt.value)?'#d3d3d3':niveau.color,'color':(niveau.id == compt.value)?niveau.color:'#fff'}"
+              >
+                <ion-icon name="ios-{{(niveau.id == compt.value)?'checkmark':'remove'}}-circle"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion> -->
+    <!-- <div *ngFor="let item of _data" >
+      {{item.label}}
+      <competence-tree *ngIf="item.children&&item.children.length > 0;else noChilds" [data]="item.children" ></competence-tree>
+      <ng-template #noChilds>
+        {{item.data}}
+      </ng-template>
+    </div> -->
+</ng-container>

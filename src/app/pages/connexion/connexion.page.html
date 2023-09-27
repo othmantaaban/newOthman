@@ -1,0 +1,70 @@
+
+<ion-content>
+  <div class="connexion-page">
+    <div class="square"></div>
+    <div class="square-two"></div>
+    <div class="square-bottom"></div>
+    <div class="square-two-bottom"></div>
+    <div class="vertical-center t-40" *ngIf="_resultPage">
+      <div class="container">
+        <div class="banner text-center">
+          <img *ngIf="_resultPage?.data?.logo" src="{{_resultPage.data.logo}}" alt="">
+          <h1>{{_resultPage.translation.title}}</h1>
+          <p *ngIf="_resultPage?.data?.ecole">{{_resultPage.data.ecole}}</p>
+          <form (ngSubmit)="login()" [formGroup]="formGroup">
+            <div class="form-group">
+              <input type="email" name="email" formControlName="email" [(ngModel)]="loginI" required
+                placeholder="{{_resultPage.translation.login}}">
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="{{pwdType}}" name="password" id="inputID" formControlName="password" [(ngModel)]="passwordI"
+                  placeholder="{{_resultPage.translation.password}}">
+                <span class="input-group-btn">
+                  <label for="inputID" ion-button="" icon-only="" clear="" color="dark" item-right=""
+                    (click)="showHidePassword()">
+                    <ion-icon [name]="pwdIcon"></ion-icon>
+                  </label>
+                </span>
+              </div><!-- /input-group -->
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="privacy" [(ngModel)]="privacyI" required
+                formControlName="privacy" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1" [innerHTML]="_resultPage?.translation?.conditions_label">
+
+              </label>
+            </div>
+            <button type="submit" class="btn btn-main btn-block text-uppercase"
+              [disabled]="!formGroup.valid">{{_resultPage.translation.btn_login}}</button>
+          </form>
+          <div class="row row-actions">
+            <div class="col-xs-6 text-left" hidden>
+              
+              <a href="#" (click)="connexionPhonenumberModal()"> <!-- Se connecter avec numéro de téléphone -->{{ _result?.translation?.num }} </a>
+            </div>
+            <div class="col-xs-12 text-right">
+              <a href="#" (click)="forgotPasswordModal()">{{_resultPage.translation.forgot_password}}</a>
+            </div>
+          </div>
+          <div class="bottom-cgu text-center" hidden *ngIf="_resultPage && _resultPage.data.cgu">
+            <p>
+              <!-- En continuant, Vous acceptez nos  -->
+              {{ _result?.translation?.acceptez }}
+              <a href="{{_resultPage.data.cgu}}" class=""> 
+                <!-- CGU et nos conditions de -->
+                <!-- confidentialité -->
+                {{ _result?.translation?.cond }}
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="conf_terms_link">
+      <a (click)="goToConfidentialite()">{{_resultPage?.translation?.conf_terms_link}}</a>
+    </div>
+
+  </div>
+</ion-content>

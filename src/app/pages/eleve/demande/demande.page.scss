@@ -1,0 +1,116 @@
+.details-demande {
+    position: relative;
+    min-height: 100%;
+    height: auto;
+    padding: 30px 15px 20px;
+    background: #f7f7f7;
+
+    .demande {
+        padding-left: 15px !important;
+
+        span {
+            font-size: 12px;
+        }
+
+        h4 {
+            margin-bottom: 0px;
+        }
+
+        &:after {
+            content: "";
+            border-top: 14px solid #FFFFFF;
+            border-bottom: 14px solid transparent;
+            border-inline-end: 9px solid transparent;
+            border-inline-start: 9px solid transparent;
+            display: inline-block;
+            position: absolute;
+            overflow: auto;
+            left: 50%;
+            top: 100%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+    }
+
+    .border {
+        position: absolute;
+        height: 40px;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.10);
+        right: 15px;
+        top: 50%;
+        margin-top: -25px;
+    }
+
+    ul {
+        margin-top: 25px;
+
+        li {
+            background: rgba(255, 255, 255, .5);
+            margin-bottom: 8px;
+            padding: 12px 20px;
+            color: #000;
+            font-weight: 600;
+            border-radius: 5px;
+            font-size: 14px;
+
+            span {
+                color: #666;
+                font-weight: 400;
+            }
+        }
+
+        li:last-child {
+            white-space: pre-wrap;
+
+            span {
+                display: block;
+            }
+        }
+    }
+}
+
+h6 {
+    margin: 0;
+}
+
+h6.en-cours {
+    color: #4799E8 !important;
+}
+
+h6.cloturee {
+    color: #7abc50 !important;
+}
+
+h6.refusee {
+    color: #F24E4E !important;
+}
+
+h6.accepte {
+    color: #7ABC50 !important;
+}
+
+h6.nouvelle {
+    color: #9675E2 !important;
+}
+
+h6.livree {
+    color: #3a46d6 !important;
+}
+
+
+
+ion-content {
+    //background-image: url("../assets/img/safe_image_720.png");
+    background-size: cover;
+    background-position-x: 50%;
+}
+
+.bar-button,
+.toolbar-title {
+    color: #fff !important;
+}
+
+.imgicon {
+    width: 45px !important;
+}

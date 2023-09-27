@@ -1,0 +1,626 @@
+.container_result{
+  margin-top: 20px;
+}
+.card.devoir-card{
+  margin-top: 15px;
+  padding: 5px;
+  border-radius: 15px;
+  background-color: #FFF1F1;
+  ion-icon.devoir-icon{
+    color: #EE5F5F;
+    font-size: 24px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 11px;
+  }
+  .devoir-title{
+    font-size: 15px;
+  }
+  .devoir-info{
+    font-size: 11px;
+    color: #7f7f81;
+    margin: 0;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+  hr{
+    margin: 10px 0px;
+    background-color: #7F7F81;
+    height: .4px;
+  }
+  .devoir-intro{
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7f7f81;
+  }
+  .date-card{
+    border: .4px solid #7F7F81;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    display: grid;
+    padding: 3px 10px;
+    .date-day{
+      font-size: 22px;
+      font-weight: 700;
+    }
+  }
+  &.devoir_fait{
+    background-color: #DFFFF0;
+    ion-icon.devoir-icon{
+      color: #4EC28A;
+    }
+  }
+}
+
+.section-title{
+  font-size: 16px;
+  color: #12122C;
+}
+
+.section-ancien{
+  margin-top: 25px;
+}
+
+// .scroll-content {
+//   background: #f6f6f6;
+// }
+
+// .vertical-center-absolute {
+//   top: auto;
+//   transform: none;
+//   margin-top: 50px;
+// }
+
+// .indicatorSegment {
+//   -webkit-transition: 0.3s all;
+//   -moz-transition: 0.3s all;
+//   -o-transition: 0.3s all;
+//   transition: 0.3s all;
+//   transform-origin: top 0 left 0;
+//   width: 20%;
+//   height: 2px;
+//   background-color: var(--main-color) !important;
+//   ;
+// }
+
+// h1 {
+//   font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+//   font-weight: 600;
+//   margin-bottom: 25px;
+//   font-size: 19px;
+// }
+
+// h2 {
+//   font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+//   font-weight: 300;
+//   margin-bottom: 30px;
+//   font-size: 18px;
+// }
+
+// .card__article {
+//   .devoir-title {
+//     margin-bottom: 6px;
+//   }
+
+//   .devoir_infos {
+//     margin-top: 10px;
+//     margin-bottom: 20px;
+//     position: relative;
+
+//     span {
+//       font-size: 11px !important;
+//     }
+
+//     .devoir-enseignant {
+//       font-weight: 500;
+//     }
+
+//     .devoir-matiere {
+//       background: linear-gradient(to left, #ec2c7b 0%, #fa722b 100%);
+//       color: #fff;
+//       padding: 4px 12px;
+//       border-radius: 15px;
+//     }
+
+//     button {
+//       background: linear-gradient(to left, #ec2c7b 0%, #fa722b 100%);
+//       border: none !important;
+//       padding: 6px 15px;
+//       font-size: 12px;
+//       position: absolute;
+//       right: 0px;
+//       top: -5px;
+//     }
+//   }
+
+//   margin-bottom: 15px;
+
+//   p {
+//     font-size: 13px;
+//   }
+// }
+
+// .card__file {
+//   button {
+//     padding: 10px 15px;
+//     font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+//     font-size: 12px;
+//   }
+// }
+
+// .user-picture-top-page {
+//   padding-left: 30px;
+//   padding-top: 15px;
+//   padding-bottom: 15px;
+//   background: #fff;
+//   margin-inline-start: 0;
+//   margin-top: 0;
+// }
+
+// app-accordion {
+//   .card {
+//     background: #fff;
+//     padding: 15px 15px;
+//     margin-bottom: 10px;
+//     text-align: start;
+
+//     hr {
+//       margin-top: 35px;
+//       margin-bottom: 35px;
+//     }
+
+//     .timetable-icon {
+//       color: var(--main-color);
+//       margin-inline-end: 5px;
+//       margin-inline-start: 10px;
+//     }
+
+//     .justification_action {
+//       margin: auto;
+//       text-align: center;
+
+//       button {
+//         border-radius: 30px;
+//         font-weight: 500;
+//         font-size: 14px;
+//         border-width: 2px !important;
+//       }
+//     }
+
+//     h6 {
+//       font-weight: 800;
+//       color: #000;
+//     }
+
+//     .card-header {
+//       a {
+//         font-size: 16px;
+//         font-weight: 600;
+//         display: block;
+//         color: #000;
+//       }
+
+//       a:focus,
+//       a:hover {
+//         text-decoration: none;
+//       }
+
+//       .devoirs-date {
+//         font-family: "Gotham-Bold", Arial, Helvetica, sans-serif;
+//       }
+
+//       .devoirs-count {
+//         background: var(--main-color);
+//         padding: 4px 11px;
+//         border-radius: 50%;
+//         color: #fff;
+//         display: block;
+//         float: right;
+//       }
+
+//       .absence-date {
+//         color: #000000;
+//       }
+
+//       .seances {
+//         color: #000000;
+//       }
+
+//       .justifiee {
+//         background: #32db64;
+//         padding: 2px 6px;
+//         color: #fff;
+//         font-size: 11px;
+//         margin-inline-start: 10px;
+//       }
+
+//       .non-justifiee {
+//         background: #f53d3d;
+//         padding: 2px 6px;
+//         color: #fff;
+//         font-size: 11px;
+//         margin-inline-start: 10px;
+//       }
+//     }
+
+//     .card-body {
+//       margin-top: 0px;
+//       padding: 10px;
+
+//       span {
+//         font-size: 12px;
+//       }
+//     }
+
+//     button.btn.btn-link {
+//       width: 100%;
+//       text-align: start;
+//     }
+//   }
+
+//   .bibliotheque-matiere {
+//     h2 {
+//       color: #171656;
+//       font-size: 3.5rem;
+//       font-family: "Montserrat";
+//       font-weight: 700;
+//       margin-bottom: 0px;
+//     }
+
+//     h5 {
+//       margin-top: 0px;
+//       color: #dc4473;
+//       font-family: "Montserrat";
+//       font-weight: 500;
+//       font-size: 2rem;
+//     }
+
+//     .bibliotheque {
+//       margin-top: 15px;
+
+//       .ressource {
+//         font-family: "Montserrat";
+//         border-radius: 9px;
+//         margin-bottom: 0px;
+
+//         // ion-row {
+//         //   padding: 10px 30px;
+//         // }
+
+//         h3 {
+//           color: #fff;
+//           margin-bottom: 5px;
+//           font-size: 2rem;
+//           font-weight: 600;
+//           font-family: "Montserrat", "Gotham-Medium", Arial, Helvetica, sans-serif;
+//           white-space: break-spaces;
+//         }
+
+//         p {
+//           font-size: 1.3rem;
+//           color: #fff;
+//           margin-bottom: 4px;
+//         }
+
+//         span {
+//           color: #fff;
+//           font-size: 12px;
+//           font-weight: 600;
+
+//           span {
+//             color: #fff;
+//             margin-bottom: 0px;
+//             background-color: #ffffff47;
+//             display: inline-block;
+//             margin-top: 6px;
+//             font-size: 11px;
+//             text-transform: uppercase;
+//             font-weight: 600;
+//             border-radius: 43px;
+//             width: 25px;
+//             height: 25px;
+//             line-height: 25px;
+//             text-align: center;
+//             margin-inline-end: 5px;
+//           }
+//         }
+
+//         .icon-container {
+//           position: relative;
+//           width: 75px;
+//           height: 75px;
+//           background-color: #ffffff47;
+//           border-radius: 50%;
+
+//           .icon {
+//             position: absolute;
+//             top: 50%;
+//             transform: translateY(-50%);
+//             left: 0;
+//             right: 0;
+//             max-width: 75%;
+//             margin: auto;
+//           }
+//         }
+
+//         .notification {
+//           border-top: 1px solid #ffffff47;
+//           padding: 5px 20px;
+//           text-align: center;
+//           display: -webkit-box;
+//           display: -webkit-flex;
+//           display: -ms-flexbox;
+//           display: flex;
+//           -webkit-box-align: center;
+//           -webkit-align-items: center;
+//           -ms-flex-align: center;
+//           align-items: center;
+//           justify-content: center;
+
+//           p {
+//             margin-bottom: 0;
+//           }
+
+//           ion-icon {
+//             color: #fff;
+//             font-size: 24px;
+//             margin-inline-end: 7px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// ngb-accordion.no-padding-accordion {
+//   .card {
+//     padding: 0;
+
+//     .card-header {
+//       h5 {
+//         margin-bottom: 0px;
+//       }
+
+//       button {
+//         padding: 0;
+//         margin-bottom: -1px;
+//       }
+
+//       button:focus {
+//         outline: 0;
+//       }
+
+//       button.collapsed {
+//         .bibliotheque-matiere {
+//           .bibliotheque {
+//             .ressource {
+//               border-radius: 9px 9px 0px 0px;
+//             }
+
+//           }
+//         }
+//       }
+//     }
+
+//     .card-body {
+//       margin-top: -1px;
+//       padding: 0px 1px;
+
+//       .bibliotheque-matiere {
+//         .bibliotheque {
+//           margin-top: 0px;
+
+//           .ressource {
+//             border-radius: 0px 0px 9px 9px;
+
+//             .btn-outline-light {
+//               border: 1px solid #fff;
+//               background: #ffffff32;
+//               color: #fff;
+//               font-weight: 700;
+//             }
+
+//             hr {
+//               margin-top: 10px;
+//               margin-bottom: 10px;
+//               background-color: #fff;
+//               width: 91%;
+//               opacity: .5;
+//             }
+
+//             .card__file_sent {
+//               text-align: center;
+//               padding: 15px 10px;
+//             }
+
+//             .card__file_upload {
+//               padding: 15px 10px;
+
+//               .download-file-container {
+//                 ion-icon {
+//                   color: #fff;
+//                   font-weight: 700;
+//                 }
+//               }
+//             }
+
+//             .card__file.marquerFait {
+//               padding: 15px 10px;
+
+//               button {
+//                 padding: 15px 10px;
+
+//               }
+//             }
+
+//           }
+
+//         }
+//       }
+//     }
+//   }
+
+//   .btn-link:focus,
+//   .btn-link:hover {
+//     text-decoration: none;
+//   }
+// }
+
+// .timetable-date {
+//   span {
+//     display: block;
+//     margin: auto;
+//     font-size: 1.5rem;
+//     font-weight: 500;
+//   }
+// }
+
+// ngbAccordion {
+//   color: black;
+// }
+
+// .absence-justifee {
+//   color: green;
+//   padding: 0px 5px;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   border: 1px solid green;
+// }
+
+// .absence-non-justifee {
+//   color: red;
+//   padding: 0px 5px;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   border: 1px solid red;
+// }
+
+// .absence-seances {
+//   font-size: 1.4rem !important;
+//   font-weight: 500;
+//   color: #91939f;
+// }
+
+// .absence-motif {
+//   font-size: 1.2rem !important;
+//   color: black !important;
+// }
+
+// .absence-date {
+//   span {
+//     display: block;
+//     margin: auto;
+//     font-size: 1.5rem;
+//     font-weight: 500;
+//   }
+// }
+
+// span.absence-matiere {
+//   font-size: 1.5rem !important;
+//   font-weight: 600;
+// }
+
+// span.absence-seance {
+//   font-size: 1.3rem !important;
+// }
+
+// span.absence-enseignant {
+//   font-size: 1.3rem !important;
+//   margin-inline-end: 10px;
+// }
+
+// .absence-icon {
+//   font-size: 26px !important;
+//   position: absolute;
+//   right: 25px;
+// }
+
+// .card__file_upload {
+//   .text_done {
+//     text-align: center;
+//     font-weight: 500;
+//     font-size: 12px;
+//   }
+
+//   .download-file-container {
+//     display: flex;
+//     align-items: center;
+
+//     span {
+//       font-size: 11px;
+//       font-weight: 600;
+//       margin-inline-start: 8px;
+//     }
+
+//     ion-icon {
+//       font-size: 25px;
+//       color: #000;
+//     }
+//   }
+
+//   .files {
+//     margin-top: 15px;
+
+//     .exists-file-container {
+//       display: flex;
+//       align-items: center;
+//       padding: 7px 20px;
+//       border: 1px solid #dedede;
+//       border-radius: 35px;
+//       position: relative;
+//       margin-bottom: 10px;
+
+//       .delete-btn {
+//         position: absolute;
+//         right: 15px;
+//         font-size: 30px;
+//         color: #c34242;
+//       }
+
+//       span {
+//         font-size: 12px;
+//         font-weight: 400;
+//         margin-inline-start: 8px;
+//         text-overflow: ellipsis;
+//         white-space: nowrap;
+//         opacity: .8;
+//         overflow: hidden;
+//         width: calc(100% - 45px);
+//       }
+
+//       ion-icon {
+//         font-size: 25px;
+//         color: #000;
+//       }
+//     }
+//   }
+
+//   button {
+//     padding: 7px 15px;
+//     font-size: 12px;
+//     border-radius: 30px;
+//   }
+
+// }
+
+// .card__file_sent {
+//   text-align: center;
+
+//   img {
+//     width: 40px;
+//     margin: auto;
+//     margin-bottom: 10px;
+//   }
+
+//   p {
+//     font-size: 14px;
+//     font-weight: 500;
+//   }
+// }
+
+// .w-100 {
+//   width: 100%;
+// }

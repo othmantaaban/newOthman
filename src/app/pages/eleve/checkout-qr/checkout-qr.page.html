@@ -1,0 +1,32 @@
+<ion-content>
+  <div class="page-header">
+    <div class="map-marker">
+      <ion-icon name="location-sharp"></ion-icon>
+    </div>
+    <a (click)="goBack()" class="quit">
+      <!-- retourner -->
+      {{ _result?.translation?.retourner ? _result?.translation?.retourner : "retourner" }}
+    </a>
+  </div>
+  <section class="section-checkout" >
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col *ngIf="qrCode" size="12">
+          <div style="border-radius: 10px; padding: 5px;overflow: hidden;background: #fff;">
+            <img [src]="qrCode" width="100%"  alt="">
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="12">
+          <p>
+            <!-- Veuillez presenter le code QR à l'agent de sortie -->
+            {{ _result?.translation?.qr ? _result?.translation?.qr : "Veuillez presenter le code QR à l'agent de sortie"  }}
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </section>
+
+</ion-content>

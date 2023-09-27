@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <ion-toolbar transparent>
+    <button class="menu-toggle" (click)="pagePlaning()" slot="start">
+      <img src="assets/icon/back.svg" />
+    </button>
+    <ion-title *ngIf="_result?.translation">
+      {{_result.translation.title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="page-container">
+    <div class="to-do-lists" *ngIf="_result">
+      <div class="item" *ngFor="let content of _result.data" (click)="albumForm(content.id)"
+        [ngStyle]="{'border-bottom' : content.public ? '5px solid green' : '5px solid orange'}">
+        <div class="item-description">
+          <h3>{{content.label}}</h3>
+          <span>{{content.date}}</span>
+          <span class="eleves">
+            <span *ngFor="let eleve of content.eleves | slice:0:3; let i=index"
+              [ngStyle]="{'background-image': 'url(' + eleve.photo + ')'}"></span>
+            <span *ngIf="(content.eleves.length - 3) > 0">
+              <div>+ {{content.eleves.length - 3}} </div>
+            </span>
+            <span> 
+              {{ content.images.length }} 
+              <!-- Photos  -->
+              {{ _result?.translation?.photos ? _result?.translation?.photos : 'Photos' }}
+            </span>
+          </span>
+        </div>
+        <div class="image">
+          <div class="image_card" *ngFor="let image of content.images | slice:0:3; let i=index"
+            [ngStyle]="{'background-image': 'url(' + image.image_path + ')'}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<div class="actions">
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <button class="btn-main btn-circle" (click)="albumForm()">
+        <ion-icon style="font-size: 24px;" name="add"></ion-icon>
+      </button>
+    </li>
+  </ul>
+</div>

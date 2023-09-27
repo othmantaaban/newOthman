@@ -1,0 +1,172 @@
+<app-enseignant-header [isRoot]="false" title="Compétences"></app-enseignant-header>
+
+<ion-content padding>
+
+    <form [formGroup]="formGroup">
+      <ion-slides #mySlider>
+        <ion-slide>
+          <div class="form-body" *ngIf="result">
+            <div class="form-group" *ngIf="result.data.classes.length>1; hasOneClasse">
+              <ion-item>
+                <ion-label stacked>
+                  <!-- Classes -->
+                  {{ _result?.translation?.classes ? _result?.translation?.classes : 'Classes' }}
+                </ion-label>
+                <ion-select *ngIf="result?.data?.classes" [multiple]="true" [(ngModel)]="examen.classes" name="classes" formControlName="classes"
+                  okText="Choisir" cancelText="Fermer">
+                  <ion-option *ngFor="let classe of result.data.classes" [value]="classe.id">{{classe.label}}
+                  </ion-option>
+                </ion-select>
+              </ion-item>
+    
+              <!-- <ion-grid class="students-grid" *ngIf="examen.classes&&examen.classes.length>0">
+                <ion-row>
+                  <ion-col col-12>
+                    <h6 class="text-left">
+                      Eleves
+                    </h6>
+                  </ion-col>
+                  <ion-col>
+                    <div class="competences_students">
+                      <span class="eleves" *ngIf="examen.eleves&&examen.eleves.length>0; else allCLasse"
+                        (click)="toggleElevesModal()">
+                        <span *ngFor="let inscription of examen.eleves | slice:0:5; let i=index"
+                          [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}"></span>
+                        <span *ngIf="(examen.eleves.length - 5) > 0">
+                          <div>+{{examen.eleves.length - 5}}</div>
+                        </span>
+                      </span>
+                      <ng-template #allCLasse>
+                        <span class="text-left">
+                          <small>
+                            Toute la classe
+                          </small>
+                        </span>
+                      </ng-template>
+                      <ion-icon name="md-person-add" class="color-main" (click)="toggleElevesModal()"></ion-icon>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid> -->
+            </div>
+            <ng-template #hasOneClasse>
+              <input type="hidden" name="classes" [(ngModel)]="examen.classes" formControlName="classe">
+              <!-- <ion-grid class="students-grid" *ngIf="examen.classes&&examen.classes.length>0">
+                <ion-row>
+                  <ion-col col-12>
+                    <h6 class="text-left">
+                      Eleves
+                    </h6>
+                  </ion-col>
+                  <ion-col>
+                    <div class="competences_students">
+                      <span class="eleves" *ngIf="examen.eleves&&examen.eleves.length>0; else allCLasse"
+                        (click)="toggleElevesModal()">
+                        <span *ngFor="let inscription of examen.eleves | slice:0:5; let i=index"
+                          [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}"></span>
+                        <span *ngIf="(examen.eleves.length - 5) > 0">
+                          <div>+{{examen.eleves.length - 5}}</div>
+                        </span>
+                      </span>
+                      <ng-template #allCLasse>
+                        <span class="text-left">
+                          <small>
+                            Toute la classe
+                          </small>
+                        </span>
+                      </ng-template>
+                      <ion-icon name="md-person-add" class="color-main" (click)="toggleElevesModal()"></ion-icon>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid> -->
+            </ng-template>
+            <div class="form-group">
+              <ion-item>
+                <ion-label stacked>
+                  <!-- Titre -->
+                  {{ _result?.translation?.titre ? _result?.translation?.titre : 'Titre' }}
+                </ion-label>
+                <ion-input type="text" formControlName="titre" [(ngModel)]="examen.titre"></ion-input>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-label stacked>
+                  <!-- Description -->
+                  {{ _result?.translation?.description ? _result?.translation?.description : 'Description' }}
+                </ion-label>
+                <ion-textarea formControlName="description" [(ngModel)]="examen.description"></ion-textarea>
+              </ion-item>
+            </div>
+  
+            <div class="form-group">
+              <ion-item>
+                <ion-label stacked>
+                  <!-- Date -->
+                  {{ _result?.translation?.date ? _result?.translation?.date : 'Date' }}
+                </ion-label>
+                <ion-datetime [(ngModel)]="examen.date" name="date" formControlName="date"> </ion-datetime>
+              </ion-item>
+            </div>
+            <div class="form-group">
+              <ion-item>
+                <ion-label stacked>
+                  <!-- Coefficient -->
+                  {{ _result?.translation?.coeff ? _result?.translation?.coeff : 'Coefficient' }}
+                </ion-label>
+                <ion-input type="number" min="1" formControlName="coef" [(ngModel)]="examen.coef"></ion-input>
+              </ion-item>
+            </div>
+  
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <competence-tree *ngIf="result" [selectable]="true" (checkChange)="getTreeValue($event)" [data]="result.data.tree" ></competence-tree>
+        </ion-slide>
+      </ion-slides>
+    </form>
+  
+    <div *ngIf="result && inscriptions && showElevesModal" class="action-small-modal modal_eleves"
+      [ngClass]="showElevesModal ? 'show-modal' : ''">
+      <div class="bottom-modal">
+        <div class="default-modal-header">
+          <div class="ion-searchbar-container">
+            <ion-searchbar placeholder="Rechercher" (ionChange)="search_key($event)">
+            </ion-searchbar>
+          </div>
+          <div class="m-close" (click)="toggleElevesModal()">
+            <img src="assets/icon/close_white.svg" alt="">
+          </div>
+        </div>
+        <div class="d-modal-action">
+          <ion-grid class="grid_eleves">
+            <ion-row>
+              <ion-col col-3 *ngFor="let inscription of inscriptions">
+                <div class="eleve_container" (click)="selectInscription(inscription)"
+                  [ngClass]="{'active': examen.eleves && isSelected(inscription)}">
+                  <div class="eleve_image" [ngStyle]="{'background-image': 'url(' + inscription.photo + ')'}">
+                  </div>
+                  <h5>{{ inscription.nom }}</h5>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <button (click)="toggleElevesModal()" class="btn-main btn-block text-center">
+          <!-- Enregistrer -->
+          {{ _result?.translation?.enr ? _result?.translation?.enr : 'Enregistrer' }}
+        </button>
+      </div>
+    </div>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-toolbar ion-no-padding>
+      <button *ngIf="result" [disabled]="!formGroup.valid && slider.isEnd()" (click)="submit()"
+        class="btn-main btn-block text-center fixed-bottom">
+        <!-- Enregistrer -->
+        {{ _result?.translation?.enr ? _result?.translation?.enr : 'Enregistrer' }}
+      </button>
+    </ion-toolbar>
+  </ion-footer>

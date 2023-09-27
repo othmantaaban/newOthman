@@ -1,0 +1,20 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons mode="ios" slot="start">
+      <ion-button mode="ios" color="medium" (click)="cancel()">Annuler</ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons mode="ios" slot="end">
+      <ion-button mode="ios" (click)="confirm()" [strong]="true">Confirmer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  
+  <input mode="ios" [(ngModel)]="value" (keyup)="sanUrl($event)" placeholder="Link">
+  
+  <ng-container *ngIf="url">
+    <iframe [src]="url" width="100%"></iframe>
+  </ng-container>
+  
+</ion-content>

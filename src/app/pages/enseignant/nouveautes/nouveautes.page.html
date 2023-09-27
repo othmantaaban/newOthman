@@ -1,0 +1,43 @@
+<app-enseignant-header [isRoot]="false" [title]="_result?.translation?.title||''" />
+<ion-content padding>
+
+    <section class="p-4" *ngIf="_result?.data?.length > 0">
+        <div class="card radius shadowDepth1 " *ngFor="let result of _result.data" (click)="post(result)">
+            <div [attr.data-text]="!result.image?result.categorie:''" class="card__image border-tlr-radius">
+                <img src="{{result.image}}" alt="" class="border-tlr-radius">
+            </div>
+
+            <div class="card__content card__padding">
+                <div class="card__meta">
+                    <time>{{ result.date }}</time>
+                    <span class="categorie">{{result.categorie}}</span>
+                </div>
+
+                <article class="card__article">
+                    <h2>{{result.title}}</h2>
+                    <p [innerHtml]="result.intro"></p>
+                </article>
+            </div>
+
+            <div *ngIf="result.user" class="card__action">
+                <div class="card__author">
+                    <img src="{{result.user.photo}}" alt="user">
+                    <div class="card__author-content">
+                        {{_result?.translation?.label_author}} <a href="#">{{result.user.nom}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div *ngIf="_result?.empty == true" class="vertical-center no-result ">
+        <img src="{{_result.empty_icon}}" class="img-responsive" alt="Aucune donnée">
+        <h3 [innerHtml]="_result.empty_text"></h3>
+    </div>
+
+    <ion-fab *ngIf="_result?.im_here">
+        <ion-fab-button class="btn-main fixed-bottom" (click)="checkoutEnfant()">
+            <ion-icon name="location-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

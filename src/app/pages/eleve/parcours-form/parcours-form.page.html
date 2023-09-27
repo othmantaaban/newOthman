@@ -1,0 +1,89 @@
+<!-- <ion-header>
+  <ion-toolbar mode="ios">
+    <ion-img slot="start" src="assets/imgs/menu_icon.svg" ></ion-img>
+    <ion-title> {{ _result.translation.monProfil }} </ion-title>
+    <ion-img slot="end" src="assets/imgs/notification.svg"></ion-img>
+  </ion-toolbar>
+</ion-header> -->
+
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title ? _result?.translation?.title : 'Mon profil'" />
+
+<ion-content>
+  <div class="back" (click)="back()">
+    <ion-icon name="chevron-back-outline"></ion-icon>
+    <span> {{ _result?.translation?.retour ? _result?.translation?.retour : "retour" }} </span>
+  </div>
+  <div class="parcour-header">
+    <div class="icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="28" viewBox="0 0 34 28" fill="none">
+        <path d="M14.2919 1.56972C15.1163 1.07806 16.0503 0.819336 17.0009 0.819336C17.9516 0.819336 18.8856 1.07806 19.7099 1.56972L32.8651 9.41502C33.0033 9.49754 33.1182 9.61646 33.198 9.75979C33.2779 9.90312 33.3199 10.0658 33.3199 10.2314C33.3199 10.397 33.2779 10.5596 33.198 10.703C33.1182 10.8463 33.0033 10.9652 32.8651 11.0477L27.8805 14.0175V22.4729C27.8807 22.5967 27.8574 22.7192 27.812 22.8336C27.7665 22.948 27.6999 23.052 27.6157 23.1396L27.6121 23.1415L27.6085 23.1471L27.5958 23.1584L27.5541 23.1998L27.409 23.3392C27.2821 23.456 27.1008 23.616 26.8632 23.8062C26.212 24.3256 25.5199 24.7874 24.7943 25.1866C22.3944 26.5081 19.7173 27.1931 17.0009 27.1809C14.2845 27.1925 11.6073 26.5068 9.20756 25.1847C8.48256 24.7854 7.7911 24.3237 7.14045 23.8043C6.90126 23.6127 6.67015 23.4104 6.44779 23.198C6.34825 23.107 6.26787 22.9956 6.21171 22.8708C6.15554 22.7461 6.1248 22.6106 6.1214 22.4729V14.0213L2.4949 11.8575V20.5879C2.4949 20.8376 2.39938 21.0771 2.22935 21.2537C2.05932 21.4303 1.82872 21.5295 1.58827 21.5295C1.34782 21.5295 1.11721 21.4303 0.947186 21.2537C0.77716 21.0771 0.681641 20.8376 0.681641 20.5879V10.2323C0.681522 10.0633 0.725234 9.89728 0.808189 9.75181C0.891143 9.60634 1.01028 9.48676 1.15309 9.40561L14.2937 1.56972H14.2919ZM19.7099 18.8911C18.8856 19.3828 17.9516 19.6415 17.0009 19.6415C16.0503 19.6415 15.1163 19.3828 14.2919 18.8911L7.93466 15.1003V22.0511C8.59484 22.6141 9.30734 23.1074 10.0616 23.5238C11.6573 24.4088 14.0054 25.2958 17.0009 25.2958C19.4192 25.3087 21.803 24.7006 23.9403 23.5256C24.6946 23.1087 25.4071 22.6147 26.0672 22.0511V15.0984L19.7099 18.8911ZM18.8069 3.20432C18.2574 2.87654 17.6347 2.70406 17.0009 2.70406C16.3672 2.70406 15.7445 2.87654 15.1949 3.20432L3.40878 10.2304L15.1949 17.2584C15.7445 17.5862 16.3672 17.7587 17.0009 17.7587C17.6347 17.7587 18.2574 17.5862 18.8069 17.2584L30.5931 10.2304L18.8069 3.20432Z" fill="#EE5F5F"/>
+      </svg>
+    </div>
+    <span>
+      {{ _result?.translation?.parcours ? _result?.translation?.parcours : "Parcours académique" }}
+    </span>
+  </div>
+
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="input">
+      <label>{{ _result?.translation?.niveau ? _result?.translation?.niveau : "Niveau" }}</label>
+      <!-- <ion-select class="select" [placeholder]="_result?.translation?.niveau ? _result?.translation?.niveau : 'Niveau'">
+        <ion-select-option value="Baccalaureat">Baccalaureat</ion-select-option>
+        <ion-select-option value="Baccalaureat2">Baccalaureat 2</ion-select-option>
+        <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
+      </ion-select> -->
+      <input formControlName="niveau" type="text" class="text" [placeholder]="_result?.translation?.niveau ? _result?.translation?.niveau : 'Niveau'">
+    </div>
+    <div class="input">
+      <label>{{ _result?.translation?.diplome ? _result?.translation?.diplome : "Diplôme" }}</label>
+      <!-- <ion-select class="select" [placeholder]="_result?.translation?.diplome ? _result?.translation?.diplome : 'Diplôme'">
+
+
+        <ion-select-option value="Baccalaureat">Baccalaureat</ion-select-option>
+        <ion-select-option value="Baccalaureat2">Baccalaureat 2</ion-select-option>
+        <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
+      </ion-select> -->
+      <input type="text" formControlName="diplome" class="text" [placeholder]="_result?.translation?.diplome ? _result?.translation?.diplome : 'Diplôme'">
+    </div>
+    <!-- <ion-select class="select" [placeholder]="_result?.translation?.specialite ? _result?.translation?.specialite : 'Spécialité'">
+      <ion-select-option value="Baccalaureat">Baccalaureat</ion-select-option>
+      <ion-select-option value="Baccalaureat2">Baccalaureat 2</ion-select-option>
+      <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
+    </ion-select> -->
+    <!-- <div class="input">
+      <label>{{ _result?.translation?.specialite ? _result?.translation?.specialite : "Spécialité" }}</label>
+      <input type="text" formControlName="specialite" class="text" [placeholder]="_result?.translation?.specialite ? _result?.translation?.specialite : 'Spécialité'">
+    </div> -->
+    <div class="input">
+      <label>{{ _result?.translation?.etablissement ? _result?.translation?.etablissement : "Etablissement" }}</label>
+      <input class="text" formControlName="etablisement" type="text" [placeholder]="_result?.translation?.etablissement ? _result?.translation?.etablissement : 'Etablissement'" />
+    </div>
+    <div class="multiple">
+      <div class="input">
+        <label>{{ _result?.translation?.obtention ? _result?.translation?.obtention : "Date d’obtention" }}</label>
+        <ion-button class="date" fill="outline" id="open-modal">
+          <div>
+            <span> {{ form.get('date').value ? form.get('date').value: "----" }} </span>
+            <ion-icon class="icon" name="calendar-clear-outline"></ion-icon>
+          </div>
+        </ion-button>
+        <ion-modal class="modaldate" trigger="open-modal">
+          <ng-template>
+            <ion-datetime formControlName="date" presentation="month-year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+      <div class="input">
+        <label>{{ _result?.translation?.mention ? _result?.translation?.mention : "Mention" }}</label>
+        <input class="text" type="number" formControlName="mention" min="0" max="20" step="0.01" [placeholder]="_result?.translation?.mention ? _result?.translation?.mention : 'Mention'"/>
+      </div>
+    </div>
+    <!-- <div class="input">
+      <label>{{ _result?.translation?.description ? _result?.translation?.description : "Description" }}</label>
+      <textarea class="textarea" [placeholder]="_result?.translation?.description ? _result?.translation?.description : 'Description'"></textarea>
+    </div> -->
+    <ion-button type="submit" [disabled]="!form?.valid" class="submit" type="submit" expand="block" shape="round">
+      {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : "Enregistrer" }}
+    </ion-button>
+  </form>
+</ion-content>

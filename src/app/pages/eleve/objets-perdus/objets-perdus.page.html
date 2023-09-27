@@ -1,0 +1,59 @@
+<app-parent-header [isRoot]="true" [title]="_result?.translation?.title||''" />
+
+<ion-content padding>
+  <ion-grid class="parent-picture">
+    <div class="wd-100 fx">
+      <ul>
+        <li (click)="getAllObjects()" [ngClass]="{'active-link-all' : activeAll}">
+          {{ _result_obj?.translation?.categ_All }}
+        </li>
+        <li (click)="getObjectsFiltered(category)" *ngFor="let category of categories"
+          [ngClass]="{'active-cat': activeCategory === category.id}">
+          {{category.label}}
+        </li>
+      </ul>
+    </div>
+  </ion-grid>
+  <ion-grid>
+    <ion-row style="flex-direction: column">
+      <ion-col *ngFor="let cloth of clothes" style="display: contents">
+        <div *ngIf="!cloth.eleve">
+          <div class="bx-sh">
+            <div class="img" style="height: 400px; width: 300px">
+              <!-- /assets/imgs/objects/object.png -->
+              <img style="
+                  max-width: 100%;
+                  height: 100%;
+                  border: 0;
+                  object-fit: cover;
+                " [src]="cloth.image" alt="" />
+            </div>
+            <div class="txt">
+              <h4 style="max-width: 265px; max-width: 265px; margin: auto">
+                {{cloth.description}}
+              </h4>
+              <p>{{cloth.found}} <span> {{cloth.personFound}}</span></p>
+              <!-- <p> {{cloth.personFound}}</span></p> -->
+            </div>
+            <div *ngIf="!cloth.eleve">
+              <button (click)="setToParent(cloth)" class="button-active" [ngClass]="{'active-press' : cloth.isForMe }">
+                <img src="/assets/imgs/objects/hand.png" alt="" />
+                <p> {{ _result_obj.translation.button_text }} </p>
+              </button>
+            </div>
+            <div class="rest">
+              <span *ngIf="!cloth.eleve">{{ _result_obj.translation.etat_obj }}</span>
+              <!-- <span *ngIf="!cloth.eleve">En cours {{cloth.inProgress}}</span> -->
+              <!-- <span *ngIf="cloth.eleve">Objet trouvé</span> -->
+            </div>
+          </div>
+        </div>
+      </ion-col>
+
+      <div class="no-obj" *ngIf="clothes?.length == 0">
+        <img src="/assets/imgs/objects/no-objects.png" alt="" />
+        <div class="text"> {{ _result_obj.translation.aucun_obj}} </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>
