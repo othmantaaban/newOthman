@@ -182,13 +182,13 @@ export class CompteElevePage implements OnInit {
     }, 'compte-eleve').subscribe(
       (result: any) => {
 
-        this.navCtrl.navigateRoot(['/eleve/mon-compte'],
-          {
-            queryParams: {
-              data: JSON.stringify(result)
-            }
-          } 
-        );
+        // this.navCtrl.navigateRoot(['/eleve/mon-compte'],
+        //   {
+        //     queryParams: {
+        //       data: JSON.stringify(result)
+        //     }
+        //   } 
+        // );
 
       },
       (error: any) => {

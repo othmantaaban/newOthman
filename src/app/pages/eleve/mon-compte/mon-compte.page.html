@@ -159,7 +159,7 @@
               {{ parcour.etablisement }}
             </div>
             <div class="date">
-              {{ parcour.date }}
+              {{ formatedDate(parcour.date) }}
             </div>
           </div>
         <!-- </ng-template> -->
@@ -199,9 +199,9 @@
             {{ experience?.fonction }}
           </div>
           <div class="date">
-            date debut {{ experience?.Date_debut }}
+            date debut {{ formatedDate(experience?.dateDebut) }}
             <br>
-            date fin {{ experience?.Date_fin }}
+            date fin {{ formatedDate(experience?.dateFin) }}
           </div>
         </div>
       <!-- </ng-template> -->

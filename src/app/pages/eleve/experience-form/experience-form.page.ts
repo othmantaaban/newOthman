@@ -59,7 +59,7 @@ export class ExperienceFormPage implements OnInit {
       ],
       datefin : [
         null,
-        [Validators.required]
+        // [Validators.required]
       ],
       fonction: [
         null,
@@ -80,7 +80,7 @@ export class ExperienceFormPage implements OnInit {
   }
 
   yearselcted(e : Event) {
-    console.log(this.form.get('date').value);
+    // console.log(this.form.get('date').value);
     
   }
 
@@ -117,15 +117,26 @@ export class ExperienceFormPage implements OnInit {
         organisme : this.form.get("organisme").value,
         fonction : this.form.get("fonction").value,
         datedebut : this.form.get("datedebut").value,
-        datefin : this.form.get("datefin").value,
+        datefin : this.form.get("datefin").value ? this.form.get("datefin").value : "",
       },
       "add-experience"
     ).subscribe(
       elt => {
-        this.navCtrl.navigateRoot("/eleve/mon-profil")        
+        this.navCtrl.navigateRoot("/eleve/mon-compte")        
       }
     )
     console.log(this.form.valid); 
   }
+
+  // @ts-ignore
+  formatedDate(date) {
+    let nd = new Date(date);
+    
+    return [
+      nd.getMonth() + 1,
+      nd.getFullYear()
+    ].join("/")
+  }
+
 
 }

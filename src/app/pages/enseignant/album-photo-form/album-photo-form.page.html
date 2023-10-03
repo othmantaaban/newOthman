@@ -92,14 +92,11 @@
       </ion-grid>
     </div>
   </section>
-
-
-  <ion-fab bottom *ngIf="_result">
-    <button [disabled]="!album.classes || !album.label || placeholders.length != 0" (click)="submit(true)"
-      class="btn-main btn-block text-center fixed-bottom">{{_result.translation.partager}}</button>
-  </ion-fab>
-
 </ion-content>
+<ion-fab bottom *ngIf="_result">
+  <button [disabled]="!album.classes || !album.label || placeholders.length != 0" (click)="submit(true)"
+    class="btn-main btn-block text-center fixed-bottom">{{_result.translation.partager}}</button>
+</ion-fab>
 
 
 <div *ngIf="_result && currentImage" class="action-small-modal modal_eleves"
@@ -128,10 +125,13 @@
         </ion-row>
       </ion-grid>
     </div>
-    <button (click)="toggleElevesModal(null, true)"
-      class="btn-main btn-block text-center fixed-bottom">
-      <!-- Enregistrer -->
-      {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
-    </button>
+    <ion-footer>
+      <button (click)="toggleElevesModal(null, true)"
+        class="btn-main btn-block text-center fixed-bottom">
+        <!-- Enregistrer -->
+        {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
+        {{ _result?.translation?.enregistrer ? _result?.translation?.enregistrer : 'Enregistrer' }}
+      </button>
+    </ion-footer>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.smartux.botischool',
-  appName: 'demo',
+  appId: 'com.botieducation.ensit',
+  appName: 'ensit',
   webDir: 'www',
   plugins: {
     PushNotifications: {

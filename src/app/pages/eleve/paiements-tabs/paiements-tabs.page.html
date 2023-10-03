@@ -11,8 +11,8 @@
         <ion-icon [name]="tab_groupe.historique.icon"></ion-icon>
         <ion-label>{{tab_groupe.historique.title}}</ion-label>
       </ion-tab-button>
-  
-      <ion-tab-button *ngIf="tab_groupe.dossier&&tab_groupe.dossier.visible" tab="dossier">
+      <!-- *ngIf="tab_groupe.dossier&&tab_groupe.dossier.visible" -->
+      <ion-tab-button tab="dossier">
         <ion-icon [name]="tab_groupe.dossier.icon"></ion-icon>
         <ion-label>{{tab_groupe.dossier.title}}</ion-label>
       </ion-tab-button>

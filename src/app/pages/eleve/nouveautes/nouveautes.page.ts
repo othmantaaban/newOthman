@@ -28,6 +28,7 @@ export class NouveautesPage implements OnInit {
   }
 
   getData(): void {
+    
     this.apiservice.get(
       {
         user_id: this.authservice.user,

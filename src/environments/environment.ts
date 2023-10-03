@@ -7,9 +7,9 @@ export const environment = {
 };
 
 
-export const apiUrl = 'https://boti.education/u/demo/botiapi/';
+// export const apiUrl = 'https://boti.education/u/demo/botiapi/';
 // export const apiUrl = 'http://localhost/botischool/botiapi/';
-// export const apiUrl = 'http://localhost/boti_campus/botiapi/';
+export const apiUrl = 'http://localhost/boti_campus/botiapi/';
 
 export const schoolName = 'Boti School';
 // export const apiUrl = 'https://23.boti.education/school/botiapi/';

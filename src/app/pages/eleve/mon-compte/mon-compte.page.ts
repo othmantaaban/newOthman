@@ -328,4 +328,14 @@ export class MonComptePage implements OnInit {
   logout(){
     this.authservice.logout();
   }
+
+  // @ts-ignore
+  formatedDate(date) {
+    let nd = new Date(date);
+    
+    return [
+      nd.getMonth() ? nd.getMonth() + 1 : "--",
+      nd.getFullYear() ? nd.getFullYear() : "----"
+    ].join("/")
+  }
 }

@@ -30,6 +30,7 @@ export class ParcoursFormPage implements OnInit {
   // @ts-ignore
   form : FormGroup;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl : NavController,
@@ -80,7 +81,7 @@ export class ParcoursFormPage implements OnInit {
         user_id : this.authService.user,
         parent_id : this.parentService.parentId,
         key  : this.authService.token,
-      }, "add-parcours")
+      }, "add_parcours")
       .subscribe(elt => {
         this._result = elt
       },
@@ -93,7 +94,7 @@ export class ParcoursFormPage implements OnInit {
     this.navCtrl.back()
   }
   yearselcted(e : Event) {
-    console.log(this.form.get('date').value);
+    console.log(this.form.get('date').value); 
     
   }
 
@@ -105,19 +106,35 @@ export class ParcoursFormPage implements OnInit {
         key  : this.authService.token,
         niveau : this.form.get("niveau").value,
         diplome : this.form.get("diplome").value,
-        specialite : this.form.get("specialite").value,
+        // specialite : this.form.get("specialite").value,
         etablisement : this.form.get("etablisement").value,
         date : this.form.get("date").value,
         mention : this.form.get("mention").value,
-        description : this.form.get("description").value,
+        // description : this.form.get("description").value,
       },
       "add_parcours"
     ).subscribe(
       elt => {
-        this.navCtrl.navigateRoot("/eleve/mon-profil", { state : { state: true } })        
+        // this.navCtrl.navigateRoot("/eleve/mon-compte", { state : { state: true } })        
+        this.navCtrl.navigateRoot(['/eleve/mon-compte'],
+        {
+          queryParams: {
+            data: JSON.stringify(elt)
+          }
+        } 
+      );
       }
     )
     console.log(this.form.valid); 
+  }
+// @ts-ignore
+  formatedDate(date) {
+    let nd = new Date(date);
+    
+    return [
+      nd.getMonth() + 1,
+      nd.getFullYear()
+    ].join("/")
   }
 
 }

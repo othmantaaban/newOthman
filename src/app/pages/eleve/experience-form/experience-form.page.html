@@ -47,21 +47,27 @@
       <input type="text" formControlName="nature" class="text" [placeholder]="_result?.translation?.nature ? _result?.translation?.nature : 'Nature de l’emploi'">
     </div>
     <div class="multiple">
+
+
       <div class="input">
+        <!-- <label>{{ _result?.translation?.dateFin ? _result?.translation?.dateFin : "Date Fin" }}</label> -->
         <label>{{ _result?.translation?.dateDebut ? _result?.translation?.dateDebut : "Date Début" }}</label>
-        <ion-button class="date" fill="outline" id="open-modal-debut">
+
+        <ion-button class="date" fill="outline" id="datedebut">
           <div>
-            <span> {{ form.get('datedebut').value ? form.get('datedebut').value : "----" }} </span>
+            <span> {{ form.get('datedebut').value ? formatedDate(form.get('datedebut').value) : "----" }} </span>
             <ion-icon class="icon" name="calendar-clear-outline"></ion-icon>
           </div>
         </ion-button>
-        <ion-modal class="modaldate" trigger="open-modal-debut">
+        <ion-modal class="modaldate" trigger="datedebut">
           <ng-template>
-            <ion-datetime formControlName="datedebut" presentation="year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
+            <ion-datetime formControlName="datedebut" presentation="month-year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
           </ng-template>
         </ion-modal>
       </div>
-      <div class="input">
+
+
+      <!-- <div class="input">
         <label>{{ _result?.translation?.dateFin ? _result?.translation?.dateFin : "Date Fin" }}</label>
         <ion-button class="date" fill="outline" id="open-modal-fin">
           <div>
@@ -72,6 +78,23 @@
         <ion-modal class="modaldate" trigger="open-modal-fin">
           <ng-template>
             <ion-datetime formControlName="datefin" presentation="year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div> -->
+
+
+
+      <div class="input">
+        <label>{{ _result?.translation?.dateFin ? _result?.translation?.dateFin : "Date Fin" }}</label>
+        <ion-button class="date" fill="outline" id="open-modal">
+          <div>
+            <span> {{ form.get('datefin').value ? formatedDate(form.get('datefin').value) : "----" }} </span>
+            <ion-icon class="icon" name="calendar-clear-outline"></ion-icon>
+          </div>
+        </ion-button>
+        <ion-modal class="modaldate" trigger="open-modal">
+          <ng-template>
+            <ion-datetime formControlName="datefin" presentation="month-year" (ionChange)="yearselcted($event)" [showDefaultButtons]="true"></ion-datetime>
           </ng-template>
         </ion-modal>
       </div>

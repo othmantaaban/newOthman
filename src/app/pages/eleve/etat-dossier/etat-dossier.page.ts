@@ -42,7 +42,7 @@ export class EtatDossierPage implements OnInit {
       {
         user_id: this.authService.eleve
       }
-      , "suo_suivi_dossier")
+      , "sup_suivi_dossier")
     .subscribe((elt : any) => {
       this._result = elt;
       this.percent = elt.percent.toFixed(0)

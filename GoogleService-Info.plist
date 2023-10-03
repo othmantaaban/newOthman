@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>21317928207-jeghof4bemhbom56jr29busamuchisf1.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.21317928207-jeghof4bemhbom56jr29busamuchisf1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBba5uo4w555nzlcUttiGVe4hYvla12OsY</string>
+	<string>AIzaSyAVaj8e4G9iu2fWrhvrXVQ_lbLOgN_B8WA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>21317928207</string>
+	<string>898916765082</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.smartux.botischool</string>
+	<string>com.botieducation.ensit</string>
 	<key>PROJECT_ID</key>
-	<string>boti-school-10e14</string>
+	<string>ensit-39f22</string>
 	<key>STORAGE_BUCKET</key>
-	<string>boti-school-10e14.appspot.com</string>
+	<string>ensit-39f22.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:21317928207:ios:08ff0e313f8501aa8fea7a</string>
+	<string>1:898916765082:ios:86287598217dc065b1fe23</string>
 </dict>
 </plist>

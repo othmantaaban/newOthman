@@ -33,6 +33,10 @@
         <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
       </ion-select> -->
       <input formControlName="niveau" type="text" class="text" [placeholder]="_result?.translation?.niveau ? _result?.translation?.niveau : 'Niveau'">
+      <div class="error" >
+        *ngIf="form.niveau.touched && form.niveau.invalid"
+        ce champ is required
+      </div>
     </div>
     <div class="input">
       <label>{{ _result?.translation?.diplome ? _result?.translation?.diplome : "Diplôme" }}</label>
@@ -63,7 +67,7 @@
         <label>{{ _result?.translation?.obtention ? _result?.translation?.obtention : "Date d’obtention" }}</label>
         <ion-button class="date" fill="outline" id="open-modal">
           <div>
-            <span> {{ form.get('date').value ? form.get('date').value: "----" }} </span>
+            <span> {{ form.get('date').value ? formatedDate(form.get('date').value) : "----" }} </span>
             <ion-icon class="icon" name="calendar-clear-outline"></ion-icon>
           </div>
         </ion-button>
@@ -75,7 +79,7 @@
       </div>
       <div class="input">
         <label>{{ _result?.translation?.mention ? _result?.translation?.mention : "Mention" }}</label>
-        <input class="text" type="number" formControlName="mention" min="0" max="20" step="0.01" [placeholder]="_result?.translation?.mention ? _result?.translation?.mention : 'Mention'"/>
+        <input class="text" type="text" formControlName="mention" [placeholder]="_result?.translation?.mention ? _result?.translation?.mention : 'Mention'"/>
       </div>
     </div>
     <!-- <div class="input">

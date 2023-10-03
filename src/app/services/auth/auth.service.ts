@@ -40,7 +40,7 @@ export class AuthService {
   ) { }
 
   async isLoggedIn(): Promise<boolean> {
-    if (this.user && this.token) {
+    if (this.user && this.token) {      
       return await this.checkUser(this.user,this.token);
     } else {
       await this.storage.create();
@@ -53,7 +53,7 @@ export class AuthService {
         await this.removeSession();
       }
 
-      return await this.checkUser(this.user,this.token);
+      return await this.checkUser(this.user, this.token);
     }
 
   }
@@ -198,11 +198,13 @@ export class AuthService {
       this.parentService.eleves = res.eleves;
       this.parentService.menu = res.translation.menu;
     }else if(res.eleveId){
-      console.log('comptecheck: parent id '+res.parent_id);
+      // console.log('comptecheck: parent id '+res.parent_id);
       this.parentService.parentId = res.parent_id;
       let el = res.eleves.filter((eleve:any)=> eleve.id == this.active_eleve);
       this.parentService.currentEleve = el.length > 0?el[0]:res.eleves[0];
       this.parentService.eleves = res.eleves;
+      console.log(res);
+      
       this.parentService.menu = res.translation.menu;
     }
   }
