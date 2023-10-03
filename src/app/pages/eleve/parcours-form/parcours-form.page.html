@@ -33,10 +33,6 @@
         <ion-select-option value="Baccalaureat3">Baccalaureat 3</ion-select-option>
       </ion-select> -->
       <input formControlName="niveau" type="text" class="text" [placeholder]="_result?.translation?.niveau ? _result?.translation?.niveau : 'Niveau'">
-      <div class="error" >
-        *ngIf="form.niveau.touched && form.niveau.invalid"
-        ce champ is required
-      </div>
     </div>
     <div class="input">
       <label>{{ _result?.translation?.diplome ? _result?.translation?.diplome : "Diplôme" }}</label>
